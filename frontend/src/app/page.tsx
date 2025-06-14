@@ -93,13 +93,13 @@ export default function HomePage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {/* {SAMPLE_COURSES.map((course) => (
+              {SAMPLE_COURSES.map((course) => (
                 <CourseCard 
                   key={course.id} 
                   course={course}
                   isWalletConnected={isWalletConnected}
                 />
-              ))} */}
+              ))}
             </div>
           </div>
         </section>

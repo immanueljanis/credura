@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { Menu, X, User, BookOpen, Trophy, Settings } from 'lucide-react';
-import { ConnectWalletButton } from '@/components/auth/ConnectWalletButton';
+import { useState } from "react";
+import Link from "next/link";
+import { Menu, X, User, BookOpen, Trophy, Settings } from "lucide-react";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 interface HeaderProps {
   isWalletConnected: boolean;
@@ -11,14 +11,18 @@ interface HeaderProps {
   onWalletConnect: () => void;
 }
 
-export function Header({ isWalletConnected, userTokens, onWalletConnect }: HeaderProps) {
+export function Header({
+  isWalletConnected,
+  userTokens,
+  onWalletConnect,
+}: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigation = [
-    { name: 'Courses', href: '/courses' },
-    { name: 'Quiz', href: '/quiz' },
-    { name: 'Leaderboard', href: '/leaderboard' },
-    { name: 'About', href: '/about' }
+    { name: "Courses", href: "/courses" },
+    { name: "Quiz", href: "/quiz" },
+    { name: "Leaderboard", href: "/leaderboard" },
+    { name: "About", href: "/about" },
   ];
 
   return (
@@ -30,7 +34,9 @@ export function Header({ isWalletConnected, userTokens, onWalletConnect }: Heade
             <div className="w-8 h-8 bg-[#58CC02] rounded-lg flex items-center justify-center">
               <BookOpen className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-gray-900">Digital Campus</span>
+            <span className="text-xl font-bold text-gray-900">
+              Digital Campus
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -69,17 +75,18 @@ export function Header({ isWalletConnected, userTokens, onWalletConnect }: Heade
               </div>
             )}
 
-            {/* <ConnectWalletButton 
-              isConnected={isWalletConnected}
-              onConnect={onWalletConnect}
-            /> */}
+            <ConnectButton />
 
             {/* Mobile menu button */}
             <button
               className="md:hidden p-2 text-gray-700 hover:text-[#58CC02]"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>
