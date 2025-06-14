@@ -1,13 +1,14 @@
-import './globals.css';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-// import { Toaster } from '@/components/ui/toaster';
+import "./globals.css";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { Toaster } from "@/components/ui/toaster";
+import { Providers } from "./providers";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Digital Campus - Blockchain Education Platform',
-  description: 'Learn, earn, and grow with blockchain-powered education',
+  title: "Digital Campus - Blockchain Education Platform",
+  description: "Learn, earn, and grow with blockchain-powered education",
 };
 
 export default function RootLayout({
@@ -18,8 +19,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {children}
-        {/* <Toaster /> */}
+        <Providers children={children} />
+        <Toaster />
       </body>
     </html>
   );
