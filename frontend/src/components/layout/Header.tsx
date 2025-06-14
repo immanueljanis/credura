@@ -68,12 +68,12 @@ export function Header({ isWalletConnected, userTokens, onWalletConnect }: Heade
                 </Link>
               </div>
             )}
-            
-            <ConnectWalletButton 
+
+            {/* <ConnectWalletButton 
               isConnected={isWalletConnected}
               onConnect={onWalletConnect}
-            />
-            
+            /> */}
+
             {/* Mobile menu button */}
             <button
               className="md:hidden p-2 text-gray-700 hover:text-[#58CC02]"
