@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-// import { CourseCard } from '@/components/courses/CourseCard';
+import { CourseCard } from '@/components/courses/CourseCard';
 import { StatsSection } from '@/components/home/StatsSection';
 import { HeroSection } from '@/components/home/HeroSection';
 import { FeaturesSection } from '@/components/home/FeaturesSection';
@@ -69,17 +69,17 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header 
+      <Header
         isWalletConnected={isWalletConnected}
         userTokens={userTokens}
         onWalletConnect={() => setIsWalletConnected(true)}
       />
-      
+
       <main>
         <HeroSection />
         <StatsSection />
         <FeaturesSection />
-        
+
         {/* Courses Section */}
         <section className="py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -91,7 +91,7 @@ export default function HomePage() {
                 Master blockchain technology with our comprehensive courses taught by industry experts
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {/* {SAMPLE_COURSES.map((course) => (
                 <CourseCard 
@@ -104,7 +104,7 @@ export default function HomePage() {
           </div>
         </section>
       </main>
-      
+
       <Footer />
     </div>
   );

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-// import { CourseCard } from '@/components/courses/CourseCard';
+import { CourseCard } from '@/components/courses/CourseCard';
 import { Search, Filter, BookOpen } from 'lucide-react';
 
 const COURSES = [
@@ -105,21 +105,21 @@ export default function CoursesPage() {
 
   const filteredCourses = COURSES.filter(course => {
     const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         course.description.toLowerCase().includes(searchTerm.toLowerCase());
+      course.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'All' || course.category === selectedCategory;
     const matchesLevel = selectedLevel === 'All' || course.level === selectedLevel;
-    
+
     return matchesSearch && matchesCategory && matchesLevel;
   });
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header 
+      <Header
         isWalletConnected={isWalletConnected}
         userTokens={userTokens}
         onWalletConnect={() => setIsWalletConnected(true)}
       />
-      
+
       <main className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
@@ -183,13 +183,13 @@ export default function CoursesPage() {
           {/* Course Grid */}
           {filteredCourses.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* {filteredCourses.map((course) => (
-                <CourseCard 
-                  key={course.id} 
+              {filteredCourses.map((course) => (
+                <CourseCard
+                  key={course.id}
                   course={course}
                   isWalletConnected={isWalletConnected}
                 />
-              ))} */}
+              ))}
             </div>
           ) : (
             <div className="text-center py-16">
@@ -200,7 +200,7 @@ export default function CoursesPage() {
           )}
         </div>
       </main>
-      
+
       <Footer />
     </div>
   );
