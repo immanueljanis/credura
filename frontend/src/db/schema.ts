@@ -1,5 +1,75 @@
-import { pgTable, serial } from "drizzle-orm/pg-core";
+import {
+  bigint,
+  bigserial,
+  boolean,
+  pgTable,
+  serial,
+  text,
+  timestamp,
+  varchar,
+} from "drizzle-orm/pg-core";
+
+export const users = pgTable("users", {
+  id: bigserial("id", { mode: "bigint" }).notNull().primaryKey(),
+  walletAddress: varchar("wallet_address", { length: 255 }).notNull(),
+  studentNFTId: bigint("student_nft_id", { mode: "bigint" }).notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+export const courses = pgTable("courses", {
+  id: bigserial("id", { mode: "bigint" }).notNull().primaryKey(),
+  courseName: varchar("course_name").notNull(),
+  description: text("description").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+export const quizzes = pgTable("quizzes", {
+  id: bigserial("id", { mode: "bigint" }).notNull().primaryKey(),
+  courseId: bigint("course_id", { mode: "bigint" })
+    .references(() => courses.id)
+    .notNull(),
+  quizName: varchar("quiz_name").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
 
 export const scoreboard = pgTable("scoreboard", {
-    id: serial("id").primaryKey(),
-})
+  id: bigserial("id", { mode: "bigint" }).notNull().primaryKey(),
+  quizId: bigint("quiz_id", { mode: "bigint" })
+    .references(() => quizzes.id)
+    .notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+export const scoreboardItems = pgTable("scoreboard_items", {
+  id: bigserial("id", { mode: "bigint" }).notNull().primaryKey(),
+  scoreboardId: bigint("scoreboardId", { mode: "bigint" })
+    .references(() => scoreboard.id)
+    .notNull(),
+  studentId: bigint("quiz_id", { mode: "bigint" })
+    .references(() => quizzes.id)
+    .notNull(),
+  score: bigint("score", { mode: "bigint" }).notNull(),
+  completedAt: timestamp("completed_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  isCreditMinted: boolean("is_credit_minted").notNull().default(false),
+  isBadgeMinted: boolean("is_badge_minted").notNull().default(false),
+});
+
+export const daoVotes = pgTable("dao_votes", {
+  id: bigserial("id", { mode: "bigint" }).notNull().primaryKey(),
+  userId: bigint("user_id", { mode: "bigint" })
+    .references(() => users.id)
+    .notNull(),
+  proposalId: bigint("proposal_id", { mode: "bigint" }).notNull(),
+  voteChoice: varchar("vote_choice", { length: 255 }).notNull(),
+  votedAt: timestamp("voted_at", { withTimezone: true }).notNull().defaultNow(),
+});
