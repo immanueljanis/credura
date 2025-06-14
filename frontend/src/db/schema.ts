@@ -2,6 +2,7 @@ import {
   bigint,
   bigserial,
   boolean,
+  index,
   pgTable,
   serial,
   text,
@@ -9,14 +10,22 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 
-export const users = pgTable("users", {
-  id: bigserial("id", { mode: "bigint" }).notNull().primaryKey(),
-  walletAddress: varchar("wallet_address", { length: 255 }).notNull(),
-  studentNFTId: bigint("student_nft_id", { mode: "bigint" }).notNull(),
-  createdAt: timestamp("created_at", { withTimezone: true })
-    .notNull()
-    .defaultNow(),
-});
+export const users = pgTable(
+  "users",
+  {
+    id: bigserial("id", { mode: "bigint" }).notNull().primaryKey(),
+    walletAddress: varchar("wallet_address", { length: 255 })
+      .unique()
+      .notNull(),
+    studentNFTId: bigint("student_nft_id", { mode: "bigint" })
+      .unique()
+      .notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [index("wallet_address_idx").on(t.walletAddress)]
+);
 
 export const courses = pgTable("courses", {
   id: bigserial("id", { mode: "bigint" }).notNull().primaryKey(),
