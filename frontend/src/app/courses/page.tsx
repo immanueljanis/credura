@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { CourseCard } from '@/components/courses/CourseCard';
+// import { CourseCard } from '@/components/courses/CourseCard';
 import { Search, Filter, BookOpen } from 'lucide-react';
 
 const COURSES = [
@@ -183,13 +183,13 @@ export default function CoursesPage() {
           {/* Course Grid */}
           {filteredCourses.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredCourses.map((course) => (
+              {/* {filteredCourses.map((course) => (
                 <CourseCard 
                   key={course.id} 
                   course={course}
                   isWalletConnected={isWalletConnected}
                 />
-              ))}
+              ))} */}
             </div>
           ) : (
             <div className="text-center py-16">
