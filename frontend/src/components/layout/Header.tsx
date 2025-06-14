@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Menu, X, User, BookOpen, Trophy, Settings } from 'lucide-react';
-import { ConnectWalletButton } from '@/components/auth/ConnectWalletButton';
+// import { ConnectWalletButton } from '@/components/auth/ConnectWalletButton';
 
 interface HeaderProps {
   isWalletConnected: boolean;
@@ -69,10 +69,10 @@ export function Header({ isWalletConnected, userTokens, onWalletConnect }: Heade
               </div>
             )}
             
-            <ConnectWalletButton 
+            {/* <ConnectWalletButton 
               isConnected={isWalletConnected}
               onConnect={onWalletConnect}
-            />
+            /> */}
             
             {/* Mobile menu button */}
             <button

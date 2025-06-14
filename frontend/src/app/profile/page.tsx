@@ -1,0 +1,229 @@
+'use client';
+
+import { useState } from 'react';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
+import { User, Trophy, BookOpen, Award, Calendar, Wallet } from 'lucide-react';
+
+export default function ProfilePage() {
+  const [isWalletConnected, setIsWalletConnected] = useState(true);
+  const [userTokens, setUserTokens] = useState(2750);
+
+  const userProfile = {
+    address: '0x1234...5678',
+    joinDate: 'March 2024',
+    totalCourses: 8,
+    completedCourses: 5,
+    totalTokens: 2750,
+    level: 'Advanced Learner',
+    nftId: '#1337'
+  };
+
+  const completedCourses = [
+    {
+      id: '1',
+      title: 'Blockchain Fundamentals',
+      completedDate: '2024-10-15',
+      score: 95,
+      tokensEarned: 500
+    },
+    {
+      id: '2',
+      title: 'Smart Contract Development',
+      completedDate: '2024-11-20',
+      score: 88,
+      tokensEarned: 800
+    },
+    {
+      id: '3',
+      title: 'DeFi Basics',
+      completedDate: '2024-12-05',
+      score: 92,
+      tokensEarned: 650
+    }
+  ];
+
+  const achievements = [
+    { 
+      id: '1',
+      title: 'First Course Completed',
+      description: 'Completed your first course',
+      icon: '🎓',
+      date: '2024-10-15'
+    },
+    {
+      id: '2', 
+      title: 'Quiz Master',
+      description: 'Scored 90+ on 5 quizzes',
+      icon: '🧠',
+      date: '2024-11-01'
+    },
+    {
+      id: '3',
+      title: 'Token Collector',
+      description: 'Earned 1000+ tokens',
+      icon: '💎',
+      date: '2024-11-15'
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Header 
+        isWalletConnected={isWalletConnected}
+        userTokens={userTokens}
+        onWalletConnect={() => setIsWalletConnected(true)}
+      />
+      
+      <main className="py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Profile Header */}
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 mb-8">
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+              <div className="w-24 h-24 bg-gradient-to-br from-[#58CC02] to-[#4E6C50] rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                {userProfile.address.slice(2, 4).toUpperCase()}
+              </div>
+              
+              <div className="flex-1 text-center md:text-left">
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                  Digital Campus Student
+                </h1>
+                <p className="text-gray-600 mb-4">
+                  Wallet: {userProfile.address} • Joined {userProfile.joinDate}
+                </p>
+                <div className="flex flex-wrap justify-center md:justify-start gap-4">
+                  <div className="bg-[#58CC02] text-white px-4 py-2 rounded-full text-sm font-medium">
+                    {userProfile.level}
+                  </div>
+                  <div className="bg-[#FF6F61] text-white px-4 py-2 rounded-full text-sm font-medium">
+                    NFT ID: {userProfile.nftId}
+                  </div>
+                </div>
+              </div>
+              
+              <div className="text-center">
+                <div className="text-3xl font-bold text-[#58CC02] mb-1">
+                  {userProfile.totalTokens}
+                </div>
+                <div className="text-gray-600 text-sm">Campus Credits</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Stats Cards */}
+            <div className="lg:col-span-2 space-y-6">
+              {/* Stats Overview */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="card text-center">
+                  <BookOpen className="w-8 h-8 text-[#58CC02] mx-auto mb-2" />
+                  <div className="text-2xl font-bold text-gray-900 mb-1">
+                    {userProfile.totalCourses}
+                  </div>
+                  <div className="text-sm text-gray-600">Total Courses</div>
+                </div>
+                
+                <div className="card text-center">
+                  <Award className="w-8 h-8 text-[#FF6F61] mx-auto mb-2" />
+                  <div className="text-2xl font-bold text-gray-900 mb-1">
+                    {userProfile.completedCourses}
+                  </div>
+                  <div className="text-sm text-gray-600">Completed</div>
+                </div>
+                
+                <div className="card text-center">
+                  <Trophy className="w-8 h-8 text-[#4E6C50] mx-auto mb-2" />
+                  <div className="text-2xl font-bold text-gray-900 mb-1">
+                    {achievements.length}
+                  </div>
+                  <div className="text-sm text-gray-600">Achievements</div>
+                </div>
+                
+                <div className="card text-center">
+                  <Wallet className="w-8 h-8 text-[#58CC02] mx-auto mb-2" />
+                  <div className="text-2xl font-bold text-gray-900 mb-1">
+                    {Math.round((userProfile.completedCourses / userProfile.totalCourses) * 100)}%
+                  </div>
+                  <div className="text-sm text-gray-600">Completion</div>
+                </div>
+              </div>
+
+              {/* Completed Courses */}
+              <div className="card">
+                <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                  <BookOpen className="w-6 h-6 mr-2 text-[#58CC02]" />
+                  Completed Courses
+                </h2>
+                
+                <div className="space-y-4">
+                  {completedCourses.map((course) => (
+                    <div key={course.id} className="border border-gray-100 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                      <div className="flex justify-between items-start mb-2">
+                        <h3 className="font-medium text-gray-900">{course.title}</h3>
+                        <div className="text-sm text-gray-500 flex items-center">
+                          <Calendar className="w-4 h-4 mr-1" />
+                          {new Date(course.completedDate).toLocaleDateString()}
+                        </div>
+                      </div>
+                      
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center space-x-4">
+                          <div className="text-sm">
+                            Score: <span className="font-medium text-[#58CC02]">{course.score}%</span>
+                          </div>
+                          <div className="text-sm">
+                            Earned: <span className="font-medium text-[#FF6F61]">{course.tokensEarned} tokens</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Achievements Sidebar */}
+            <div className="space-y-6">
+              <div className="card">
+                <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
+                  <Trophy className="w-5 h-5 mr-2 text-[#FF6F61]" />
+                  Achievements
+                </h2>
+                
+                <div className="space-y-4">
+                  {achievements.map((achievement) => (
+                    <div key={achievement.id} className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
+                      <div className="text-2xl">{achievement.icon}</div>
+                      <div className="flex-1">
+                        <h3 className="font-medium text-gray-900 text-sm">{achievement.title}</h3>
+                        <p className="text-xs text-gray-600 mb-1">{achievement.description}</p>
+                        <div className="text-xs text-gray-500">{new Date(achievement.date).toLocaleDateString()}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* NFT Certificate */}
+              <div className="card">
+                <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                  <Award className="w-5 h-5 mr-2 text-[#4E6C50]" />
+                  NFT Certificate
+                </h2>
+                
+                <div className="bg-gradient-to-br from-[#58CC02] to-[#4E6C50] rounded-lg p-6 text-white text-center">
+                  <User className="w-12 h-12 mx-auto mb-3 opacity-80" />
+                  <div className="font-bold text-lg mb-2">Digital Campus</div>
+                  <div className="text-sm opacity-90 mb-2">Student Certificate</div>
+                  <div className="text-xs opacity-75">Token ID: {userProfile.nftId}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      
+      <Footer />
+    </div>
+  );
+}
