@@ -71,7 +71,6 @@ export default function QuizPage() {
         userAddress: userAddress as `0x${string}`,
         amount: reward.tokens
       });
-      console.log(result);
     } catch (error: any) {
       console.error('Failed to add reward:', error);
       setStatus(`Error: ${error.message}`);
@@ -82,7 +81,7 @@ export default function QuizPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header isWalletConnected={isConnected} userTokens={userTokens} />
+      <Header isWalletConnected={isConnected} />
 
       <main className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

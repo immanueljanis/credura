@@ -72,7 +72,6 @@ const SAMPLE_COURSES = [
 
 export default function HomePage() {
   const { address: userAddress, isConnected } = useAccount();
-  const [userTokens, setUserTokens] = useState(0);
   const setCredits = useCreditStore((state) => state.setCredits);
 
   const { data: balanceData, refetch: refetch }: { data: any, refetch: any } = useReadContract({
@@ -80,18 +79,15 @@ export default function HomePage() {
     functionName: "balanceOf",
     args: [userAddress],
     query: {
-      enabled: isConnected && !!userAddress,
-      refetchInterval: 5000
+      enabled: isConnected,
+      refetchInterval: 3000
     }
   })
 
   useEffect(() => {
-    if (balanceData !== undefined && balanceData !== null) {
-      const formattedBalance = Number(balanceData);
-      setCredits(formattedBalance);
-    }
-    console.log(balanceData)
-  }, [])
+    const formattedBalance = Number(balanceData);
+    setCredits(formattedBalance);
+  }, [balanceData])
 
   return (
     <div className="min-h-screen bg-white">
