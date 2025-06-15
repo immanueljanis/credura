@@ -81,7 +81,7 @@ const Sparkles = ({
   ...delegated
 }: React.ComponentProps<"span">) => {
   const [sparkles, setSparkles] = useState(() => {
-    return range(3).map(() => generateSparkle(color));
+    return [] as (ReturnType<typeof generateSparkle>)[];
   });
 
   useRandomInterval(

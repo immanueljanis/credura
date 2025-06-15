@@ -1,4 +1,4 @@
-export const campusCreditAddress = "0xC81674275Ec8f6dF00003160b879B09c5A842855";
+export const campusCreditAddress = "0x0334b9eb70B0De8f1e5F9a98B47CDDF6dA775E3B";
 
 export const campusCreditAbi = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
@@ -74,6 +74,20 @@ export const campusCreditAbi = [
       },
     ],
     name: "Approval",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: "address", name: "user", type: "address" },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "Claimed",
     type: "event",
   },
   {
@@ -226,6 +240,16 @@ export const campusCreditAbi = [
   },
   {
     inputs: [
+      { internalType: "address", name: "user", type: "address" },
+      { internalType: "uint256", name: "amount", type: "uint256" },
+    ],
+    name: "addClaimable",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
       { internalType: "address", name: "owner", type: "address" },
       { internalType: "address", name: "spender", type: "address" },
     ],
@@ -271,6 +295,20 @@ export const campusCreditAbi = [
   {
     inputs: [],
     name: "cashbackPercentage",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "_claimer", type: "address" }],
+    name: "claim",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "", type: "address" }],
+    name: "claimable",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",

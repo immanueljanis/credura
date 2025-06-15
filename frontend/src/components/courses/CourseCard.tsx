@@ -13,7 +13,7 @@ interface CourseCardProps {
 export function CourseCard({ course, isWalletConnected }: CourseCardProps) {
 
   return (
-    <div className="card group hover:scale-105 transition-all duration-200 p-0 overflow-hidden">
+    <div className="card group hover:scale-105 transition-all duration-200 p-0 overflow-hidden flex flex-col">
       <div className="relative">
         <img
           src={course.image ?? ""}
@@ -28,7 +28,7 @@ export function CourseCard({ course, isWalletConnected }: CourseCardProps) {
         </div>
       </div>
 
-      <div className="p-6">
+      <div className="flex flex-col p-6 grow">
         <div className="flex flex-wrap gap-2 mb-3">
           {course.tags.map((tag, index) => (
             <span
@@ -71,7 +71,7 @@ export function CourseCard({ course, isWalletConnected }: CourseCardProps) {
         {isWalletConnected ? (
           <Link
             href={`/courses/${course.id}`}
-            className="w-full btn-primary text-center block"
+            className="w-full btn-primary text-center block mt-auto"
           >
             Enroll Now
           </Link>

@@ -2,14 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import {
-  Menu,
-  X,
-  User,
-  BookOpen,
-  Trophy,
-  Settings,
-} from "lucide-react";
+import { Menu, X, User, BookOpen, Trophy, Settings } from "lucide-react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 import { useCreditStore } from "@/stores/useCreditScore";
@@ -37,7 +30,13 @@ export function Header({ isWalletConnected }: HeaderProps) {
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-[#58CC02] rounded-lg flex items-center justify-center">
-              <Image src="/logo.png" alt="Credura" width={32} height={32} className="bg-white" />
+              <Image
+                src="/logo.png"
+                alt="Credura"
+                width={32}
+                height={32}
+                className="bg-white"
+              />
             </div>
             <span className="text-xl font-bold text-gray-900">Credura</span>
           </Link>
@@ -59,7 +58,7 @@ export function Header({ isWalletConnected }: HeaderProps) {
               <div className="hidden sm:flex items-center space-x-4">
                 <div className="flex items-center bg-[#58CC02] text-white px-3 py-1 rounded-full text-sm font-medium">
                   <Trophy className="w-4 h-4 mr-1" />
-                  {formatEther(credits)} Credits
+                  {isNaN(credits) ? 0 : formatEther(BigInt(credits))} Credits
                 </div>
                 <Link
                   href="/profile"
@@ -82,7 +81,11 @@ export function Header({ isWalletConnected }: HeaderProps) {
               className="md:hidden p-2 text-gray-700 hover:text-[#58CC02]"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>

@@ -328,8 +328,12 @@ export default function ProfilePage() {
     </div>
   );
 }
-const image = new Image();
-image.src = "/cedura-university.png";
+let image: HTMLImageElement;
+
+if (typeof window !== "undefined") {
+  image = new Image();
+  image.src = "/cedura-university.png";
+}
 
 function NFTCanvas(props: { name: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);

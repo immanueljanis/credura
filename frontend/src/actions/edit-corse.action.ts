@@ -7,7 +7,6 @@ export async function updateCourseAction(
   updates: Partial<typeof courses.$inferInsert>
 ) {
   try {
-
     const result = await db.update(courses)
       .set(updates)
       .where(eq(courses.id, BigInt(id)))
@@ -15,7 +14,9 @@ export async function updateCourseAction(
 
 
     if (result.length === 0) {
-      throw new Error(`Course with ID ${id} not found or no changes were made.`);
+      throw new Error(
+        `Course with ID ${id} not found or no changes were made.`
+      );
     }
 
     return result[0];
