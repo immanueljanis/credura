@@ -1,66 +1,52 @@
-## Foundry
+# Credura Smart Contracts
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This folder contains the Solidity smart contracts for the Credura platform, which enables on-chain badge/certificate claiming for educational achievements using the ERC1155 standard.
 
-Foundry consists of:
+## Overview
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+- **ERC1155 Badges/Certificates:** Implements a dynamic badge and certificate system for courses and achievements.
+- **Dynamic Base URI:** Supports dynamic base URI for metadata, with future support for the `{id}.json` pattern (not yet implemented in backend/IPFS flow).
+- **Integration:** Designed to work with the backend and frontend for certificate generation, IPFS/Pinata uploads, and badge claiming.
 
-## Documentation
+## Key Contracts
 
-https://book.getfoundry.sh/
+- `CourseBadge.sol`: Main ERC1155 contract for issuing course badges and certificates. Supports dynamic base URI and is upgrade-ready for `{id}.json` metadata pattern.
+- `CampusCredit.sol`, `StudentID.sol`: Additional contracts for credit and student ID management.
 
-## Usage
+## Development
 
-### Build
+### Prerequisites
 
-```shell
-$ forge build
+- [Foundry](https://book.getfoundry.sh/) (for building, testing, and deploying contracts)
+
+### Common Commands
+
+```sh
+# Build contracts
+forge build
+
+# Run tests
+forge test
+
+# Format code
+forge fmt
+
+# Local node (Anvil)
+anvil
+
+# Deploy (example)
+forge script script/CourseBadge.s.sol:CourseBadgeScript --rpc-url <your_rpc_url> --private-key <your_private_key>
 ```
 
-### Test
+### Notes
 
-```shell
-$ forge test
-```
+- The `{id}.json` metadata pattern is **not yet implemented** in the backend or Pinata flow. Metadata is currently uploaded as individual files with unique names.
+- When switching to `{id}.json`, update the backend and Pinata upload logic accordingly.
 
-### Format
+## Repository
 
-```shell
-$ forge fmt
-```
+- Main repo: [https://github.com/immanueljanis/credura](https://github.com/immanueljanis/credura)
 
-### Gas Snapshots
+## License
 
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+MIT
