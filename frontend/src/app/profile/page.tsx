@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import {
@@ -13,6 +13,7 @@ import {
   Edit3,
   Save,
   X,
+  LucideLoader,
 } from "lucide-react";
 import { useAccount, useReadContract } from "wagmi";
 import { useQuery } from "@tanstack/react-query";
@@ -301,17 +302,21 @@ export default function ProfilePage() {
                   NFT Certificate
                 </h2>
 
-                <div className="bg-gradient-to-br from-[#58CC02] to-[#4E6C50] rounded-lg p-6 text-white text-center">
-                  <User className="w-12 h-12 mx-auto mb-3 opacity-80" />
-                  <div className="font-bold text-lg mb-2">Credura</div>
-                  <div className="text-sm opacity-90 mb-2">
-                    Student Certificate
-                  </div>
-                  <div className="text-xs opacity-75">
-                    Token ID:{" "}
-                    {accountOffChain?.success &&
-                      "#" + accountOffChain.data.studentNFTId}
-                  </div>
+                <div className="bg-gradient-to-br from-[#58CC02] to-[#4E6C50] rounded-lg overflow-hidden text-white text-center">
+                  {/* <img src="/cedura-university.png" alt="cedura-university" /> */}
+                  {accountOffChain?.success ? (
+                    <NFTCanvas
+                      name={
+                        (accountOffChain?.success &&
+                          accountOffChain.data.name) ||
+                        ""
+                      }
+                    />
+                  ) : (
+                    <div className="w-full aspect-square grid place-content-center">
+                      <LucideLoader className="animate-spin" />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -321,5 +326,32 @@ export default function ProfilePage() {
 
       <Footer />
     </div>
+  );
+}
+const image = new Image();
+image.src = "/cedura-university.png";
+
+function NFTCanvas(props: { name: string }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d")!;
+    ctx.beginPath();
+    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+    ctx.closePath();
+    ctx.font = "100px Arial";
+    ctx.fillStyle = "#e2e3e5";
+    ctx.fillRect(897, 946, 200, 77);
+    ctx.fillStyle = "black";
+    ctx.fillText(props.name, 896, 1024);
+  }, [props.name]);
+  return (
+    <canvas
+      className="w-full h-full"
+      ref={canvasRef}
+      width={2048}
+      height={2048}
+    />
   );
 }

@@ -4,7 +4,7 @@ import { InferResponse } from "@/types";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const result = await db.select().from(courses);
+  const result = await db.select().from(courses).orderBy(courses.id);
   return NextResponse.json(
     result.map((x) => ({ ...x, id: x.id + "", tags: x.tags?.split(",") ?? [] }))
   );
