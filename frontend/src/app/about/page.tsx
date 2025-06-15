@@ -53,7 +53,7 @@ const TEAM_MEMBERS = [
 const MILESTONES = [
   {
     year: "2023",
-    title: "Digital Campus Founded",
+    title: "Credura Founded",
     description: "Started with a vision to revolutionize blockchain education",
   },
   {
@@ -101,7 +101,7 @@ export default function AboutPage() {
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-                About <span className="text-gradient">Digital Campus</span>
+                About <span className="text-gradient">Credura</span>
               </h1>
               <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
                 We're on a mission to democratize blockchain education and empower the next
@@ -142,9 +142,9 @@ export default function AboutPage() {
               <div>
                 <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Mission</h2>
                 <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                  Digital Campus was born from the belief that blockchain education should be
-                  accessible, engaging, and rewarding. We combine cutting-edge technology with
-                  proven educational methodologies to create an immersive learning experience.
+                  Credura was born from the belief that blockchain education should be accessible,
+                  engaging, and rewarding. We combine cutting-edge technology with proven
+                  educational methodologies to create an immersive learning experience.
                 </p>
                 <p className="text-lg text-gray-600 mb-8 leading-relaxed">
                   Our platform leverages blockchain technology not just as a subject of study, but
@@ -234,7 +234,7 @@ export default function AboutPage() {
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Core Values</h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                These principles guide everything we do at Digital Campus
+                These principles guide everything we do at Credura
               </p>
             </div>
 
@@ -358,7 +358,7 @@ export default function AboutPage() {
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Journey</h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                From concept to global platform - here's how Digital Campus has evolved
+                From concept to global platform - here's how Credura has evolved
               </p>
             </div>
 
@@ -404,7 +404,7 @@ export default function AboutPage() {
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold mb-4">Get In Touch</h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Have questions about Digital Campus? We'd love to hear from you.
+                Have questions about Credura? We'd love to hear from you.
               </p>
             </div>
 
