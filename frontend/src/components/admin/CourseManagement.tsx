@@ -152,7 +152,7 @@ export function CourseManagement() {
                 >
                   {course.status}
                 </span>
-                <div className="text-lg font-bold text-[#58CC02]">{course.price} ETH</div>
+                <div className="text-lg font-bold text-[#58CC02]">{course.price} MON</div>
               </div>
 
               <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">

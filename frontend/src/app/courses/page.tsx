@@ -28,7 +28,7 @@ const COURSES = [
     id: "2",
     title: "Smart Contract Development",
     description:
-      "Learn to build and deploy smart contracts on Ethereum using Solidity programming language and development frameworks.",
+      "Learn to build and deploy smart contracts on Monad using Solidity programming language and development frameworks.",
     instructor: "Prof. Michael Rodriguez",
     duration: "8 weeks",
     level: "Intermediate",
@@ -37,7 +37,7 @@ const COURSES = [
     price: 0.08,
     image:
       "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=400",
-    tags: ["Solidity", "Ethereum", "Web3"],
+    tags: ["Solidity", "Monad", "Web3"],
     category: "Development",
   },
   {
