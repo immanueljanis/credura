@@ -14,11 +14,12 @@ import {
   Save,
   X,
 } from "lucide-react";
-import { useAccount } from "wagmi";
+import { useAccount, useReadContract } from "wagmi";
 import { useQuery } from "@tanstack/react-query";
 import { FindUserByAddressDto } from "../api/user/[address]/route";
 import { EnrolDialog } from "./enrol-dialog";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { campusCreditAbi, campusCreditAddress } from "@/abi/campus-credit";
 
 export default function ProfilePage() {
   const { isConnected, address } = useAccount();
@@ -35,11 +36,9 @@ export default function ProfilePage() {
 
   const [userProfile, setUserProfile] = useState({
     username: "CryptoLearner",
-    bio: "Web3 Rookie...",
-    joinDate: "March 2024",
+    joinDate: "",
     totalCourses: 8,
     completedCourses: 5,
-    totalTokens: 2750,
     level: "Advanced Learner",
     nftId: "#1337",
   });
@@ -110,6 +109,13 @@ export default function ProfilePage() {
     setEditForm((prev) => ({ ...prev, [field]: value }));
   };
 
+  const { data: cc } = useReadContract({
+    abi: campusCreditAbi,
+    address: campusCreditAddress,
+    functionName: "balanceOf",
+    args: [address || "0x0"],
+  });
+
   const isEnrolled =
     !(!accountOffChain?.success && accountOffChain?.error === "Not Found") &&
     !isLoading;
@@ -128,60 +134,61 @@ export default function ProfilePage() {
 
                 <div className="flex-1 text-center md:text-left">
                   {isEditing ? (
-                    <div className="space-y-4">
-                      <input
-                        type="text"
-                        value={editForm.username}
-                        onChange={(e) =>
-                          handleInputChange("username", e.target.value)
-                        }
-                        className="input-field text-2xl font-bold"
-                        placeholder="Username"
-                      />
-                      <textarea
-                        value={editForm.bio}
-                        onChange={(e) =>
-                          handleInputChange("bio", e.target.value)
-                        }
-                        className="input-field"
-                        rows={2}
-                        placeholder="Tell us about yourself..."
-                      />
-                    </div>
+                    ""
+                  ) : // <div className="space-y-4">
+                  //   <input
+                  //     type="text"
+                  //     value={editForm.username}
+                  //     onChange={(e) =>
+                  //       handleInputChange("username", e.target.value)
+                  //     }
+                  //     className="input-field text-2xl font-bold"
+                  //     placeholder="Username"
+                  //   />
+                  //   <textarea
+                  //     value={editForm.bio}
+                  //     onChange={(e) =>
+                  //       handleInputChange("bio", e.target.value)
+                  //     }
+                  //     className="input-field"
+                  //     rows={2}
+                  //     placeholder="Tell us about yourself..."
+                  //   />
+                  // </div>
+                  accountOffChain?.success ? (
+                    <>
+                      <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                        {accountOffChain.data.name}
+                      </h1>
+                      <p className="text-gray-600 mb-4">
+                        {accountOffChain.data.description}
+                      </p>
+                    </>
                   ) : (
-                    accountOffChain?.success ? (
-                      <>
-                        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                          {accountOffChain.data.name}
-                        </h1>
-                        <p className="text-gray-600 mb-4">
-                          {accountOffChain.data.description}
-                        </p>
-                      </>
-                    ) : (
-                      <>
-                        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                          CryptoLearner
-                        </h1>
-                        <p className="text-gray-600 mb-4">
-                          Web3 rookie..
-                        </p>
-                      </>
-                    )
+                    <>
+                      <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                        CryptoLearner
+                      </h1>
+                      <p className="text-gray-600 mb-4">Web3 rookie..</p>
+                    </>
                   )}
 
                   <p className="text-gray-600 mb-4 flex items-center gap-1">
                     Wallet:{" "}
                     <span className="block w-50 truncate">{address}</span> •
-                    Joined {userProfile.joinDate}
+                    Joined{" "}
+                    {accountOffChain?.success &&
+                      new Date(accountOffChain.data.createdAt).toDateString()}
                   </p>
                   {isEnrolled && (
                     <div className="flex flex-wrap justify-center md:justify-start gap-4">
                       <div className="bg-[#58CC02] text-white px-4 py-2 rounded-full text-sm font-medium">
-                        {userProfile.level}
+                        Rookie
                       </div>
                       <div className="bg-[#FF6F61] text-white px-4 py-2 rounded-full text-sm font-medium">
-                        NFT ID: {userProfile.nftId}
+                        NFT ID:{" "}
+                        {accountOffChain?.success &&
+                          "#" + accountOffChain.data.studentNFTId}
                       </div>
                     </div>
                   )}
@@ -191,7 +198,7 @@ export default function ProfilePage() {
                   <div className="text-center">
                     {isEnrolled ? (
                       <div className="text-3xl font-bold text-[#58CC02] mb-1">
-                        {userProfile.totalTokens}
+                        {cc?.toString()}
                       </div>
                     ) : (
                       "ENROLL NOW"
@@ -200,36 +207,7 @@ export default function ProfilePage() {
                   </div>
 
                   <div className="flex items-center space-x-2">
-                    {isEnrolled ? (
-                      !isEditing ? (
-                        <button
-                          onClick={() => setIsEditing(true)}
-                          className="btn-primary flex items-center text-sm"
-                        >
-                          <Edit3 className="w-4 h-4 mr-2 cursor-pointer" />
-                          Edit Profile
-                        </button>
-                      ) : (
-                        <div className="flex space-x-2">
-                          <button
-                            onClick={handleSave}
-                            className="btn-primary flex items-center text-sm cursor-pointer"
-                          >
-                            <Save className="w-4 h-4 mr-2" />
-                            Save
-                          </button>
-                          <button
-                            onClick={handleCancel}
-                            className="btn-secondary flex items-center text-sm cursor-pointer"
-                          >
-                            <X className="w-4 h-4 mr-2" />
-                            Cancel
-                          </button>
-                        </div>
-                      )
-                    ) : (
-                      <EnrolDialog />
-                    )}
+                    {!isEnrolled && <EnrolDialog />}
                   </div>
                 </div>
               </div>
@@ -368,7 +346,8 @@ export default function ProfilePage() {
                     Student Certificate
                   </div>
                   <div className="text-xs opacity-75">
-                    Token ID: {userProfile.nftId}
+                    Token ID: {accountOffChain?.success &&
+                      "#" + accountOffChain.data.studentNFTId}
                   </div>
                 </div>
               </div>
