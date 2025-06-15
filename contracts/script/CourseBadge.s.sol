@@ -19,11 +19,7 @@ contract CourseBadgeScript is Script {
         uint256 certId = courseBadge.createCertificateType(certName, 100, certUri);
         console.log("Certificate created with ID:", certId);
 
-        address student = 0x1234567890123456789012345678901234567890;
-        string memory extraData = "Final grade: A+";
-
-        courseBadge.issueCertificate(student, certId, extraData);
-        console.log("Certificate issued to student:", student);
+        // No issuing to students here; use issueCertificate via backend after quiz
 
         vm.stopBroadcast();
     }

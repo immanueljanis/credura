@@ -22,8 +22,6 @@ export function HeroSection() {
   }, []);
   return (
     <section className="relative bg-gradient-to-br from-white via-green-50 to-blue-50 pt-20 pb-32 overflow-hidden">
-      {/* Background decorations */}
-
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="animate-fade-in">
