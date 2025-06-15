@@ -14,7 +14,7 @@ export async function addCreditForStudent(dto: { userAddress: `0x${string}`; amo
             account,
             ...erc20Contract,
             functionName: 'addClaimable',
-            args: [userAddress as `0x${string}`, BigInt(amount)],
+            args: [userAddress as `0x${string}`, BigInt(amount * 10 ** 18)],
         });
         const txHash = await walletClient.writeContract(request);
 

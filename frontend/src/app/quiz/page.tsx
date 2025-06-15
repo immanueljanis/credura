@@ -67,13 +67,11 @@ export default function QuizPage() {
     setStatus('Sending transaction...');
 
     try {
-      console.log({ userAddress, reward })
       const result = await addCreditForStudent({
         userAddress: userAddress as `0x${string}`,
         amount: reward.tokens
       });
       console.log(result);
-
     } catch (error: any) {
       console.error('Failed to add reward:', error);
       setStatus(`Error: ${error.message}`);

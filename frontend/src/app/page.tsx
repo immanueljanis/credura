@@ -81,7 +81,7 @@ export default function HomePage() {
     args: [userAddress],
     query: {
       enabled: isConnected && !!userAddress,
-      refetchInterval: 10000
+      refetchInterval: 5000
     }
   })
 
@@ -90,7 +90,8 @@ export default function HomePage() {
       const formattedBalance = Number(balanceData);
       setCredits(formattedBalance);
     }
-  }, [balanceData])
+    console.log(balanceData)
+  }, [])
 
   return (
     <div className="min-h-screen bg-white">

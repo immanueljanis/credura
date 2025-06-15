@@ -1,5 +1,6 @@
 'use client';
 
+import { claimCreditForStudent } from '@/actions/quiz/claim-credit.action';
 import { erc20Contract } from '@/constants/erc20';
 import { X, Trophy, Coins } from 'lucide-react';
 import { useState } from 'react';
@@ -12,22 +13,22 @@ interface RewardModalProps {
 }
 
 export function RewardModal({ tokens, badge, onClose }: RewardModalProps) {
+  const [status, setStatus] = useState('');
   const { address: userAddress, isConnected } = useAccount();
   const [isLoading, setIsloading] = useState(false)
 
   const claimToken = async () => {
     setIsloading(true)
     try {
-      const result = await writeContractAsync({
-        ...erc20Contract,
-        functionName: "claim",
-        args: [userAddress, tokens]
-      })
+      const result = await claimCreditForStudent({
+        userAddress: userAddress as `0x${string}`,
+      });
       console.log(result);
-    } catch (error) {
-      console.error("Error transferring tokens:", error);
+    } catch (error: any) {
+      console.error('Failed to add reward:', error);
+      setStatus(`Error: ${error.message}`);
     } finally {
-      setIsloading(false)
+      setIsloading(false);
     }
   }
 
@@ -60,7 +61,7 @@ export function RewardModal({ tokens, badge, onClose }: RewardModalProps) {
               <span className="text-2xl font-bold text-[#58CC02]">+{tokens}</span>
             </div>
             <div className="text-sm text-gray-600">
-              <button className="w-full btn-primary" onClick={() => claimToken()}>Click here to claim your credits</button>
+              <button disabled={isLoading} className="w-full btn-primary" onClick={() => claimToken()}>Click here to claim your credits</button>
             </div>
           </div>
 
@@ -80,8 +81,4 @@ export function RewardModal({ tokens, badge, onClose }: RewardModalProps) {
       </div>
     </div>
   );
-}
-
-function writeContractAsync(arg0: any) {
-  throw new Error('Function not implemented.');
 }

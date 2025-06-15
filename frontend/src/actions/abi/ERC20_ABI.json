@@ -1,15 +1,11 @@
 [
   {
-    "inputs": [
-      
-    ],
+    "inputs": [],
     "stateMutability": "nonpayable",
     "type": "constructor"
   },
   {
-    "inputs": [
-      
-    ],
+    "inputs": [],
     "name": "AccessControlBadConfirmation",
     "type": "error"
   },
@@ -116,16 +112,12 @@
     "type": "error"
   },
   {
-    "inputs": [
-      
-    ],
+    "inputs": [],
     "name": "EnforcedPause",
     "type": "error"
   },
   {
-    "inputs": [
-      
-    ],
+    "inputs": [],
     "name": "ExpectedPause",
     "type": "error"
   },
@@ -331,9 +323,7 @@
     "type": "event"
   },
   {
-    "inputs": [
-      
-    ],
+    "inputs": [],
     "name": "DEFAULT_ADMIN_ROLE",
     "outputs": [
       {
@@ -346,9 +336,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-      
-    ],
+    "inputs": [],
     "name": "MINTER_ROLE",
     "outputs": [
       {
@@ -361,9 +349,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-      
-    ],
+    "inputs": [],
     "name": "PAUSER_ROLE",
     "outputs": [
       {
@@ -389,9 +375,7 @@
       }
     ],
     "name": "addClaimable",
-    "outputs": [
-      
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -471,9 +455,7 @@
       }
     ],
     "name": "burn",
-    "outputs": [
-      
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -491,16 +473,12 @@
       }
     ],
     "name": "burnFrom",
-    "outputs": [
-      
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      
-    ],
+    "inputs": [],
     "name": "cashbackPercentage",
     "outputs": [
       {
@@ -514,12 +492,14 @@
   },
   {
     "inputs": [
-      
+      {
+        "internalType": "address",
+        "name": "_claimer",
+        "type": "address"
+      }
     ],
     "name": "claim",
-    "outputs": [
-      
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -562,9 +542,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-      
-    ],
+    "inputs": [],
     "name": "decimals",
     "outputs": [
       {
@@ -609,9 +587,7 @@
       }
     ],
     "name": "grantRole",
-    "outputs": [
-      
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -710,16 +686,12 @@
       }
     ],
     "name": "mint",
-    "outputs": [
-      
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      
-    ],
+    "inputs": [],
     "name": "name",
     "outputs": [
       {
@@ -732,20 +704,14 @@
     "type": "function"
   },
   {
-    "inputs": [
-      
-    ],
+    "inputs": [],
     "name": "pause",
-    "outputs": [
-      
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      
-    ],
+    "inputs": [],
     "name": "paused",
     "outputs": [
       {
@@ -771,9 +737,7 @@
       }
     ],
     "name": "registerMerchant",
-    "outputs": [
-      
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -791,9 +755,7 @@
       }
     ],
     "name": "renounceRole",
-    "outputs": [
-      
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -811,9 +773,7 @@
       }
     ],
     "name": "revokeRole",
-    "outputs": [
-      
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -831,9 +791,7 @@
       }
     ],
     "name": "setDailyLimit",
-    "outputs": [
-      
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -876,9 +834,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-      
-    ],
+    "inputs": [],
     "name": "symbol",
     "outputs": [
       {
@@ -891,9 +847,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-      
-    ],
+    "inputs": [],
     "name": "totalSupply",
     "outputs": [
       {
@@ -972,9 +926,7 @@
       }
     ],
     "name": "transferWithCashback",
-    "outputs": [
-      
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -992,20 +944,14 @@
       }
     ],
     "name": "transferWithLimit",
-    "outputs": [
-      
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      
-    ],
+    "inputs": [],
     "name": "unpause",
-    "outputs": [
-      
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   }
