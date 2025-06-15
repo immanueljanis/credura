@@ -17,9 +17,16 @@ export const registerAction = async (body: RegisterActionDto) => {
   const result = await insertSchema.safeParseAsync(body);
   if (!result.success)
     return { success: false, message: result.error.message } as const;
-  const r = await db.insert(users).values(result.data).returning();
-  return {
-    success: true,
-    data: r[0],
-  } as const;
+  try {
+    const r = await db.insert(users).values(result.data).returning();
+    return {
+      success: true,
+      data: r[0],
+    } as const;
+  } catch (err) {
+    return {
+      success: false,
+      message: "User Already Registered",
+    };
+  }
 };

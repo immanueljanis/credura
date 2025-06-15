@@ -44,7 +44,11 @@ export async function GET(
     );
   return NextResponse.json({
     success: true,
-    data,
+    data: data.map((x) => ({
+      ...x,
+      id: x.id + "",
+      studentNFTId: x.studentNFTId + "",
+    }))[0],
   } as const);
 }
 
