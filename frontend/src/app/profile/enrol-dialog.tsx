@@ -18,7 +18,7 @@ export function EnrollDialog() {
   const [user, setUser] = useState({
     name: "",
     major: "",
-    uri: "https://aqua-robust-coyote-537.mypinata.cloud/ipfs/bafkreibac3mtdcfcuift4nqjcf2vy5tg6rnrlxufyuksdyhagzatq3a2be",
+    uri: "ipfs://bafkreigq6apozmk44cz22p3qm4lntievsurgcglryx3hykeqpyqidmegwy",
   });
 
   const client = useClient();
