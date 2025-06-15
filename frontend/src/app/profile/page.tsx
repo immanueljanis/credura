@@ -17,7 +17,7 @@ import {
 import { useAccount, useReadContract } from "wagmi";
 import { useQuery } from "@tanstack/react-query";
 import { FindUserByAddressDto } from "../api/user/[address]/route";
-import { EnrolDialog } from "./enrol-dialog";
+import { EnrollDialog } from "./enrol-dialog";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { campusCreditAbi, campusCreditAddress } from "@/abi/campus-credit";
 
@@ -42,8 +42,6 @@ export default function ProfilePage() {
     level: "Advanced Learner",
     nftId: "#1337",
   });
-
-  const [editForm, setEditForm] = useState(userProfile);
 
   const completedCourses = [
     {
@@ -93,22 +91,6 @@ export default function ProfilePage() {
     },
   ];
 
-  const handleSave = () => {
-    setUserProfile(editForm);
-    setIsEditing(false);
-    // Here you would save to backend/database
-    console.log("Saving profile:", editForm);
-  };
-
-  const handleCancel = () => {
-    setEditForm(userProfile);
-    setIsEditing(false);
-  };
-
-  const handleInputChange = (field: string, value: string) => {
-    setEditForm((prev) => ({ ...prev, [field]: value }));
-  };
-
   const { data: cc } = useReadContract({
     abi: campusCreditAbi,
     address: campusCreditAddress,
@@ -133,44 +115,26 @@ export default function ProfilePage() {
                 </div>
 
                 <div className="flex-1 text-center md:text-left">
-                  {isEditing ? (
-                    ""
-                  ) : // <div className="space-y-4">
-                  //   <input
-                  //     type="text"
-                  //     value={editForm.username}
-                  //     onChange={(e) =>
-                  //       handleInputChange("username", e.target.value)
-                  //     }
-                  //     className="input-field text-2xl font-bold"
-                  //     placeholder="Username"
-                  //   />
-                  //   <textarea
-                  //     value={editForm.bio}
-                  //     onChange={(e) =>
-                  //       handleInputChange("bio", e.target.value)
-                  //     }
-                  //     className="input-field"
-                  //     rows={2}
-                  //     placeholder="Tell us about yourself..."
-                  //   />
-                  // </div>
-                  accountOffChain?.success ? (
-                    <>
-                      <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                        {accountOffChain.data.name}
-                      </h1>
-                      <p className="text-gray-600 mb-4">
-                        {accountOffChain.data.description}
-                      </p>
-                    </>
+                  {isEnrolled ? (
+                    accountOffChain?.success ? (
+                      <>
+                        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                          {accountOffChain.data.name}
+                        </h1>
+                        <p className="text-gray-600 mb-4">
+                          {accountOffChain.data.description}
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                          CryptoLearner
+                        </h1>
+                        <p className="text-gray-600 mb-4">Web3 rookie..</p>
+                      </>
+                    )
                   ) : (
-                    <>
-                      <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                        CryptoLearner
-                      </h1>
-                      <p className="text-gray-600 mb-4">Web3 rookie..</p>
-                    </>
+                    <EnrollDialog />
                   )}
 
                   <p className="text-gray-600 mb-4 flex items-center gap-1">
@@ -206,9 +170,7 @@ export default function ProfilePage() {
                     <div className="text-gray-600 text-sm">Campus Credits</div>
                   </div>
 
-                  <div className="flex items-center space-x-2">
-                    {!isEnrolled && <EnrolDialog />}
-                  </div>
+                  <div className="flex items-center space-x-2"></div>
                 </div>
               </div>
             ) : (
@@ -346,7 +308,8 @@ export default function ProfilePage() {
                     Student Certificate
                   </div>
                   <div className="text-xs opacity-75">
-                    Token ID: {accountOffChain?.success &&
+                    Token ID:{" "}
+                    {accountOffChain?.success &&
                       "#" + accountOffChain.data.studentNFTId}
                   </div>
                 </div>
