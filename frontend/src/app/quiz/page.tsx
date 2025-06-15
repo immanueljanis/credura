@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { QuizCard } from "@/components/quiz/QuizCard";
 import { RewardModal } from "@/components/quiz/RewardModal";
 import { Brain, Trophy, Clock, Target, Award } from "lucide-react";
+import { useAccount } from "wagmi";
 
 const AVAILABLE_QUIZZES = [
   {
@@ -50,7 +51,7 @@ const AVAILABLE_QUIZZES = [
 ];
 
 export default function QuizPage() {
-  const [isWalletConnected, setIsWalletConnected] = useState(true);
+  const { isConnected } = useAccount();
   const [userTokens, setUserTokens] = useState(1750);
   const [showRewardModal, setShowRewardModal] = useState(false);
   const [quizReward, setQuizReward] = useState({ tokens: 0, badge: "" });
@@ -63,11 +64,7 @@ export default function QuizPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header
-        isWalletConnected={isWalletConnected}
-        userTokens={userTokens}
-        onWalletConnect={() => setIsWalletConnected(true)}
-      />
+      <Header isWalletConnected={isConnected} userTokens={userTokens} />
 
       <main className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -139,7 +136,7 @@ export default function QuizPage() {
                 <QuizCard
                   key={quiz.id}
                   quiz={quiz}
-                  isWalletConnected={isWalletConnected}
+                  isWalletConnected={isConnected}
                   onComplete={handleQuizComplete}
                 />
               ))}

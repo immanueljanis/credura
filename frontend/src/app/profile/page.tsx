@@ -4,9 +4,10 @@ import { useState } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { User, Trophy, BookOpen, Award, Calendar, Wallet } from "lucide-react";
+import { useAccount } from "wagmi";
 
 export default function ProfilePage() {
-  const [isWalletConnected, setIsWalletConnected] = useState(true);
+  const { isConnected } = useAccount();
   const [userTokens, setUserTokens] = useState(2750);
 
   const userProfile = {
@@ -69,11 +70,7 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header
-        isWalletConnected={isWalletConnected}
-        userTokens={userTokens}
-        onWalletConnect={() => setIsWalletConnected(true)}
-      />
+      <Header isWalletConnected={isConnected} userTokens={userTokens} />
 
       <main className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

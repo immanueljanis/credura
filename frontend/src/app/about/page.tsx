@@ -17,6 +17,7 @@ import {
   Linkedin,
   Mail,
 } from "lucide-react";
+import { useAccount } from "wagmi";
 
 const TEAM_MEMBERS = [
   {
@@ -83,16 +84,12 @@ const MILESTONES = [
 ];
 
 export default function AboutPage() {
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
+  const { isConnected } = useAccount();
   const [userTokens, setUserTokens] = useState(0);
 
   return (
     <div className="min-h-screen bg-white">
-      <Header
-        isWalletConnected={isWalletConnected}
-        userTokens={userTokens}
-        onWalletConnect={() => setIsWalletConnected(true)}
-      />
+      <Header isWalletConnected={isConnected} userTokens={userTokens} />
 
       <main>
         <section className="relative bg-gradient-to-br from-white via-green-50 to-blue-50 pt-20 pb-32">

@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CourseCard } from "@/components/courses/CourseCard";
 import { Search, Filter, BookOpen } from "lucide-react";
+import { useAccount } from "wagmi";
 
 const COURSES = [
   {
@@ -106,7 +107,7 @@ const COURSES = [
 ];
 
 export default function CoursesPage() {
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
+  const { isConnected } = useAccount();
   const [userTokens, setUserTokens] = useState(150);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -127,11 +128,7 @@ export default function CoursesPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header
-        isWalletConnected={isWalletConnected}
-        userTokens={userTokens}
-        onWalletConnect={() => setIsWalletConnected(true)}
-      />
+      <Header isWalletConnected={isConnected} userTokens={userTokens} />
 
       <main className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -193,7 +190,7 @@ export default function CoursesPage() {
           {filteredCourses.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredCourses.map((course) => (
-                <CourseCard key={course.id} course={course} isWalletConnected={isWalletConnected} />
+                <CourseCard key={course.id} course={course} isWalletConnected={isConnected} />
               ))}
             </div>
           ) : (

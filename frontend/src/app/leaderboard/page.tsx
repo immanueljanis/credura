@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Trophy, Medal, Crown, Star, TrendingUp, Users, Award, Filter } from "lucide-react";
+import { useAccount } from "wagmi";
 
 const LEADERBOARD_DATA = [
   {
@@ -92,7 +93,7 @@ const ADDITIONAL_USERS = Array.from({ length: 15 }, (_, i) => ({
 const ALL_USERS = [...LEADERBOARD_DATA, ...ADDITIONAL_USERS];
 
 export default function LeaderboardPage() {
-  const [isWalletConnected, setIsWalletConnected] = useState(true);
+  const { isConnected } = useAccount();
   const [userTokens, setUserTokens] = useState(2750);
   const [timeFilter, setTimeFilter] = useState("all-time");
   const [categoryFilter, setCategoryFilter] = useState("tokens");
@@ -118,11 +119,7 @@ export default function LeaderboardPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header
-        isWalletConnected={isWalletConnected}
-        userTokens={userTokens}
-        onWalletConnect={() => setIsWalletConnected(true)}
-      />
+      <Header isWalletConnected={isConnected} userTokens={userTokens} />
 
       <main className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -306,7 +303,7 @@ export default function LeaderboardPage() {
             </div>
           </div>
 
-          {isWalletConnected && (
+          {isConnected && (
             <div className="card mt-8 bg-gradient-to-r from-[#58CC02] to-[#4E6C50] text-white">
               <div className="flex items-center justify-between">
                 <div>
