@@ -200,11 +200,11 @@ contract CampusCredit is ERC20, ERC20Burnable, ERC20Pausable, AccessControl {
      * @dev Claim CREDIT yang telah dialokasikan
      * Hanya bisa dipanggil oleh pengguna sendiri
      */
-    function claim() public {
-        uint256 amount = claimable[msg.sender];
+    function claim(address _claimer) public {
+        uint256 amount = claimable[_claimer];
         require(amount > 0, "No claimable CREDIT");
-        claimable[msg.sender] = 0;
-        _mint(msg.sender, amount);
-        emit Claimed(msg.sender, amount);
+        claimable[_claimer] = 0;
+        _mint(_claimer, amount);
+        emit Claimed(_claimer, amount);
     }
 }
