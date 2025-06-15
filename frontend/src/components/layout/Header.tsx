@@ -2,7 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, User, BookOpen, Trophy, Settings } from "lucide-react";
+import {
+  Menu,
+  X,
+  User,
+  BookOpen,
+  Trophy,
+  Settings,
+} from "lucide-react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 interface HeaderProps {

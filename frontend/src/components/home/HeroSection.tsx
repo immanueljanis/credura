@@ -4,6 +4,7 @@ import { ArrowRight, Play, BookOpen, Users, Trophy } from "lucide-react";
 import Link from "next/link";
 import Counter from "../ui/couter";
 import { useEffect, useState } from "react";
+import Sparkles from "../ui/sparkle";
 
 export function HeroSection() {
   const [count, setCount] = useState({
@@ -17,23 +18,22 @@ export function HeroSection() {
       courses: 50,
       students: 10,
       rewards: 500,
-    })
+    });
   }, []);
   return (
     <section className="relative bg-gradient-to-br from-white via-green-50 to-blue-50 pt-20 pb-32 overflow-hidden">
       {/* Background decorations */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-[#58CC02] rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-40 h-40 bg-[#FF6F61] rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-[#4E6C50] rounded-full blur-2xl"></div>
-      </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="animate-fade-in">
             <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-              Learn <span className="text-gradient">Blockchain</span> <br />
+              Learn{" "}
+              <Sparkles>
+                <span className="text-gradient">Blockchain</span>
+              </Sparkles>
+              <br />
               Earn <span className="text-gradient">Rewards</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
