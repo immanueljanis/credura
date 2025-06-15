@@ -2,6 +2,10 @@
 
 import { useState } from "react";
 import { Search, Plus, BookOpen, Users, Star, Edit, Trash, Eye } from "lucide-react";
+import { useWriteContract } from "wagmi";
+import { courseBadgeAbi, courseBadgeAddress } from "@/abi/course-badge";
+
+// const contract = useWriteContract();
 
 const COURSES = [
   {
@@ -39,11 +43,106 @@ const COURSES = [
   },
 ];
 
+// Modal Component
+const AddCourseModal = ({ isOpen, onClose, onAddCourse } : any) => {
+  const [courseName, setCourseName] = useState("");
+
+  if (!isOpen) return null;
+
+  const handleSubmit = (e : any) => {
+    e.preventDefault();
+    if (courseName.trim()) {
+      onAddCourse(courseName);
+      setCourseName("");
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 bg-gray-600/60 flex justify-center items-center z-50">
+      <div className="bg-white rounded-lg p-8 shadow-xl w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-6 text-gray-900">Create New Course</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-6">
+            <label htmlFor="courseName" className="block text-sm font-medium text-gray-700 mb-2">
+              Course Name
+            </label>
+            <input
+              type="text"
+              id="courseName"
+              className="input-field w-full"
+              placeholder="Enter course name"
+              value={courseName}
+              onChange={(e) => setCourseName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="flex justify-end space-x-3">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-5 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#58CC02]"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="btn-primary"
+            >
+              Add Course
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
 export function CourseManagement() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [courses, setCourses] = useState(COURSES); // Manage courses in state
 
-  const filteredCourses = COURSES.filter((course) => {
+  const hanldeAddCourse = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCreateCourse = (newCourseName : string) => {
+    // In a real application, you'd send this to an API and then update your state
+    // For now, we'll just add it to our local COURSES array
+
+
+    // contract.writeContract(  { 
+    //    address: courseBadgeAddress,
+    //     abi: courseBadgeAbi,         
+    //     functionName: 'mintEventBadges',       
+    //     args: [                      
+    //       "0x", BigInt(Date.now(), newCourseName  
+    //     ],
+    //   }
+    //     // value: parseEther('0.01'), // (Op
+    // )
+
+    const newCourse = {
+      id: String(courses.length + 1), // Simple ID generation
+      title: newCourseName,
+      instructor: "New Instructor", // Placeholder
+      students: 0,
+      rating: 0,
+      price: 0.00,
+      status: "Draft", // New courses typically start as Draft
+      createdDate: new Date().toISOString().split('T')[0],
+      category: "Uncategorized", // Placeholder
+    };
+    setCourses([...courses, newCourse]);
+    setIsModalOpen(false); // Close the modal after adding
+  };
+
+  const filteredCourses = courses.filter((course) => {
     const matchesSearch =
       course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       course.instructor.toLowerCase().includes(searchTerm.toLowerCase());
@@ -58,7 +157,7 @@ export function CourseManagement() {
           <h1 className="text-3xl font-bold text-gray-900">Course Management</h1>
           <p className="text-gray-600 mt-1">Create, edit, and manage educational content</p>
         </div>
-        <button className="btn-primary flex items-center">
+        <button className="btn-primary flex items-center" onClick={hanldeAddCourse}>
           <Plus className="w-5 h-5 mr-2" />
           Create Course
         </button>
@@ -152,7 +251,7 @@ export function CourseManagement() {
                 >
                   {course.status}
                 </span>
-                <div className="text-lg font-bold text-[#58CC02]">{course.price} MON</div>
+                <div className="text-lg font-bold text-[#58CC02]">{course.price} ETH</div>
               </div>
 
               <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
@@ -196,6 +295,13 @@ export function CourseManagement() {
           </div>
         ))}
       </div>
+
+      {/* AddCourseModal component */}
+      <AddCourseModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onAddCourse={handleCreateCourse}
+      />
     </div>
   );
 }
