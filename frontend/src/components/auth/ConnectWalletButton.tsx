@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Wallet } from 'lucide-react';
+import { useState } from "react";
+import { Wallet } from "lucide-react";
 
 interface ConnectWalletButtonProps {
   isConnected: boolean;
@@ -13,7 +13,6 @@ export function ConnectWalletButton({ isConnected, onConnect }: ConnectWalletBut
 
   const handleConnect = async () => {
     setIsConnecting(true);
-    // Simulate wallet connection delay
     setTimeout(() => {
       onConnect();
       setIsConnecting(false);
@@ -37,7 +36,7 @@ export function ConnectWalletButton({ isConnected, onConnect }: ConnectWalletBut
       className="btn-primary flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
     >
       <Wallet className="w-4 h-4 mr-2" />
-      {isConnecting ? 'Connecting...' : 'Connect Wallet'}
+      {isConnecting ? "Connecting..." : "Connect Wallet"}
     </button>
   );
 }

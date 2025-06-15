@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { Clock, Users, Trophy, Target, Lock } from 'lucide-react';
+import { Clock, Users, Trophy, Target, Lock } from "lucide-react";
 
 interface Quiz {
   id: string;
@@ -24,28 +24,35 @@ interface QuizCardProps {
 
 export function QuizCard({ quiz, isWalletConnected, onComplete }: QuizCardProps) {
   const handleStartQuiz = () => {
-    // Simulate quiz completion after a delay
     setTimeout(() => {
       onComplete({
         tokens: quiz.reward,
-        badge: quiz.badge
+        badge: quiz.badge,
       });
     }, 2000);
   };
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'Beginner': return 'bg-green-100 text-green-800';
-      case 'Intermediate': return 'bg-yellow-100 text-yellow-800';
-      case 'Advanced': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case "Beginner":
+        return "bg-green-100 text-green-800";
+      case "Intermediate":
+        return "bg-yellow-100 text-yellow-800";
+      case "Advanced":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   return (
     <div className="card group hover:scale-105 transition-all duration-200">
       <div className="flex justify-between items-start mb-4">
-        <span className={`px-3 py-1 rounded-full text-xs font-medium ${getDifficultyColor(quiz.difficulty)}`}>
+        <span
+          className={`px-3 py-1 rounded-full text-xs font-medium ${getDifficultyColor(
+            quiz.difficulty
+          )}`}
+        >
           {quiz.difficulty}
         </span>
         <div className="text-right">
@@ -54,13 +61,9 @@ export function QuizCard({ quiz, isWalletConnected, onComplete }: QuizCardProps)
         </div>
       </div>
 
-      <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
-        {quiz.title}
-      </h3>
+      <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{quiz.title}</h3>
 
-      <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-        {quiz.description}
-      </p>
+      <p className="text-gray-600 text-sm mb-4 line-clamp-2">{quiz.description}</p>
 
       <div className="space-y-3 mb-6">
         <div className="flex items-center justify-between text-sm text-gray-600">
@@ -94,10 +97,7 @@ export function QuizCard({ quiz, isWalletConnected, onComplete }: QuizCardProps)
       </div>
 
       {isWalletConnected ? (
-        <button
-          onClick={handleStartQuiz}
-          className="w-full btn-primary"
-        >
+        <button onClick={handleStartQuiz} className="w-full btn-primary">
           Start Quiz
         </button>
       ) : (

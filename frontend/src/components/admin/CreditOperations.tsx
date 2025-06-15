@@ -41,7 +41,6 @@ export function CreditOperations() {
 
   const handleMintTokens = () => {
     console.log("Minting tokens:", { recipient, amount, reason });
-    // Reset form
     setRecipient("");
     setAmount("");
     setReason("");

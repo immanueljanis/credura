@@ -6,7 +6,7 @@ import { useWriteContract, useWaitForTransactionReceipt } from "wagmi";
 import { courseBadgeAbi, courseBadgeAddress } from "@/abi/course-badge";
 import { parseEther } from "viem";
 import { addCourseAction } from "@/actions/add-course.action";
-import { updateCourseAction } from "@/actions/edit-corse.action"; // Pastikan path ini benar, sebelumnya 'update-course.action'
+import { updateCourseAction } from "@/actions/edit-corse.action";
 
 type CourseInput = {
   courseName: string;
@@ -37,7 +37,6 @@ type Course = {
   tags?: string;
 };
 
-// Modal Component yang disatukan untuk Add dan Edit
 const CourseFormModal = ({
   isOpen,
   onClose,
@@ -63,22 +62,20 @@ const CourseFormModal = ({
     category: "",
   });
 
-  // Set initial data when modal opens in edit mode
   useEffect(() => {
     if (isOpen && isEditing && initialData) {
       setFormData({
-        courseName: initialData.title || "", // Pastikan selalu string
-        description: initialData.description || "", // <--- Tambahkan || ""
-        instructor: initialData.instructor || "", // Pastikan selalu string
-        duration: initialData.duration || "", // <--- Tambahkan || ""
-        level: initialData.level || "Beginner", // Pastikan selalu string dan ada fallback
-        price: initialData.price || 0, // Pastikan selalu number
+        courseName: initialData.title || "",
+        description: initialData.description || "",
+        instructor: initialData.instructor || "",
+        duration: initialData.duration || "",
+        level: initialData.level || "Beginner",
+        price: initialData.price || 0,
         image: initialData.image || "",
-        tags: initialData.tags || "", // Jika tags ada di Course, gunakan
+        tags: initialData.tags || "",
         category: initialData.category || "",
       });
     } else if (isOpen && !isEditing) {
-      // Reset form for add mode
       setFormData({
         courseName: "",
         description: "",
@@ -108,8 +105,7 @@ const CourseFormModal = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.courseName.trim() && formData.instructor.trim() && formData.duration.trim()) {
-      onSubmit(formData, isEditing ? initialData?.id : undefined); // Kirim ID jika dalam mode edit
-      // onClose(); // Jangan tutup modal di sini, biarkan parent yang menutup setelah berhasil
+      onSubmit(formData, isEditing ? initialData?.id : undefined);
     } else {
       alert("Please fill in all required fields.");
     }
@@ -282,8 +278,8 @@ export function CourseManagement() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false); // State untuk mode edit
-  const [editingCourse, setEditingCourse] = useState<Course | undefined>(undefined); // State untuk menyimpan kursus yang diedit
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingCourse, setEditingCourse] = useState<Course | undefined>(undefined);
   const [courses, setCourses] = useState<Course[]>([]);
 
   const fetchAllCourse = async () => {
@@ -304,10 +300,10 @@ export function CourseManagement() {
           : new Date().toISOString().split("T")[0],
         category: course.category || "Uncategorized",
         image: course.image || "/placeholder-course.jpg",
-        description: course.description || "", // Pastikan properti ini ada dan string
-        duration: course.duration || "", // Pastikan properti ini ada dan string
-        level: course.level || "Beginner", // Pastikan properti ini ada dan string
-        tags: course.tags && Array.isArray(course.tags) ? course.tags.join(",") : "", // Ubah array tags menjadi string
+        description: course.description || "",
+        duration: course.duration || "",
+        level: course.level || "Beginner",
+        tags: course.tags && Array.isArray(course.tags) ? course.tags.join(",") : "",
       }));
 
       setCourses(mappedData);
@@ -327,30 +323,26 @@ export function CourseManagement() {
   });
 
   const handleAddCourseClick = () => {
-    setIsEditing(false); // Pastikan mode add
-    setEditingCourse(undefined); // Reset course yang diedit
+    setIsEditing(false);
+    setEditingCourse(undefined);
     setIsModalOpen(true);
   };
 
   const handleEditCourseClick = (course: Course) => {
-    setIsEditing(true); // Masuk mode edit
-    setEditingCourse(course); // Set kursus yang akan diedit
+    setIsEditing(true);
+    setEditingCourse(course);
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setIsEditing(false);
-    setEditingCourse(undefined); // Bersihkan state edit
+    setEditingCourse(undefined);
   };
 
-  // Fungsi yang dipanggil dari modal (untuk add dan edit)
   const handleSubmitCourse = async (courseData: CourseInput, courseId?: string) => {
     try {
       if (isEditing && courseId) {
-        // Logika untuk mengupdate kursus
-        // Pastikan properti yang dikirim ke updateCourseAction sesuai dengan skema DB
-        // dan CourseInput
         const updatedCourseFromDb = await updateCourseAction(courseId, {
           courseName: courseData.courseName,
           description: courseData.description,
@@ -368,7 +360,6 @@ export function CourseManagement() {
           category: courseData.category,
         });
 
-        // Perbarui state courses
         setCourses((prevCourses: any) =>
           prevCourses.map((course: any) =>
             course.id === courseId
@@ -381,7 +372,6 @@ export function CourseManagement() {
                   image: updatedCourseFromDb.image || "/placeholder-course.jpg",
                   description: updatedCourseFromDb.description,
                   duration: updatedCourseFromDb.duration,
-                  // Pastikan untuk memperbarui properti lain yang relevan dari hasil DB
                 }
               : course
           )
@@ -389,7 +379,6 @@ export function CourseManagement() {
 
         alert("Course updated successfully!");
       } else {
-        // Logika untuk menambahkan kursus baru
         const result = await addCourseAction({
           courseName: courseData.courseName,
           description: courseData.description,
@@ -408,13 +397,13 @@ export function CourseManagement() {
         });
 
         const newCourse: Course = {
-          id: String(result[0].id), // Ambil ID dari hasil DB
-          title: result[0].courseName, // Ambil nama kursus dari hasil DB
+          id: String(result[0].id),
+          title: result[0].courseName,
           instructor: result[0].instructor,
           students: 0,
           rating: 0,
           price: result[0].price,
-          status: "Draft", // Atau status default dari DB jika ada
+          status: "Draft",
           createdDate: result[0].createdAt
             ? new Date(result[0].createdAt).toISOString().split("T")[0]
             : new Date().toISOString().split("T")[0],
@@ -429,7 +418,7 @@ export function CourseManagement() {
       setIsModalOpen(false);
       setIsEditing(false);
       setEditingCourse(undefined);
-      fetchAllCourse(); // Refresh data setelah operasi (opsional, tergantung kebutuhan)
+      fetchAllCourse();
     } catch (err: any) {
       console.error("Error submitting course:", err);
       alert(`Failed to submit course: ${err.shortMessage || err.message}`);

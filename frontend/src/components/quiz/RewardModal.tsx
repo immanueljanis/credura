@@ -81,7 +81,7 @@ export function RewardModal({ tokens, badge, onClose }: RewardModalProps) {
       <div className="bg-white rounded-2xl max-w-md w-full p-8 text-center animate-slide-up">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer"
         >
           <X className="w-6 h-6" />
         </button>
@@ -103,7 +103,7 @@ export function RewardModal({ tokens, badge, onClose }: RewardModalProps) {
             <div className="space-y-2">
               <button
                 disabled={isLoading}
-                className="w-full btn-primary disabled:opacity-50"
+                className="w-full btn-primary disabled:opacity-50 cursor-pointer"
                 onClick={() => claimToken()}
               >
                 {isLoading ? "Claiming..." : "Claim Credits"}
@@ -119,7 +119,7 @@ export function RewardModal({ tokens, badge, onClose }: RewardModalProps) {
             <div className="mt-3">
               <button
                 disabled={isLoading}
-                className="w-full bg-white text-gray-800 py-2 px-4 rounded-lg font-medium hover:bg-gray-100 disabled:opacity-50"
+                className="cursor-pointer w-full bg-white text-gray-800 py-2 px-4 rounded-lg font-medium hover:bg-gray-100 disabled:opacity-50"
                 onClick={claimBadge}
               >
                 Claim Badge & Certificate
@@ -129,7 +129,7 @@ export function RewardModal({ tokens, badge, onClose }: RewardModalProps) {
           </div>
         </div>
 
-        <button onClick={onClose} className="w-full btn-primary">
+        <button onClick={onClose} className="w-full btn-primary cursor-pointer">
           Continue Learning
         </button>
       </div>
