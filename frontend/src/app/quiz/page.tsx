@@ -110,7 +110,7 @@ export default function QuizPage() {
           <div className="card mb-12 p-8 bg-gradient-to-r from-[#58CC02] to-[#4E6C50] text-white">
             <div className="flex flex-col md:flex-row items-center justify-between">
               <div className="mb-6 md:mb-0 text-center md:text-left">
-                <h2 className="text-2xl font-bold mb-2">Weekly Challenge</h2>
+                <h2 className="text-2xl text-white font-bold mb-2">Weekly Challenge</h2>
                 <p className="text-green-100 mb-4">
                   Complete this week's featured quiz for bonus rewards!
                 </p>

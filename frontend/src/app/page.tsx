@@ -7,7 +7,9 @@ import { CourseCard } from "@/components/courses/CourseCard";
 import { StatsSection } from "@/components/home/StatsSection";
 import { HeroSection } from "@/components/home/HeroSection";
 import { FeaturesSection } from "@/components/home/FeaturesSection";
-import { useAccount } from "wagmi";
+import { useAccount, useReadContract } from "wagmi";
+import { erc20Contract } from "@/constants/erc20";
+import { useCreditStore } from "@/stores/useCreditScore";
 
 const SAMPLE_COURSES = [
   {
@@ -69,12 +71,30 @@ const SAMPLE_COURSES = [
 ];
 
 export default function HomePage() {
-  const { isConnected } = useAccount();
+  const { address: userAddress, isConnected } = useAccount();
   const [userTokens, setUserTokens] = useState(0);
+  const setCredits = useCreditStore((state) => state.setCredits);
+
+  const { data: balanceData, refetch: refetch }: { data: any, refetch: any } = useReadContract({
+    ...erc20Contract,
+    functionName: "balanceOf",
+    args: [userAddress],
+    query: {
+      enabled: isConnected && !!userAddress,
+      refetchInterval: 10000
+    }
+  })
+
+  useEffect(() => {
+    if (balanceData !== undefined && balanceData !== null) {
+      const formattedBalance = Number(balanceData);
+      setCredits(formattedBalance);
+    }
+  }, [balanceData])
 
   return (
     <div className="min-h-screen bg-white">
-      <Header isWalletConnected={isConnected} userTokens={userTokens} />
+      <Header isWalletConnected={isConnected} />
 
       <main>
         <HeroSection />

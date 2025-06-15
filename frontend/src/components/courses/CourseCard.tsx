@@ -57,7 +57,7 @@ export function CourseCard({ course, isWalletConnected }: CourseCardProps) {
           </div>
           <div className="flex items-center">
             <Users className="w-4 h-4 mr-1" />
-            {course.studentsEnrolled?.toLocaleString()}
+            {course?.studentsEnrolled?.toLocaleString()}
           </div>
         </div>
 

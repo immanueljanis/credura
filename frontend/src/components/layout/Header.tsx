@@ -12,14 +12,17 @@ import {
 } from "lucide-react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
+import { useCreditStore } from "@/stores/useCreditScore";
+import { formatEther } from "viem";
 
 interface HeaderProps {
   isWalletConnected: boolean;
-  userTokens: number;
+  userTokens?: number;
 }
 
-export function Header({ isWalletConnected, userTokens }: HeaderProps) {
+export function Header({ isWalletConnected }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const credits = useCreditStore((state) => state.credits);
 
   const navigation = [
     { name: "Courses", href: "/courses" },
@@ -56,7 +59,7 @@ export function Header({ isWalletConnected, userTokens }: HeaderProps) {
               <div className="hidden sm:flex items-center space-x-4">
                 <div className="flex items-center bg-[#58CC02] text-white px-3 py-1 rounded-full text-sm font-medium">
                   <Trophy className="w-4 h-4 mr-1" />
-                  {userTokens} Credits
+                  {formatEther(credits)} Credits
                 </div>
                 <Link
                   href="/profile"

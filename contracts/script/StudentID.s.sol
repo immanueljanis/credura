@@ -13,17 +13,6 @@ contract StudentIDScript is Script {
         StudentID studentID = new StudentID();
         console.log("StudentID deployed at:", address(studentID));
 
-        address student = 0x1234567890123456789012345678901234567890;
-        string memory nim = "2025001";
-        string memory name = "Alex Rahman";
-        string memory major = "Computer Science";
-        string memory uri = "ipfs://QmFakeHash/metadata.json";
-
-        studentID.issueStudentID(student, nim, name, major, uri);
-        console.log("Issued StudentID to:", student);
-        console.log("NIM:", nim);
-        console.log("Metadata URI:", uri);
-
         vm.stopBroadcast();
     }
 }
