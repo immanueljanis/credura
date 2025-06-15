@@ -95,7 +95,6 @@ export default function AboutPage() {
       />
 
       <main>
-        {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-white via-green-50 to-blue-50 pt-20 pb-32">
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-20 left-10 w-32 h-32 bg-[#58CC02] rounded-full blur-3xl"></div>
@@ -140,7 +139,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Mission Section */}
         <section className="py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -234,7 +232,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Values Section */}
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
@@ -313,7 +310,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Team Section */}
         <section className="py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
@@ -360,7 +356,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Timeline Section */}
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
@@ -407,7 +402,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Contact Section */}
         <section className="py-20 bg-[#1C1C1C] text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">

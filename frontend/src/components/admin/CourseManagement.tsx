@@ -1,58 +1,58 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Search, Plus, BookOpen, Users, Star, Edit, Trash, Eye } from 'lucide-react';
+import { useState } from "react";
+import { Search, Plus, BookOpen, Users, Star, Edit, Trash, Eye } from "lucide-react";
 
 const COURSES = [
   {
-    id: '1',
-    title: 'Blockchain Fundamentals',
-    instructor: 'Dr. Sarah Chen',
+    id: "1",
+    title: "Blockchain Fundamentals",
+    instructor: "Dr. Sarah Chen",
     students: 1245,
     rating: 4.8,
     price: 0.05,
-    status: 'Published',
-    createdDate: '2024-01-15',
-    category: 'Fundamentals'
+    status: "Published",
+    createdDate: "2024-01-15",
+    category: "Fundamentals",
   },
   {
-    id: '2',
-    title: 'Smart Contract Development',
-    instructor: 'Prof. Michael Rodriguez',
+    id: "2",
+    title: "Smart Contract Development",
+    instructor: "Prof. Michael Rodriguez",
     students: 892,
     rating: 4.9,
     price: 0.08,
-    status: 'Published',
-    createdDate: '2024-02-20',
-    category: 'Development'
+    status: "Published",
+    createdDate: "2024-02-20",
+    category: "Development",
   },
   {
-    id: '3',
-    title: 'Advanced DeFi Protocols',
-    instructor: 'Alex Thompson',
+    id: "3",
+    title: "Advanced DeFi Protocols",
+    instructor: "Alex Thompson",
     students: 234,
     rating: 4.6,
     price: 0.12,
-    status: 'Draft',
-    createdDate: '2024-12-01',
-    category: 'Finance'
-  }
+    status: "Draft",
+    createdDate: "2024-12-01",
+    category: "Finance",
+  },
 ];
 
 export function CourseManagement() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState('All');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All");
 
-  const filteredCourses = COURSES.filter(course => {
-    const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         course.instructor.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = statusFilter === 'All' || course.status === statusFilter;
+  const filteredCourses = COURSES.filter((course) => {
+    const matchesSearch =
+      course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.instructor.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = statusFilter === "All" || course.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Course Management</h1>
@@ -64,7 +64,6 @@ export function CourseManagement() {
         </button>
       </div>
 
-      {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="card">
           <div className="flex items-center justify-between">
@@ -111,7 +110,6 @@ export function CourseManagement() {
         </div>
       </div>
 
-      {/* Filters */}
       <div className="card">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1 relative">
@@ -124,7 +122,7 @@ export function CourseManagement() {
               className="input-field pl-10"
             />
           </div>
-          
+
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
@@ -138,34 +136,31 @@ export function CourseManagement() {
         </div>
       </div>
 
-      {/* Courses Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredCourses.map((course) => (
           <div key={course.id} className="card p-0 overflow-hidden">
             <div className="p-6">
               <div className="flex justify-between items-start mb-4">
-                <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                  course.status === 'Published' 
-                    ? 'bg-green-100 text-green-800'
-                    : course.status === 'Draft'
-                    ? 'bg-yellow-100 text-yellow-800'
-                    : 'bg-gray-100 text-gray-800'
-                }`}>
+                <span
+                  className={`px-3 py-1 rounded-full text-xs font-medium ${
+                    course.status === "Published"
+                      ? "bg-green-100 text-green-800"
+                      : course.status === "Draft"
+                      ? "bg-yellow-100 text-yellow-800"
+                      : "bg-gray-100 text-gray-800"
+                  }`}
+                >
                   {course.status}
                 </span>
-                <div className="text-lg font-bold text-[#58CC02]">
-                  {course.price} ETH
-                </div>
+                <div className="text-lg font-bold text-[#58CC02]">{course.price} ETH</div>
               </div>
 
               <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
                 {course.title}
               </h3>
-              
-              <p className="text-sm text-gray-600 mb-4">
-                By {course.instructor}
-              </p>
-              
+
+              <p className="text-sm text-gray-600 mb-4">By {course.instructor}</p>
+
               <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
                 <div className="flex items-center">
                   <Users className="w-4 h-4 mr-1" />
@@ -176,17 +171,15 @@ export function CourseManagement() {
                   {course.rating}
                 </div>
               </div>
-              
+
               <div className="text-xs text-gray-500 mb-4">
                 Created: {new Date(course.createdDate).toLocaleDateString()}
               </div>
             </div>
-            
+
             <div className="border-t border-gray-100 px-6 py-4 bg-gray-50">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-gray-700">
-                  {course.category}
-                </span>
+                <span className="text-sm font-medium text-gray-700">{course.category}</span>
                 <div className="flex items-center space-x-2">
                   <button className="p-1 text-gray-400 hover:text-[#58CC02]">
                     <Eye className="w-4 h-4" />

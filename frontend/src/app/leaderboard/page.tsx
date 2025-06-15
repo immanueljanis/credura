@@ -126,7 +126,6 @@ export default function LeaderboardPage() {
 
       <main className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
           <div className="text-center mb-12">
             <div className="flex justify-center mb-4">
               <div className="w-16 h-16 bg-gradient-to-br from-[#58CC02] to-[#4E6C50] rounded-full flex items-center justify-center">
@@ -140,11 +139,9 @@ export default function LeaderboardPage() {
             </p>
           </div>
 
-          {/* Top 3 Podium */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">🏆 Top Performers</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              {/* 2nd Place */}
               <div className="order-1 md:order-1">
                 <div className="card text-center p-6 bg-gradient-to-br from-gray-100 to-gray-200 border-2 border-gray-300">
                   <div className="text-4xl mb-3">🥈</div>
@@ -160,7 +157,6 @@ export default function LeaderboardPage() {
                 </div>
               </div>
 
-              {/* 1st Place */}
               <div className="order-2 md:order-2 transform md:scale-110">
                 <div className="card text-center p-6 bg-gradient-to-br from-yellow-100 to-yellow-200 border-2 border-yellow-400">
                   <div className="text-4xl mb-3">👑</div>
@@ -176,7 +172,6 @@ export default function LeaderboardPage() {
                 </div>
               </div>
 
-              {/* 3rd Place */}
               <div className="order-3 md:order-3">
                 <div className="card text-center p-6 bg-gradient-to-br from-amber-100 to-amber-200 border-2 border-amber-400">
                   <div className="text-4xl mb-3">🥉</div>
@@ -194,7 +189,6 @@ export default function LeaderboardPage() {
             </div>
           </div>
 
-          {/* Filters */}
           <div className="card mb-8">
             <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
               <div className="flex items-center space-x-4">
@@ -225,7 +219,6 @@ export default function LeaderboardPage() {
             </div>
           </div>
 
-          {/* Full Leaderboard */}
           <div className="card">
             <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
               <TrendingUp className="w-6 h-6 mr-2 text-[#58CC02]" />
@@ -313,7 +306,6 @@ export default function LeaderboardPage() {
             </div>
           </div>
 
-          {/* Your Rank */}
           {isWalletConnected && (
             <div className="card mt-8 bg-gradient-to-r from-[#58CC02] to-[#4E6C50] text-white">
               <div className="flex items-center justify-between">
