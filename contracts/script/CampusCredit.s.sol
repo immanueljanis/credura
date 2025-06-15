@@ -22,6 +22,8 @@ contract CampusCreditScript is Script {
         campusCredit.setDailyLimit(testStudent, 1000 * 10 ** campusCredit.decimals());
         console.log("Daily limit set for:", testStudent);
 
+        // No minting to users here; use addClaimable/mint via backend after quiz
+
         vm.stopBroadcast();
     }
 }
