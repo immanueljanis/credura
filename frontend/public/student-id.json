@@ -1,0 +1,23 @@
+{
+  "name": "Student ID: YOU",
+  "description": "Credura Student ID for YOU (0000000), majoring in Blockchain. Valid until 2099-12-31.",
+  "image": "ipfs://bafybeiajou5y26yuvp3ihg7p5ztcww4zbmrb4fuezim6uwpgyarzczptvi",
+  "attributes": [
+    {
+      "trait_type": "NIM",
+      "value": "0000000"
+    },
+    {
+      "trait_type": "Major",
+      "value": "Blockchain"
+    },
+    {
+      "trait_type": "Enrollment Year",
+      "value": "2099"
+    },
+    {
+      "trait_type": "Expiry Date",
+      "value": "2099-12-31"
+    }
+  ]
+}

@@ -5,10 +5,8 @@ import { PinataSDK } from "pinata";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 
-// Load environment variables
 dotenv.config();
 
-// Get __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -88,24 +86,19 @@ async function generateCertificate({ name, course, date, output }) {
 
 async function uploadToIPFS(certificatePath, name, course, date) {
   try {
-    // Generate metadata first
     const metadata = generateMetadataJSON(name, course, date, "");
 
-    // Create File object from the certificate file
     const fileBuffer = fs.readFileSync(certificatePath);
     const file = new File([fileBuffer], `certificate-${name.replace(/\s+/g, "-")}.jpg`, {
       type: "image/jpeg",
     });
 
-    // Upload file using Pinata SDK
     const fileResult = await pinata.upload.public.file(file);
 
     console.log("✅ Image uploaded to IPFS:", `ipfs://${fileResult.cid}`);
 
-    // Update metadata with image IPFS URL
     metadata.image = `ipfs://${fileResult.cid}`;
 
-    // Upload metadata using Pinata SDK
     const metadataResult = await pinata.upload.public.json(metadata);
 
     console.log("✅ Metadata uploaded to IPFS:", `ipfs://${metadataResult.cid}`);
@@ -139,7 +132,6 @@ function generateMetadataJSON(name, course, date, imageIpfsUrl) {
   };
 }
 
-// Execute the certificate generation
 generateCertificate({
   name: "Immanuel Pratama",
   course: "Rust Programming for Blockchain Developers",
