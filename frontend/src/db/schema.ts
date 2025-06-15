@@ -3,12 +3,13 @@ import {
   bigserial,
   boolean,
   index,
+  integer,
   pgTable,
-  serial,
   text,
   timestamp,
   unique,
   varchar,
+  doublePrecision,
 } from "drizzle-orm/pg-core";
 
 export const users = pgTable(
@@ -24,6 +25,8 @@ export const users = pgTable(
     createdAt: timestamp("created_at", { withTimezone: true })
       .notNull()
       .defaultNow(),
+    name: varchar("name").default("CryptoLearner"),
+    description: varchar("description").default("Web3 rookie..."),
   },
   (t) => [index("wallet_address_idx").on(t.walletAddress)]
 );
@@ -32,6 +35,15 @@ export const courses = pgTable("courses", {
   id: bigserial("id", { mode: "bigint" }).notNull().primaryKey(),
   courseName: varchar("course_name").notNull(),
   description: text("description").notNull(),
+  instructor: varchar("instructor").notNull(),
+  duration: varchar("duration").notNull(),
+  level: varchar("level").notNull(),
+  studentsEnrolled: integer("student_enrolled").notNull().default(0),
+  rating: doublePrecision("rating").notNull().default(0),
+  price: doublePrecision("price").notNull().default(0),
+  image: varchar("image"),
+  tags: varchar("tags"),
+  category: varchar("category"),
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()
     .defaultNow(),

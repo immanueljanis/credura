@@ -3,18 +3,39 @@
 import { useState } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { User, Trophy, BookOpen, Award, Calendar, Wallet, Edit3, Save, X } from "lucide-react";
+import {
+  User,
+  Trophy,
+  BookOpen,
+  Award,
+  Calendar,
+  Wallet,
+  Edit3,
+  Save,
+  X,
+} from "lucide-react";
 import { useAccount } from "wagmi";
+import { useQuery } from "@tanstack/react-query";
+import { FindUserByAddressDto } from "../api/user/[address]/route";
+import { EnrolDialog } from "./enrol-dialog";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export default function ProfilePage() {
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
+  const { data: accountOffChain, isLoading } = useQuery({
+    queryKey: ["profile", address, isConnected],
+    queryFn: async () => {
+      const response = await fetch("/api/user/" + address);
+      return response.json() as Promise<FindUserByAddressDto>;
+    },
+    enabled: isConnected,
+  });
   const [userTokens, setUserTokens] = useState(2750);
   const [isEditing, setIsEditing] = useState(false);
 
   const [userProfile, setUserProfile] = useState({
-    address: "0x1234...5678",
     username: "CryptoLearner",
-    bio: "Passionate blockchain developer and lifelong learner exploring DeFi protocols.",
+    bio: "Web3 Rookie...",
     joinDate: "March 2024",
     totalCourses: 8,
     completedCourses: 5,
@@ -89,6 +110,9 @@ export default function ProfilePage() {
     setEditForm((prev) => ({ ...prev, [field]: value }));
   };
 
+  const isEnrolled =
+    !(!accountOffChain?.success && accountOffChain?.error === "Not Found") &&
+    !isLoading;
   return (
     <div className="min-h-screen bg-gray-50">
       <Header isWalletConnected={isConnected} userTokens={userTokens} />
@@ -96,89 +120,124 @@ export default function ProfilePage() {
       <main className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 mb-8">
-            <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
-              <div className="w-24 h-24 bg-gradient-to-br from-[#58CC02] to-[#4E6C50] rounded-full flex items-center justify-center text-white text-2xl font-bold">
-                {userProfile.address.slice(2, 4).toUpperCase()}
-              </div>
-
-              <div className="flex-1 text-center md:text-left">
-                {isEditing ? (
-                  <div className="space-y-4">
-                    <input
-                      type="text"
-                      value={editForm.username}
-                      onChange={(e) => handleInputChange("username", e.target.value)}
-                      className="input-field text-2xl font-bold"
-                      placeholder="Username"
-                    />
-                    <textarea
-                      value={editForm.bio}
-                      onChange={(e) => handleInputChange("bio", e.target.value)}
-                      className="input-field"
-                      rows={2}
-                      placeholder="Tell us about yourself..."
-                    />
-                  </div>
-                ) : (
-                  <>
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                      {userProfile.username}
-                    </h1>
-                    <p className="text-gray-600 mb-4">{userProfile.bio}</p>
-                  </>
-                )}
-
-                <p className="text-gray-600 mb-4">
-                  Wallet: {userProfile.address} • Joined {userProfile.joinDate}
-                </p>
-                <div className="flex flex-wrap justify-center md:justify-start gap-4">
-                  <div className="bg-[#58CC02] text-white px-4 py-2 rounded-full text-sm font-medium">
-                    {userProfile.level}
-                  </div>
-                  <div className="bg-[#FF6F61] text-white px-4 py-2 rounded-full text-sm font-medium">
-                    NFT ID: {userProfile.nftId}
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col items-center space-y-4">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-[#58CC02] mb-1">
-                    {userProfile.totalTokens}
-                  </div>
-                  <div className="text-gray-600 text-sm">Campus Credits</div>
+            {isConnected ? (
+              <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+                <div className="w-24 h-24 bg-gradient-to-br from-[#58CC02] to-[#4E6C50] rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                  {address?.slice(2, 4).toUpperCase()}
                 </div>
 
-                <div className="flex items-center space-x-2">
-                  {!isEditing ? (
-                    <button
-                      onClick={() => setIsEditing(true)}
-                      className="btn-primary flex items-center text-sm cursor-pointer"
-                    >
-                      <Edit3 className="w-4 h-4 mr-2" />
-                      Edit Profile
-                    </button>
+                <div className="flex-1 text-center md:text-left">
+                  {isEditing ? (
+                    <div className="space-y-4">
+                      <input
+                        type="text"
+                        value={editForm.username}
+                        onChange={(e) =>
+                          handleInputChange("username", e.target.value)
+                        }
+                        className="input-field text-2xl font-bold"
+                        placeholder="Username"
+                      />
+                      <textarea
+                        value={editForm.bio}
+                        onChange={(e) =>
+                          handleInputChange("bio", e.target.value)
+                        }
+                        className="input-field"
+                        rows={2}
+                        placeholder="Tell us about yourself..."
+                      />
+                    </div>
                   ) : (
-                    <div className="flex space-x-2">
-                      <button
-                        onClick={handleSave}
-                        className="btn-primary flex items-center text-sm cursor-pointer"
-                      >
-                        <Save className="w-4 h-4 mr-2" />
-                        Save
-                      </button>
-                      <button
-                        onClick={handleCancel}
-                        className="btn-secondary flex items-center text-sm cursor-pointer"
-                      >
-                        <X className="w-4 h-4 mr-2" />
-                        Cancel
-                      </button>
+                    accountOffChain?.success ? (
+                      <>
+                        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                          {accountOffChain.data.name}
+                        </h1>
+                        <p className="text-gray-600 mb-4">
+                          {accountOffChain.data.description}
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                          CryptoLearner
+                        </h1>
+                        <p className="text-gray-600 mb-4">
+                          Web3 rookie..
+                        </p>
+                      </>
+                    )
+                  )}
+
+                  <p className="text-gray-600 mb-4 flex items-center gap-1">
+                    Wallet:{" "}
+                    <span className="block w-50 truncate">{address}</span> •
+                    Joined {userProfile.joinDate}
+                  </p>
+                  {isEnrolled && (
+                    <div className="flex flex-wrap justify-center md:justify-start gap-4">
+                      <div className="bg-[#58CC02] text-white px-4 py-2 rounded-full text-sm font-medium">
+                        {userProfile.level}
+                      </div>
+                      <div className="bg-[#FF6F61] text-white px-4 py-2 rounded-full text-sm font-medium">
+                        NFT ID: {userProfile.nftId}
+                      </div>
                     </div>
                   )}
                 </div>
+
+                <div className="flex flex-col items-center space-y-4">
+                  <div className="text-center">
+                    {isEnrolled ? (
+                      <div className="text-3xl font-bold text-[#58CC02] mb-1">
+                        {userProfile.totalTokens}
+                      </div>
+                    ) : (
+                      "ENROLL NOW"
+                    )}
+                    <div className="text-gray-600 text-sm">Campus Credits</div>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    {isEnrolled ? (
+                      !isEditing ? (
+                        <button
+                          onClick={() => setIsEditing(true)}
+                          className="btn-primary flex items-center text-sm"
+                        >
+                          <Edit3 className="w-4 h-4 mr-2 cursor-pointer" />
+                          Edit Profile
+                        </button>
+                      ) : (
+                        <div className="flex space-x-2">
+                          <button
+                            onClick={handleSave}
+                            className="btn-primary flex items-center text-sm cursor-pointer"
+                          >
+                            <Save className="w-4 h-4 mr-2" />
+                            Save
+                          </button>
+                          <button
+                            onClick={handleCancel}
+                            className="btn-secondary flex items-center text-sm cursor-pointer"
+                          >
+                            <X className="w-4 h-4 mr-2" />
+                            Cancel
+                          </button>
+                        </div>
+                      )
+                    ) : (
+                      <EnrolDialog />
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="flex justify-between">
+                Please Connect Wallet First <ConnectButton />
+              </div>
+            )}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -202,14 +261,21 @@ export default function ProfilePage() {
 
                 <div className="card text-center">
                   <Trophy className="w-8 h-8 text-[#4E6C50] mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-gray-900 mb-1">{achievements.length}</div>
+                  <div className="text-2xl font-bold text-gray-900 mb-1">
+                    {achievements.length}
+                  </div>
                   <div className="text-sm text-gray-600">Achievements</div>
                 </div>
 
                 <div className="card text-center">
                   <Wallet className="w-8 h-8 text-[#58CC02] mx-auto mb-2" />
                   <div className="text-2xl font-bold text-gray-900 mb-1">
-                    {Math.round((userProfile.completedCourses / userProfile.totalCourses) * 100)}%
+                    {Math.round(
+                      (userProfile.completedCourses /
+                        userProfile.totalCourses) *
+                        100
+                    )}
+                    %
                   </div>
                   <div className="text-sm text-gray-600">Completion</div>
                 </div>
@@ -228,7 +294,9 @@ export default function ProfilePage() {
                       className="border border-gray-100 rounded-lg p-4 hover:bg-gray-50 transition-colors"
                     >
                       <div className="flex justify-between items-start mb-2">
-                        <h3 className="font-medium text-gray-900">{course.title}</h3>
+                        <h3 className="font-medium text-gray-900">
+                          {course.title}
+                        </h3>
                         <div className="text-sm text-gray-500 flex items-center">
                           <Calendar className="w-4 h-4 mr-1" />
                           {new Date(course.completedDate).toLocaleDateString()}
@@ -239,7 +307,9 @@ export default function ProfilePage() {
                         <div className="flex items-center space-x-4">
                           <div className="text-sm">
                             Score:{" "}
-                            <span className="font-medium text-[#58CC02]">{course.score}%</span>
+                            <span className="font-medium text-[#58CC02]">
+                              {course.score}%
+                            </span>
                           </div>
                           <div className="text-sm">
                             Earned:{" "}
@@ -270,8 +340,12 @@ export default function ProfilePage() {
                     >
                       <div className="text-2xl">{achievement.icon}</div>
                       <div className="flex-1">
-                        <h3 className="font-medium text-gray-900 text-sm">{achievement.title}</h3>
-                        <p className="text-xs text-gray-600 mb-1">{achievement.description}</p>
+                        <h3 className="font-medium text-gray-900 text-sm">
+                          {achievement.title}
+                        </h3>
+                        <p className="text-xs text-gray-600 mb-1">
+                          {achievement.description}
+                        </p>
                         <div className="text-xs text-gray-500">
                           {new Date(achievement.date).toLocaleDateString()}
                         </div>
@@ -290,8 +364,12 @@ export default function ProfilePage() {
                 <div className="bg-gradient-to-br from-[#58CC02] to-[#4E6C50] rounded-lg p-6 text-white text-center">
                   <User className="w-12 h-12 mx-auto mb-3 opacity-80" />
                   <div className="font-bold text-lg mb-2">Credura</div>
-                  <div className="text-sm opacity-90 mb-2">Student Certificate</div>
-                  <div className="text-xs opacity-75">Token ID: {userProfile.nftId}</div>
+                  <div className="text-sm opacity-90 mb-2">
+                    Student Certificate
+                  </div>
+                  <div className="text-xs opacity-75">
+                    Token ID: {userProfile.nftId}
+                  </div>
                 </div>
               </div>
             </div>

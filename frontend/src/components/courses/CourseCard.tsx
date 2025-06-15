@@ -2,23 +2,10 @@
 
 import Link from "next/link";
 import { Star, Clock, Users, Lock } from "lucide-react";
-
-interface Course {
-  id: string;
-  title: string;
-  description: string;
-  instructor: string;
-  duration: string;
-  level: string;
-  students: number;
-  rating: number;
-  price: number;
-  image: string;
-  tags: string[];
-}
+import { FindCoursesDto } from "@/app/api/courses/route";
 
 interface CourseCardProps {
-  course: Course;
+  course: FindCoursesDto[number];
   isWalletConnected: boolean;
 }
 
@@ -27,8 +14,8 @@ export function CourseCard({ course, isWalletConnected }: CourseCardProps) {
     <div className="card group hover:scale-105 transition-all duration-200 p-0 overflow-hidden">
       <div className="relative">
         <img
-          src={course.image}
-          alt={course.title}
+          src={course.image ?? ""}
+          alt={course.courseName}
           className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
         />
         <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-sm font-medium text-gray-800">
@@ -51,9 +38,13 @@ export function CourseCard({ course, isWalletConnected }: CourseCardProps) {
           ))}
         </div>
 
-        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{course.title}</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+          {course.courseName}
+        </h3>
 
-        <p className="text-gray-600 text-sm mb-4 line-clamp-2">{course.description}</p>
+        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+          {course.description}
+        </p>
 
         <div className="text-sm text-gray-500 mb-4">By {course.instructor}</div>
 
@@ -64,7 +55,7 @@ export function CourseCard({ course, isWalletConnected }: CourseCardProps) {
           </div>
           <div className="flex items-center">
             <Users className="w-4 h-4 mr-1" />
-            {course.students.toLocaleString()}
+            {course.studentsEnrolled.toLocaleString()}
           </div>
         </div>
 
@@ -76,7 +67,10 @@ export function CourseCard({ course, isWalletConnected }: CourseCardProps) {
         </div>
 
         {isWalletConnected ? (
-          <Link href={`/courses/${course.id}`} className="w-full btn-primary text-center block">
+          <Link
+            href={`/courses/${course.id}`}
+            className="w-full btn-primary text-center block"
+          >
             Enroll Now
           </Link>
         ) : (
