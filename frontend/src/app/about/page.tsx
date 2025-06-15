@@ -52,32 +52,32 @@ const TEAM_MEMBERS = [
 
 const MILESTONES = [
   {
-    year: "2023",
+    year: "2025",
     title: "Credura Founded",
     description: "Started with a vision to revolutionize blockchain education",
   },
   {
-    year: "2024 Q1",
+    year: "2025 Q3",
     title: "Platform Launch",
     description: "Launched our first courses and onboarded 1,000+ students",
   },
   {
-    year: "2024 Q2",
+    year: "2025 Q4",
     title: "Token Integration",
     description: "Introduced Campus Credits and NFT certificates",
   },
   {
-    year: "2024 Q3",
+    year: "2025 Q4",
     title: "Community Growth",
     description: "Reached 10,000+ active learners worldwide",
   },
   {
-    year: "2024 Q4",
+    year: "2026 Q1",
     title: "Advanced Features",
     description: "Added quiz system, leaderboards, and admin panel",
   },
   {
-    year: "2025",
+    year: "2026 Q2",
     title: "Global Expansion",
     description: "Planning partnerships with universities and institutions",
   },

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Star, Clock, Users, Lock } from "lucide-react";
 import { FindCoursesDto } from "@/app/api/courses/route";
+import { addCourseAction } from "@/actions/add-course.action";
 
 interface CourseCardProps {
   course: FindCoursesDto[number];
@@ -10,6 +11,7 @@ interface CourseCardProps {
 }
 
 export function CourseCard({ course, isWalletConnected }: CourseCardProps) {
+
   return (
     <div className="card group hover:scale-105 transition-all duration-200 p-0 overflow-hidden">
       <div className="relative">

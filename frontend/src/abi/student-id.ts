@@ -1,4 +1,4 @@
-export const studentIdAddress = "0x197324747a1b3d12BE635AF3046bE9b667c27Dba";
+export const studentIdAddress = "0x1B8c51f846A7E0214459a92b464baf793Ad73EC1";
 export const studentIdAbi = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {
@@ -50,16 +50,6 @@ export const studentIdAbi = [
   },
   { inputs: [], name: "EnforcedPause", type: "error" },
   { inputs: [], name: "ExpectedPause", type: "error" },
-  {
-    inputs: [{ internalType: "address", name: "owner", type: "address" }],
-    name: "OwnableInvalidOwner",
-    type: "error",
-  },
-  {
-    inputs: [{ internalType: "address", name: "account", type: "address" }],
-    name: "OwnableUnauthorizedAccount",
-    type: "error",
-  },
   {
     anonymous: false,
     inputs: [
@@ -148,25 +138,6 @@ export const studentIdAbi = [
       },
     ],
     name: "MetadataUpdate",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "previousOwner",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "newOwner",
-        type: "address",
-      },
-    ],
-    name: "OwnershipTransferred",
     type: "event",
   },
   {
@@ -356,21 +327,13 @@ export const studentIdAbi = [
     type: "function",
   },
   {
-    inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
-    name: "isValidID",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
-      { internalType: "address", name: "to", type: "address" },
       { internalType: "string", name: "nim", type: "string" },
       { internalType: "string", name: "name", type: "string" },
       { internalType: "string", name: "major", type: "string" },
       { internalType: "string", name: "uri", type: "string" },
     ],
-    name: "issueStudentID",
+    name: "mintStudentID",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -386,13 +349,6 @@ export const studentIdAbi = [
     inputs: [{ internalType: "string", name: "", type: "string" }],
     name: "nimToTokenId",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "owner",
-    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
@@ -413,13 +369,6 @@ export const studentIdAbi = [
   {
     inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
     name: "renewStudentID",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "renounceOwnership",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -500,13 +449,6 @@ export const studentIdAbi = [
       { internalType: "uint256", name: "tokenId", type: "uint256" },
     ],
     name: "transferFrom",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
-    name: "transferOwnership",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
