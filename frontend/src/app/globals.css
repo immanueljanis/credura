@@ -1,54 +1,73 @@
 @import "tailwindcss";
 :root {
-  --background: #FFFFFF;
-  --foreground: #1C1C1C;
-  --primary: #58CC02;
-  --primary-dark: #4FB302;
-  --secondary: #4E6C50;
-  --highlight: #FF6F61;
-  --highlight-dark: #FF5A4A;
-  --card: #FFFFFF;
-  --border: #E5E7EB;
-  --muted: #F9FAFB;
-  --muted-foreground: #6B7280;
-  --success: #10B981;
-  --warning: #F59E0B;
-  --error: #EF4444;
+  --background: #ffffff;
+  --foreground: #1c1c1c;
+  --primary: #58cc02;
+  --primary-dark: #4fb302;
+  --secondary: #4e6c50;
+  --highlight: #ff6f61;
+  --highlight-dark: #ff5a4a;
+  --card: #ffffff;
+  --border: #e5e7eb;
+  --muted: #f9fafb;
+  --muted-foreground: #6b7280;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
 }
 
 @theme {
-  --color-background: #FFFFFF;
-  --color-foreground: #1C1C1C;
-  --color-primary: #58CC02;
-  --color-primary-dark: #4FB302;
-  --color-secondary: #4E6C50;
-  --color-highlight: #FF6F61;
-  --color-highlight-dark: #FF5A4A;
-  --color-card: #FFFFFF;
-  --color-border: #E5E7EB;
-  --color-muted: #F9FAFB;
-  --color-muted-foreground: #6B7280;
-  --color-success: #10B981;
-  --color-warning: #F59E0B;
-  --color-error: #EF4444;
+  --color-background: #ffffff;
+  --color-foreground: #1c1c1c;
+  --color-primary: #58cc02;
+  --color-primary-dark: #4fb302;
+  --color-secondary: #4e6c50;
+  --color-highlight: #ff6f61;
+  --color-highlight-dark: #ff5a4a;
+  --color-card: #ffffff;
+  --color-border: #e5e7eb;
+  --color-muted: #f9fafb;
+  --color-muted-foreground: #6b7280;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+
+  --animate-come-in-out: comeInOut 700ms forwards;
+
+  @keyframes comeInOut {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
 }
 
 @layer base {
   * {
     @apply border-border;
   }
-  
+
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
     @apply bg-white text-foreground font-sans antialiased;
     color: var(--foreground);
     background: var(--background);
   }
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply text-foreground font-semibold;
   }
 }
@@ -57,27 +76,27 @@
   .btn-primary {
     @apply bg-[#58CC02] hover:bg-[#4FB302] text-white font-medium px-6 py-3 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md;
   }
-  
+
   .btn-secondary {
     @apply bg-[#4E6C50] hover:bg-[#3E5A40] text-white font-medium px-6 py-3 rounded-lg transition-all duration-200;
   }
-  
+
   .btn-highlight {
     @apply bg-[#FF6F61] hover:bg-[#FF5A4A] text-white font-medium px-6 py-3 rounded-lg transition-all duration-200;
   }
-  
+
   .card {
     @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow duration-200;
   }
-  
+
   .input-field {
     @apply w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#58CC02] focus:border-transparent transition-all duration-200;
   }
-  
+
   .progress-bar {
     @apply w-full bg-gray-200 rounded-full h-2;
   }
-  
+
   .progress-fill {
     @apply bg-[#58CC02] h-2 rounded-full transition-all duration-300;
   }
@@ -87,27 +106,31 @@
   .text-gradient {
     @apply bg-gradient-to-r from-[#58CC02] to-[#4E6C50] bg-clip-text text-transparent;
   }
-  
+
   .animate-fade-in {
     animation: fadeIn 0.5s ease-in-out;
   }
-  
+
   .animate-slide-up {
     animation: slideUp 0.6s ease-out;
   }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  from { 
+  from {
     opacity: 0;
     transform: translateY(20px);
   }
-  to { 
+  to {
     opacity: 1;
     transform: translateY(0);
   }
