@@ -6,7 +6,7 @@ import { lightTheme, getDefaultConfig, RainbowKitProvider } from "@rainbow-me/ra
 import { monadTestnet } from "viem/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-const wagmiConfig = getDefaultConfig({
+export const wagmiConfig = getDefaultConfig({
   appName: "Credura",
   projectId: "YOUR_PROJECT_ID",
   chains: [monadTestnet],
