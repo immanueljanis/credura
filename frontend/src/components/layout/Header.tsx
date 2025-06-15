@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X, User, BookOpen, Trophy, Settings } from "lucide-react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import Image from "next/image";
 
 interface HeaderProps {
   isWalletConnected: boolean;
@@ -25,8 +26,13 @@ export function Header({ isWalletConnected, userTokens }: HeaderProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-[#58CC02] rounded-lg flex items-center justify-center">
-              <BookOpen className="w-5 h-5 text-white" />
+            {/* <div className="w-8 h-8 bg-[#58CC02] rounded-lg flex items-center justify-center"> */}
+              {/* <BookOpen className="w-5 h-5 text-white" /> */}
+            {/* </div> */}
+
+             <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                {/* <Image src="/logo.png" alt="Digital Campus" width={32} height={32} /> */}
+                <img src="/logo.png" alt="Digital Campus" />
             </div>
             <span className="text-xl font-bold text-gray-900">Digital Campus</span>
           </Link>
