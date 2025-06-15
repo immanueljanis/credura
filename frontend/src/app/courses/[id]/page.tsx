@@ -492,7 +492,7 @@ export default function CourseDetailPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                   <div className="text-center">
                     <div className="flex items-center justify-center w-12 h-12 bg-[#58CC02] bg-opacity-10 rounded-lg mx-auto mb-2">
-                      <Clock className="w-6 h-6 text-[#58CC02]" />
+                      <Clock className="w-6 h-6 text-white" />
                     </div>
                     <div className="text-sm text-gray-600">Duration</div>
                     <div className="font-semibold text-gray-900">{course.duration}</div>
@@ -500,7 +500,7 @@ export default function CourseDetailPage() {
 
                   <div className="text-center">
                     <div className="flex items-center justify-center w-12 h-12 bg-[#FF6F61] bg-opacity-10 rounded-lg mx-auto mb-2">
-                      <Users className="w-6 h-6 text-[#FF6F61]" />
+                      <Users className="w-6 h-6 text-white" />
                     </div>
                     <div className="text-sm text-gray-600">Students</div>
                     <div className="font-semibold text-gray-900">
@@ -510,7 +510,7 @@ export default function CourseDetailPage() {
 
                   <div className="text-center">
                     <div className="flex items-center justify-center w-12 h-12 bg-[#4E6C50] bg-opacity-10 rounded-lg mx-auto mb-2">
-                      <BookOpen className="w-6 h-6 text-[#4E6C50]" />
+                      <BookOpen className="w-6 h-6 text-white" />
                     </div>
                     <div className="text-sm text-gray-600">Lessons</div>
                     <div className="font-semibold text-gray-900">{course.totalLessons}</div>
@@ -518,7 +518,7 @@ export default function CourseDetailPage() {
 
                   <div className="text-center">
                     <div className="flex items-center justify-center w-12 h-12 bg-[#58CC02] bg-opacity-10 rounded-lg mx-auto mb-2">
-                      <Star className="w-6 h-6 text-[#58CC02]" />
+                      <Star className="w-6 h-6 text-white" />
                     </div>
                     <div className="text-sm text-gray-600">Rating</div>
                     <div className="font-semibold text-gray-900">{course.rating}</div>
@@ -550,7 +550,7 @@ export default function CourseDetailPage() {
                       <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
-                        className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors ${
+                        className={`cursor-pointer py-2 px-1 border-b-2 font-medium text-sm transition-colors ${
                           activeTab === tab.id
                             ? "border-[#58CC02] text-[#58CC02]"
                             : "border-transparent text-gray-500 hover:text-gray-700"

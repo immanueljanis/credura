@@ -6,7 +6,7 @@ import { useWriteContract, useWaitForTransactionReceipt } from "wagmi";
 import { courseBadgeAbi, courseBadgeAddress } from "@/abi/course-badge";
 import { parseEther } from "viem";
 import { addCourseAction } from "@/actions/add-course.action";
-import {updateCourseAction} from "@/actions/edit-corse.action"; // Pastikan path ini benar, sebelumnya 'update-course.action'
+import { updateCourseAction } from "@/actions/edit-corse.action";
 
 type CourseInput = {
   courseName: string;
@@ -31,13 +31,12 @@ type Course = {
   createdDate: string;
   category: string;
   image?: string;
-  description?: string; 
-  duration?: string;    
-  level?: string;      
+  description?: string;
+  duration?: string;
+  level?: string;
   tags?: string;
 };
 
-// Modal Component yang disatukan untuk Add dan Edit
 const CourseFormModal = ({
   isOpen,
   onClose,
@@ -63,22 +62,20 @@ const CourseFormModal = ({
     category: "",
   });
 
-  // Set initial data when modal opens in edit mode
   useEffect(() => {
     if (isOpen && isEditing && initialData) {
       setFormData({
-        courseName: initialData.title || "", // Pastikan selalu string
-        description: initialData.description || "", // <--- Tambahkan || ""
-        instructor: initialData.instructor || "", // Pastikan selalu string
-        duration: initialData.duration || "",       // <--- Tambahkan || ""
-        level: initialData.level || "Beginner", // Pastikan selalu string dan ada fallback
-        price: initialData.price || 0,           // Pastikan selalu number
+        courseName: initialData.title || "",
+        description: initialData.description || "",
+        instructor: initialData.instructor || "",
+        duration: initialData.duration || "",
+        level: initialData.level || "Beginner",
+        price: initialData.price || 0,
         image: initialData.image || "",
-        tags: initialData.tags || "", // Jika tags ada di Course, gunakan
+        tags: initialData.tags || "",
         category: initialData.category || "",
       });
     } else if (isOpen && !isEditing) {
-      // Reset form for add mode
       setFormData({
         courseName: "",
         description: "",
@@ -95,19 +92,20 @@ const CourseFormModal = ({
 
   if (!isOpen) return null;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value, type } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'number' ? parseFloat(value) : value,
+      [name]: type === "number" ? parseFloat(value) : value,
     }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.courseName.trim() && formData.instructor.trim() && formData.duration.trim()) {
-      onSubmit(formData, isEditing ? initialData?.id : undefined); // Kirim ID jika dalam mode edit
-      // onClose(); // Jangan tutup modal di sini, biarkan parent yang menutup setelah berhasil
+      onSubmit(formData, isEditing ? initialData?.id : undefined);
     } else {
       alert("Please fill in all required fields.");
     }
@@ -121,7 +119,9 @@ const CourseFormModal = ({
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="courseName" className="block text-sm font-medium text-gray-700 mb-1">Course Name</label>
+            <label htmlFor="courseName" className="block text-sm font-medium text-gray-700 mb-1">
+              Course Name
+            </label>
             <input
               type="text"
               id="courseName"
@@ -134,7 +134,9 @@ const CourseFormModal = ({
             />
           </div>
           <div>
-            <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+              Description
+            </label>
             <textarea
               id="description"
               name="description"
@@ -147,7 +149,9 @@ const CourseFormModal = ({
             ></textarea>
           </div>
           <div>
-            <label htmlFor="instructor" className="block text-sm font-medium text-gray-700 mb-1">Instructor</label>
+            <label htmlFor="instructor" className="block text-sm font-medium text-gray-700 mb-1">
+              Instructor
+            </label>
             <input
               type="text"
               id="instructor"
@@ -161,7 +165,9 @@ const CourseFormModal = ({
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label htmlFor="duration" className="block text-sm font-medium text-gray-700 mb-1">Duration</label>
+              <label htmlFor="duration" className="block text-sm font-medium text-gray-700 mb-1">
+                Duration
+              </label>
               <input
                 type="text"
                 id="duration"
@@ -174,7 +180,9 @@ const CourseFormModal = ({
               />
             </div>
             <div>
-              <label htmlFor="level" className="block text-sm font-medium text-gray-700 mb-1">Level</label>
+              <label htmlFor="level" className="block text-sm font-medium text-gray-700 mb-1">
+                Level
+              </label>
               <select
                 id="level"
                 name="level"
@@ -190,7 +198,9 @@ const CourseFormModal = ({
             </div>
           </div>
           <div>
-            <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1">Price (ETH)</label>
+            <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1">
+              Price (ETH)
+            </label>
             <input
               type="number"
               id="price"
@@ -204,7 +214,9 @@ const CourseFormModal = ({
             />
           </div>
           <div>
-            <label htmlFor="image" className="block text-sm font-medium text-gray-700 mb-1">Image URL (Optional)</label>
+            <label htmlFor="image" className="block text-sm font-medium text-gray-700 mb-1">
+              Image URL (Optional)
+            </label>
             <input
               type="url"
               id="image"
@@ -216,7 +228,9 @@ const CourseFormModal = ({
             />
           </div>
           <div>
-            <label htmlFor="tags" className="block text-sm font-medium text-gray-700 mb-1">Tags (Optional, comma-separated)</label>
+            <label htmlFor="tags" className="block text-sm font-medium text-gray-700 mb-1">
+              Tags (Optional, comma-separated)
+            </label>
             <input
               type="text"
               id="tags"
@@ -228,7 +242,9 @@ const CourseFormModal = ({
             />
           </div>
           <div>
-            <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">Category (Optional)</label>
+            <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
+              Category (Optional)
+            </label>
             <input
               type="text"
               id="category"
@@ -248,10 +264,7 @@ const CourseFormModal = ({
             >
               Cancel
             </button>
-            <button
-              type="submit"
-              className="btn-primary"
-            >
+            <button type="submit" className="btn-primary cursor-pointer">
               {isEditing ? "Save Changes" : "Create Course"}
             </button>
           </div>
@@ -261,13 +274,12 @@ const CourseFormModal = ({
   );
 };
 
-
 export function CourseManagement() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false); // State untuk mode edit
-  const [editingCourse, setEditingCourse] = useState<Course | undefined>(undefined); // State untuk menyimpan kursus yang diedit
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingCourse, setEditingCourse] = useState<Course | undefined>(undefined);
   const [courses, setCourses] = useState<Course[]>([]);
 
   const fetchAllCourse = async () => {
@@ -283,17 +295,18 @@ export function CourseManagement() {
         rating: course.rating || 0,
         price: course.price,
         status: "Published",
-        createdDate: course.createdAt ? new Date(course.createdAt).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
+        createdDate: course.createdAt
+          ? new Date(course.createdAt).toISOString().split("T")[0]
+          : new Date().toISOString().split("T")[0],
         category: course.category || "Uncategorized",
         image: course.image || "/placeholder-course.jpg",
-        description: course.description || "", // Pastikan properti ini ada dan string
-        duration: course.duration || "",       // Pastikan properti ini ada dan string
-        level: course.level || "Beginner",     // Pastikan properti ini ada dan string
-        tags: (course.tags && Array.isArray(course.tags)) ? course.tags.join(',') : '', // Ubah array tags menjadi string
+        description: course.description || "",
+        duration: course.duration || "",
+        level: course.level || "Beginner",
+        tags: course.tags && Array.isArray(course.tags) ? course.tags.join(",") : "",
       }));
 
       setCourses(mappedData);
-
     } catch (error) {
       console.error("Error fetching course data:", error);
     }
@@ -303,43 +316,33 @@ export function CourseManagement() {
     fetchAllCourse();
   }, []);
 
-  const {
-    data: hash,
-    error,
-    isPending,
-    writeContractAsync,
-  } = useWriteContract();
+  const { data: hash, error, isPending, writeContractAsync } = useWriteContract();
 
   const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
     hash,
   });
 
   const handleAddCourseClick = () => {
-    setIsEditing(false); // Pastikan mode add
-    setEditingCourse(undefined); // Reset course yang diedit
+    setIsEditing(false);
+    setEditingCourse(undefined);
     setIsModalOpen(true);
   };
 
   const handleEditCourseClick = (course: Course) => {
-    setIsEditing(true); // Masuk mode edit
-    setEditingCourse(course); // Set kursus yang akan diedit
+    setIsEditing(true);
+    setEditingCourse(course);
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setIsEditing(false);
-    setEditingCourse(undefined); // Bersihkan state edit
+    setEditingCourse(undefined);
   };
-  
-  // Fungsi yang dipanggil dari modal (untuk add dan edit)
+
   const handleSubmitCourse = async (courseData: CourseInput, courseId?: string) => {
     try {
       if (isEditing && courseId) {
-        
-        // Logika untuk mengupdate kursus
-        // Pastikan properti yang dikirim ke updateCourseAction sesuai dengan skema DB
-        // dan CourseInput
         const updatedCourseFromDb = await updateCourseAction(courseId, {
           courseName: courseData.courseName,
           description: courseData.description,
@@ -348,31 +351,34 @@ export function CourseManagement() {
           level: courseData.level,
           price: courseData.price,
           image: courseData.image,
-          tags: courseData.tags ? courseData.tags.split(',').map(tag => tag.trim()).join(',') : "", 
+          tags: courseData.tags
+            ? courseData.tags
+                .split(",")
+                .map((tag) => tag.trim())
+                .join(",")
+            : "",
           category: courseData.category,
         });
-        
-        // Perbarui state courses
-        setCourses((prevCourses : any) =>
-          prevCourses.map((course : any) =>
-            course.id === courseId ? {
-                ...course,
-                title: updatedCourseFromDb.courseName, 
-                instructor: updatedCourseFromDb.instructor,
-                price: updatedCourseFromDb.price,
-                category: updatedCourseFromDb.category,
-                image: updatedCourseFromDb.image || "/placeholder-course.jpg",
-                description: updatedCourseFromDb.description,
-                duration: updatedCourseFromDb.duration,
-                // Pastikan untuk memperbarui properti lain yang relevan dari hasil DB
-            } : course
+
+        setCourses((prevCourses: any) =>
+          prevCourses.map((course: any) =>
+            course.id === courseId
+              ? {
+                  ...course,
+                  title: updatedCourseFromDb.courseName,
+                  instructor: updatedCourseFromDb.instructor,
+                  price: updatedCourseFromDb.price,
+                  category: updatedCourseFromDb.category,
+                  image: updatedCourseFromDb.image || "/placeholder-course.jpg",
+                  description: updatedCourseFromDb.description,
+                  duration: updatedCourseFromDb.duration,
+                }
+              : course
           )
         );
 
         alert("Course updated successfully!");
-
       } else {
-        // Logika untuk menambahkan kursus baru
         const result = await addCourseAction({
           courseName: courseData.courseName,
           description: courseData.description,
@@ -381,19 +387,26 @@ export function CourseManagement() {
           level: courseData.level,
           price: courseData.price,
           image: courseData.image,
-          tags: courseData.tags ? courseData.tags.split(',').map(tag => tag.trim()).join('') : "",
+          tags: courseData.tags
+            ? courseData.tags
+                .split(",")
+                .map((tag) => tag.trim())
+                .join("")
+            : "",
           category: courseData.category,
         });
 
         const newCourse: Course = {
-          id: String(result[0].id), // Ambil ID dari hasil DB
-          title: result[0].courseName, // Ambil nama kursus dari hasil DB
+          id: String(result[0].id),
+          title: result[0].courseName,
           instructor: result[0].instructor,
           students: 0,
           rating: 0,
           price: result[0].price,
-          status: "Draft", // Atau status default dari DB jika ada
-          createdDate: result[0].createdAt ? new Date(result[0].createdAt).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
+          status: "Draft",
+          createdDate: result[0].createdAt
+            ? new Date(result[0].createdAt).toISOString().split("T")[0]
+            : new Date().toISOString().split("T")[0],
           category: result[0].category || "Uncategorized",
           image: result[0].image || "/placeholder-course.jpg",
           description: result[0].description,
@@ -405,8 +418,7 @@ export function CourseManagement() {
       setIsModalOpen(false);
       setIsEditing(false);
       setEditingCourse(undefined);
-      fetchAllCourse(); // Refresh data setelah operasi (opsional, tergantung kebutuhan)
-      
+      fetchAllCourse();
     } catch (err: any) {
       console.error("Error submitting course:", err);
       alert(`Failed to submit course: ${err.shortMessage || err.message}`);
@@ -428,9 +440,13 @@ export function CourseManagement() {
           <h1 className="text-3xl font-bold text-gray-900">Course Management</h1>
           <p className="text-gray-600 mt-1">Create, edit, and manage educational content</p>
         </div>
-        <button className="btn-primary flex items-center" onClick={handleAddCourseClick} disabled={isPending}>
+        <button
+          className="btn-primary flex items-center cursor-pointer"
+          onClick={handleAddCourseClick}
+          disabled={isPending}
+        >
           <Plus className="w-5 h-5 mr-2" />
-          {isPending ? 'Processing...' : 'Create Course'}
+          {isPending ? "Processing..." : "Create Course"}
         </button>
       </div>
 
@@ -506,20 +522,19 @@ export function CourseManagement() {
         </div>
       </div>
 
-      {isConfirming && <p className="text-center text-blue-600">Menunggu konfirmasi transaksi...</p>}
-      {isConfirmed && <p className="text-center text-green-600">Transaksi berhasil dikonfirmasi!</p>}
+      {isConfirming && (
+        <p className="text-center text-blue-600">Menunggu konfirmasi transaksi...</p>
+      )}
+      {isConfirmed && (
+        <p className="text-center text-green-600">Transaksi berhasil dikonfirmasi!</p>
+      )}
       {error && <p className="text-center text-red-600">Error transaksi: {error.message}</p>}
-
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredCourses.map((course) => (
           <div key={course.id} className="card p-0 overflow-hidden">
             {course.image && (
-              <img
-                src={course.image}
-                alt={course.title}
-                className="w-full h-40 object-cover"
-              />
+              <img src={course.image} alt={course.title} className="w-full h-40 object-cover" />
             )}
             <div className="p-6">
               <div className="flex justify-between items-start mb-4">
@@ -572,9 +587,6 @@ export function CourseManagement() {
                   >
                     <Edit className="w-4 h-4" />
                   </button>
-                  {/* <button className="p-1 text-gray-400 hover:text-red-500">
-                    <Trash className="w-4 h-4" />
-                  </button> */}
                 </div>
               </div>
             </div>

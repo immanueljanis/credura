@@ -41,7 +41,6 @@ export function CreditOperations() {
 
   const handleMintTokens = () => {
     console.log("Minting tokens:", { recipient, amount, reason });
-    // Reset form
     setRecipient("");
     setAmount("");
     setReason("");
@@ -152,12 +151,12 @@ export function CreditOperations() {
             <div className="flex space-x-4">
               <button
                 onClick={handleMintTokens}
-                className="flex-1 btn-primary flex items-center justify-center"
+                className="flex-1 btn-primary flex items-center justify-center cursor-pointer"
               >
                 <Plus className="w-4 h-4 mr-2" />
                 Mint Tokens
               </button>
-              <button className="flex-1 btn-secondary flex items-center justify-center">
+              <button className="flex-1 btn-secondary flex items-center justify-center cursor-pointer">
                 <Send className="w-4 h-4 mr-2" />
                 Transfer
               </button>

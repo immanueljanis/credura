@@ -1,4 +1,4 @@
-export const courseBadgeAddress = "0xEcCe37Eb86325E3Ed258A80D5e398f038cFA3fFb";
+export const courseBadgeAddress = "0x1CFc7fC252dDF4F88C5844c4b361e10dC286B735";
 export const courseBadgeAbi = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   { inputs: [], name: "AccessControlBadConfirmation", type: "error" },
@@ -61,18 +61,8 @@ export const courseBadgeAbi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "operator",
-        type: "address",
-      },
+      { indexed: true, internalType: "address", name: "account", type: "address" },
+      { indexed: true, internalType: "address", name: "operator", type: "address" },
       { indexed: false, internalType: "bool", name: "approved", type: "bool" },
     ],
     name: "ApprovalForAll",
@@ -81,24 +71,9 @@ export const courseBadgeAbi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "student",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
+      { indexed: true, internalType: "address", name: "student", type: "address" },
+      { indexed: true, internalType: "uint256", name: "tokenId", type: "uint256" },
+      { indexed: false, internalType: "uint256", name: "amount", type: "uint256" },
     ],
     name: "BadgeIssued",
     type: "event",
@@ -106,12 +81,7 @@ export const courseBadgeAbi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
+      { indexed: true, internalType: "uint256", name: "tokenId", type: "uint256" },
       { indexed: false, internalType: "string", name: "name", type: "string" },
     ],
     name: "CertificateTypeCreated",
@@ -120,12 +90,7 @@ export const courseBadgeAbi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
+      { indexed: true, internalType: "uint256", name: "tokenId", type: "uint256" },
       { indexed: false, internalType: "string", name: "name", type: "string" },
     ],
     name: "EventBadgeTypeCreated",
@@ -133,14 +98,7 @@ export const courseBadgeAbi = [
   },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
+    inputs: [{ indexed: false, internalType: "address", name: "account", type: "address" }],
     name: "Paused",
     type: "event",
   },
@@ -148,18 +106,8 @@ export const courseBadgeAbi = [
     anonymous: false,
     inputs: [
       { indexed: true, internalType: "bytes32", name: "role", type: "bytes32" },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "previousAdminRole",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "newAdminRole",
-        type: "bytes32",
-      },
+      { indexed: true, internalType: "bytes32", name: "previousAdminRole", type: "bytes32" },
+      { indexed: true, internalType: "bytes32", name: "newAdminRole", type: "bytes32" },
     ],
     name: "RoleAdminChanged",
     type: "event",
@@ -168,18 +116,8 @@ export const courseBadgeAbi = [
     anonymous: false,
     inputs: [
       { indexed: true, internalType: "bytes32", name: "role", type: "bytes32" },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
+      { indexed: true, internalType: "address", name: "account", type: "address" },
+      { indexed: true, internalType: "address", name: "sender", type: "address" },
     ],
     name: "RoleGranted",
     type: "event",
@@ -188,18 +126,8 @@ export const courseBadgeAbi = [
     anonymous: false,
     inputs: [
       { indexed: true, internalType: "bytes32", name: "role", type: "bytes32" },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
+      { indexed: true, internalType: "address", name: "account", type: "address" },
+      { indexed: true, internalType: "address", name: "sender", type: "address" },
     ],
     name: "RoleRevoked",
     type: "event",
@@ -207,26 +135,11 @@ export const courseBadgeAbi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "operator",
-        type: "address",
-      },
+      { indexed: true, internalType: "address", name: "operator", type: "address" },
       { indexed: true, internalType: "address", name: "from", type: "address" },
       { indexed: true, internalType: "address", name: "to", type: "address" },
-      {
-        indexed: false,
-        internalType: "uint256[]",
-        name: "ids",
-        type: "uint256[]",
-      },
-      {
-        indexed: false,
-        internalType: "uint256[]",
-        name: "values",
-        type: "uint256[]",
-      },
+      { indexed: false, internalType: "uint256[]", name: "ids", type: "uint256[]" },
+      { indexed: false, internalType: "uint256[]", name: "values", type: "uint256[]" },
     ],
     name: "TransferBatch",
     type: "event",
@@ -234,21 +147,11 @@ export const courseBadgeAbi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "operator",
-        type: "address",
-      },
+      { indexed: true, internalType: "address", name: "operator", type: "address" },
       { indexed: true, internalType: "address", name: "from", type: "address" },
       { indexed: true, internalType: "address", name: "to", type: "address" },
       { indexed: false, internalType: "uint256", name: "id", type: "uint256" },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
+      { indexed: false, internalType: "uint256", name: "value", type: "uint256" },
     ],
     name: "TransferSingle",
     type: "event",
@@ -264,14 +167,7 @@ export const courseBadgeAbi = [
   },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
+    inputs: [{ indexed: false, internalType: "address", name: "account", type: "address" }],
     name: "Unpaused",
     type: "event",
   },
@@ -352,13 +248,6 @@ export const courseBadgeAbi = [
     type: "function",
   },
   {
-    inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
-    name: "burnExpired",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [
       { internalType: "uint256", name: "", type: "uint256" },
       { internalType: "address", name: "", type: "address" },
@@ -381,28 +270,6 @@ export const courseBadgeAbi = [
   },
   {
     inputs: [
-      { internalType: "string", name: "name", type: "string" },
-      { internalType: "uint256", name: "maxSupply", type: "uint256" },
-      { internalType: "string", name: "uriEventBadge", type: "string" },
-      { internalType: "bool", name: "isTransferable", type: "bool" },
-    ],
-    name: "createEventBadgeType",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      { internalType: "string", name: "seriesName", type: "string" },
-      { internalType: "uint256", name: "totalSessions", type: "uint256" },
-    ],
-    name: "createWorkshopSeries",
-    outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
       { internalType: "uint256", name: "", type: "uint256" },
       { internalType: "address", name: "", type: "address" },
     ],
@@ -419,59 +286,10 @@ export const courseBadgeAbi = [
     type: "function",
   },
   {
-    inputs: [
-      { internalType: "uint256", name: "certificateType", type: "uint256" },
-      { internalType: "address", name: "student", type: "address" },
-    ],
-    name: "getCertificateAdditionalData",
-    outputs: [{ internalType: "string", name: "", type: "string" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [{ internalType: "bytes32", name: "role", type: "bytes32" }],
     name: "getRoleAdmin",
     outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "address", name: "student", type: "address" }],
-    name: "getStudentBadges",
-    outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
-    name: "getTokenInfo",
-    outputs: [
-      {
-        components: [
-          { internalType: "string", name: "name", type: "string" },
-          { internalType: "string", name: "category", type: "string" },
-          { internalType: "uint256", name: "maxSupply", type: "uint256" },
-          { internalType: "bool", name: "isTransferable", type: "bool" },
-          { internalType: "uint256", name: "validUntil", type: "uint256" },
-          { internalType: "address", name: "issuer", type: "address" },
-        ],
-        internalType: "struct CourseBadge.TokenInfo",
-        name: "",
-        type: "tuple",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      { internalType: "address", name: "student", type: "address" },
-      { internalType: "string", name: "achievementName", type: "string" },
-      { internalType: "uint256", name: "rarity", type: "uint256" },
-    ],
-    name: "grantAchievement",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -482,16 +300,6 @@ export const courseBadgeAbi = [
     name: "grantRole",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      { internalType: "address", name: "student", type: "address" },
-      { internalType: "uint256", name: "tokenId", type: "uint256" },
-    ],
-    name: "hasBadge",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "view",
     type: "function",
   },
   {
@@ -515,37 +323,12 @@ export const courseBadgeAbi = [
     type: "function",
   },
   {
-    inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
-    name: "isExpired",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       { internalType: "address", name: "student", type: "address" },
       { internalType: "uint256", name: "certificateType", type: "uint256" },
       { internalType: "string", name: "additionalData", type: "string" },
     ],
     name: "issueCertificate",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      { internalType: "address[]", name: "attendees", type: "address[]" },
-      { internalType: "uint256", name: "eventId", type: "uint256" },
-      { internalType: "uint256", name: "amount", type: "uint256" },
-    ],
-    name: "mintEventBadges",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "pause",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -669,29 +452,9 @@ export const courseBadgeAbi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "unpause",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
     name: "uri",
     outputs: [{ internalType: "string", name: "", type: "string" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      { internalType: "address", name: "student", type: "address" },
-      { internalType: "uint256", name: "tokenId", type: "uint256" },
-    ],
-    name: "verifyBadge",
-    outputs: [
-      { internalType: "bool", name: "isValid", type: "bool" },
-      { internalType: "uint256", name: "earnedTimestamp", type: "uint256" },
-    ],
     stateMutability: "view",
     type: "function",
   },

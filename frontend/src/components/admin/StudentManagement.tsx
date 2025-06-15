@@ -66,7 +66,7 @@ export function StudentManagement() {
           <h1 className="text-3xl font-bold text-gray-900">Student Management</h1>
           <p className="text-gray-600 mt-1">Manage and monitor student accounts and progress</p>
         </div>
-        <button className="btn-primary">Add Student</button>
+        <button className="btn-primary cursor-pointer">Add Student</button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">

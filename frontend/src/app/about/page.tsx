@@ -21,29 +21,29 @@ import { useAccount } from "wagmi";
 
 const TEAM_MEMBERS = [
   {
-    name: "Dr. Sarah Chen",
-    role: "Founder & CEO",
+    name: "Adzikri Fauzi Shiddiq",
+    role: "Full Stack Developer",
     bio: "Former blockchain researcher at MIT with 10+ years in distributed systems",
-    image: "👩‍💼",
+    image: "👨‍🏫",
     social: { twitter: "#", linkedin: "#", github: "#" },
   },
   {
-    name: "Michael Rodriguez",
-    role: "CTO & Lead Developer",
+    name: "Immanuel J. Janis",
+    role: "Frontend Developer",
     bio: "Full-stack developer specializing in Web3 and smart contract development",
     image: "👨‍💻",
     social: { twitter: "#", linkedin: "#", github: "#" },
   },
   {
-    name: "Emma Watson",
-    role: "Head of Education",
+    name: "Muhammad Ramadhani",
+    role: "Smart Contract Developer",
     bio: "Educational technology expert with focus on blockchain curriculum design",
-    image: "👩‍🏫",
+    image: "👨‍🍳",
     social: { twitter: "#", linkedin: "#", github: "#" },
   },
   {
-    name: "Alex Thompson",
-    role: "Community Manager",
+    name: "Hudzaifah A.",
+    role: "Frontend Developer",
     bio: "Building vibrant learning communities in the Web3 space",
     image: "👨‍🎓",
     social: { twitter: "#", linkedin: "#", github: "#" },
@@ -416,10 +416,10 @@ export default function AboutPage() {
                 <h3 className="text-xl font-semibold mb-4">Email Us</h3>
                 <p className="text-gray-300 mb-4">Get in touch with our team</p>
                 <a
-                  href="mailto:hello@digitalcampus.edu"
+                  href="mailto:hello@credura.edu"
                   className="text-[#58CC02] hover:text-[#4FB302] transition-colors"
                 >
-                  hello@digitalcampus.edu
+                  hello@credura.edu
                 </a>
               </div>
 
