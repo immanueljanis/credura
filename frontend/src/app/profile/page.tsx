@@ -153,9 +153,9 @@ export default function ProfilePage() {
                   {!isEditing ? (
                     <button
                       onClick={() => setIsEditing(true)}
-                      className="btn-primary flex items-center text-sm"
+                      className="btn-primary flex items-center text-sm cursor-pointer"
                     >
-                      <Edit3 className="w-4 h-4 mr-2 cursor-pointer" />
+                      <Edit3 className="w-4 h-4 mr-2" />
                       Edit Profile
                     </button>
                   ) : (
