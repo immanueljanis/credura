@@ -11,7 +11,7 @@ export function Footer() {
               <div className="w-8 h-8 bg-[#58CC02] rounded-lg flex items-center justify-center">
                 <BookOpen className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold">Digital Campus</span>
+              <span className="text-xl font-bold">Credura</span>
             </div>
             <p className="text-gray-400 mb-6 max-w-md">
               Empowering the next generation of blockchain developers and Web3 enthusiasts through
@@ -103,7 +103,7 @@ export function Footer() {
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400">
-            © 2025 Digital Campus. All rights reserved. Built with ❤️ for the Web3 community.
+            © 2025 Credura. All rights reserved. Built with ❤️ for the Web3 community.
           </p>
         </div>
       </div>
