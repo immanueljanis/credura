@@ -57,11 +57,11 @@ export function QuizCard({ quiz, isWalletConnected, onComplete }: QuizCardProps)
       <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
         {quiz.title}
       </h3>
-      
+
       <p className="text-gray-600 text-sm mb-4 line-clamp-2">
         {quiz.description}
       </p>
-      
+
       <div className="space-y-3 mb-6">
         <div className="flex items-center justify-between text-sm text-gray-600">
           <div className="flex items-center">
@@ -73,7 +73,7 @@ export function QuizCard({ quiz, isWalletConnected, onComplete }: QuizCardProps)
             {quiz.duration} min
           </div>
         </div>
-        
+
         <div className="flex items-center justify-between text-sm text-gray-600">
           <div className="flex items-center">
             <Users className="w-4 h-4 mr-1" />
@@ -85,16 +85,16 @@ export function QuizCard({ quiz, isWalletConnected, onComplete }: QuizCardProps)
           </div>
         </div>
       </div>
-      
+
       <div className="mb-4">
         <div className="text-sm text-gray-600 mb-2">Badge Reward:</div>
         <div className="bg-gradient-to-r from-[#FF6F61] to-[#4E6C50] text-white px-3 py-2 rounded-lg text-sm font-medium text-center">
           🏆 {quiz.badge}
         </div>
       </div>
-      
+
       {isWalletConnected ? (
-        <button 
+        <button
           onClick={handleStartQuiz}
           className="w-full btn-primary"
         >

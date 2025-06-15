@@ -6,7 +6,8 @@ import { Footer } from "@/components/layout/Footer";
 import { QuizCard } from "@/components/quiz/QuizCard";
 import { RewardModal } from "@/components/quiz/RewardModal";
 import { Brain, Trophy, Clock, Target, Award } from "lucide-react";
-import { useAccount } from "wagmi";
+import { useAccount, useWriteContract } from "wagmi";
+import { addCreditForStudent } from "@/actions/quiz/add-credit.action";
 
 const AVAILABLE_QUIZZES = [
   {
@@ -16,7 +17,7 @@ const AVAILABLE_QUIZZES = [
     questions: 10,
     duration: 15,
     difficulty: "Beginner",
-    reward: 250,
+    reward: 5,
     badge: "Blockchain Novice",
     category: "Fundamentals",
     attempts: 2543,
@@ -51,15 +52,34 @@ const AVAILABLE_QUIZZES = [
 ];
 
 export default function QuizPage() {
-  const { isConnected } = useAccount();
+  const { address: userAddress, isConnected } = useAccount();
   const [userTokens, setUserTokens] = useState(1750);
   const [showRewardModal, setShowRewardModal] = useState(false);
   const [quizReward, setQuizReward] = useState({ tokens: 0, badge: "" });
+  const [status, setStatus] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const { writeContractAsync } = useWriteContract()
 
-  const handleQuizComplete = (reward: { tokens: number; badge: string }) => {
+  const handleQuizComplete = async (reward: { tokens: number; badge: string }) => {
     setQuizReward(reward);
     setUserTokens((prev) => prev + reward.tokens);
     setShowRewardModal(true);
+    setStatus('Sending transaction...');
+
+    try {
+      console.log({ userAddress, reward })
+      const result = await addCreditForStudent({
+        userAddress: userAddress as `0x${string}`,
+        amount: reward.tokens
+      });
+      console.log(result);
+
+    } catch (error: any) {
+      console.error('Failed to add reward:', error);
+      setStatus(`Error: ${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
