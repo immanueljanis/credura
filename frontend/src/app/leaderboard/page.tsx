@@ -307,7 +307,7 @@ export default function LeaderboardPage() {
             <div className="card mt-8 bg-gradient-to-r from-[#58CC02] to-[#4E6C50] text-white">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-lg font-semibold mb-2">Your Current Rank</h3>
+                  <h3 className="text-lg font-semibold mb-2 text-white">Your Current Rank</h3>
                   <div className="flex items-center space-x-6">
                     <div>
                       <div className="text-2xl font-bold">#47</div>

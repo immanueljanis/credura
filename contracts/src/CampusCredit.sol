@@ -29,8 +29,12 @@ contract CampusCredit is ERC20, ERC20Burnable, ERC20Pausable, AccessControl {
     mapping(address => bool) public isMerchant;
     mapping(address => string) public merchantName;
 
+    // Claimable CREDIT mapping
+    mapping(address => uint256) public claimable;
+
     // Events
     event TransferWithCashback(address indexed from, address indexed merchant, uint256 amount, uint256 cashback);
+    event Claimed(address indexed user, uint256 amount);
 
     constructor() ERC20("Campus Credit", "CREDIT") {
         // TODO: Setup roles
@@ -180,5 +184,27 @@ contract CampusCredit is ERC20, ERC20Burnable, ERC20Pausable, AccessControl {
         _mint(msg.sender, cashback);
 
         emit TransferWithCashback(msg.sender, merchant, amount, cashback);
+    }
+
+    /**
+     * @dev Add claimable amount for users
+     * Only callable by MINTER_ROLE
+     */
+    function addClaimable(address user, uint256 amount) public onlyRole(MINTER_ROLE) {
+        require(user != address(0), "Invalid user address");
+        require(amount > 0, "Amount must be greater than zero");
+        claimable[user] += amount;
+    }
+
+    /**
+     * @dev Claim CREDIT yang telah dialokasikan
+     * Hanya bisa dipanggil oleh pengguna sendiri
+     */
+    function claim() public {
+        uint256 amount = claimable[msg.sender];
+        require(amount > 0, "No claimable CREDIT");
+        claimable[msg.sender] = 0;
+        _mint(msg.sender, amount);
+        emit Claimed(msg.sender, amount);
     }
 }
