@@ -22,7 +22,7 @@ export function CourseCard({ course, isWalletConnected }: CourseCardProps) {
           {course.level}
         </div>
         <div className="absolute top-4 right-4 bg-[#58CC02] text-white px-2 py-1 rounded text-sm font-bold">
-          {course.price} ETH
+          {course.price} MON
         </div>
       </div>
 

@@ -363,7 +363,7 @@ export default function ProfilePage() {
 
                 <div className="bg-gradient-to-br from-[#58CC02] to-[#4E6C50] rounded-lg p-6 text-white text-center">
                   <User className="w-12 h-12 mx-auto mb-3 opacity-80" />
-                  <div className="font-bold text-lg mb-2">Digital Campus</div>
+                  <div className="font-bold text-lg mb-2">Credura</div>
                   <div className="text-sm opacity-90 mb-2">
                     Student Certificate
                   </div>
