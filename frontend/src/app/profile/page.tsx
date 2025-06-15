@@ -3,22 +3,27 @@
 import { useState } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { User, Trophy, BookOpen, Award, Calendar, Wallet } from "lucide-react";
+import { User, Trophy, BookOpen, Award, Calendar, Wallet, Edit3, Save, X } from "lucide-react";
 import { useAccount } from "wagmi";
 
 export default function ProfilePage() {
   const { isConnected } = useAccount();
   const [userTokens, setUserTokens] = useState(2750);
+  const [isEditing, setIsEditing] = useState(false);
 
-  const userProfile = {
+  const [userProfile, setUserProfile] = useState({
     address: "0x1234...5678",
+    username: "CryptoLearner",
+    bio: "Passionate blockchain developer and lifelong learner exploring DeFi protocols.",
     joinDate: "March 2024",
     totalCourses: 8,
     completedCourses: 5,
     totalTokens: 2750,
     level: "Advanced Learner",
     nftId: "#1337",
-  };
+  });
+
+  const [editForm, setEditForm] = useState(userProfile);
 
   const completedCourses = [
     {
@@ -68,6 +73,22 @@ export default function ProfilePage() {
     },
   ];
 
+  const handleSave = () => {
+    setUserProfile(editForm);
+    setIsEditing(false);
+    // Here you would save to backend/database
+    console.log("Saving profile:", editForm);
+  };
+
+  const handleCancel = () => {
+    setEditForm(userProfile);
+    setIsEditing(false);
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setEditForm((prev) => ({ ...prev, [field]: value }));
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header isWalletConnected={isConnected} userTokens={userTokens} />
@@ -81,7 +102,32 @@ export default function ProfilePage() {
               </div>
 
               <div className="flex-1 text-center md:text-left">
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">Digital Campus Student</h1>
+                {isEditing ? (
+                  <div className="space-y-4">
+                    <input
+                      type="text"
+                      value={editForm.username}
+                      onChange={(e) => handleInputChange("username", e.target.value)}
+                      className="input-field text-2xl font-bold"
+                      placeholder="Username"
+                    />
+                    <textarea
+                      value={editForm.bio}
+                      onChange={(e) => handleInputChange("bio", e.target.value)}
+                      className="input-field"
+                      rows={2}
+                      placeholder="Tell us about yourself..."
+                    />
+                  </div>
+                ) : (
+                  <>
+                    <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                      {userProfile.username}
+                    </h1>
+                    <p className="text-gray-600 mb-4">{userProfile.bio}</p>
+                  </>
+                )}
+
                 <p className="text-gray-600 mb-4">
                   Wallet: {userProfile.address} • Joined {userProfile.joinDate}
                 </p>
@@ -95,11 +141,42 @@ export default function ProfilePage() {
                 </div>
               </div>
 
-              <div className="text-center">
-                <div className="text-3xl font-bold text-[#58CC02] mb-1">
-                  {userProfile.totalTokens}
+              <div className="flex flex-col items-center space-y-4">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-[#58CC02] mb-1">
+                    {userProfile.totalTokens}
+                  </div>
+                  <div className="text-gray-600 text-sm">Campus Credits</div>
                 </div>
-                <div className="text-gray-600 text-sm">Campus Credits</div>
+
+                <div className="flex items-center space-x-2">
+                  {!isEditing ? (
+                    <button
+                      onClick={() => setIsEditing(true)}
+                      className="btn-primary flex items-center text-sm"
+                    >
+                      <Edit3 className="w-4 h-4 mr-2 cursor-pointer" />
+                      Edit Profile
+                    </button>
+                  ) : (
+                    <div className="flex space-x-2">
+                      <button
+                        onClick={handleSave}
+                        className="btn-primary flex items-center text-sm cursor-pointer"
+                      >
+                        <Save className="w-4 h-4 mr-2" />
+                        Save
+                      </button>
+                      <button
+                        onClick={handleCancel}
+                        className="btn-secondary flex items-center text-sm cursor-pointer"
+                      >
+                        <X className="w-4 h-4 mr-2" />
+                        Cancel
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
