@@ -15,14 +15,9 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 interface HeaderProps {
   isWalletConnected: boolean;
   userTokens: number;
-  onWalletConnect: () => void;
 }
 
-export function Header({
-  isWalletConnected,
-  userTokens,
-  onWalletConnect,
-}: HeaderProps) {
+export function Header({ isWalletConnected, userTokens }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigation = [
@@ -36,17 +31,13 @@ export function Header({
     <header className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-[#58CC02] rounded-lg flex items-center justify-center">
               <BookOpen className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-gray-900">
-              Digital Campus
-            </span>
+            <span className="text-xl font-bold text-gray-900">Digital Campus</span>
           </Link>
 
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => (
               <Link
@@ -59,7 +50,6 @@ export function Header({
             ))}
           </nav>
 
-          {/* User Actions */}
           <div className="flex items-center space-x-4">
             {isWalletConnected && (
               <div className="hidden sm:flex items-center space-x-4">
@@ -84,21 +74,15 @@ export function Header({
 
             <ConnectButton />
 
-            {/* Mobile menu button */}
             <button
               className="md:hidden p-2 text-gray-700 hover:text-[#58CC02]"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         {isMobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-100">
             <div className="flex flex-col space-y-4">

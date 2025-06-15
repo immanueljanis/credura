@@ -1,111 +1,105 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
-import { QuizCard } from '@/components/quiz/QuizCard';
-import { RewardModal } from '@/components/quiz/RewardModal';
-import { Brain, Trophy, Clock, Target, Award } from 'lucide-react';
+import { useState } from "react";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { QuizCard } from "@/components/quiz/QuizCard";
+import { RewardModal } from "@/components/quiz/RewardModal";
+import { Brain, Trophy, Clock, Target, Award } from "lucide-react";
+import { useAccount } from "wagmi";
 
 const AVAILABLE_QUIZZES = [
   {
-    id: '1',
-    title: 'Blockchain Basics Quiz',
-    description: 'Test your knowledge of fundamental blockchain concepts',
+    id: "1",
+    title: "Blockchain Basics Quiz",
+    description: "Test your knowledge of fundamental blockchain concepts",
     questions: 10,
     duration: 15,
-    difficulty: 'Beginner',
+    difficulty: "Beginner",
     reward: 250,
-    badge: 'Blockchain Novice',
-    category: 'Fundamentals',
+    badge: "Blockchain Novice",
+    category: "Fundamentals",
     attempts: 2543,
-    successRate: 78
+    successRate: 78,
   },
   {
-    id: '2',
-    title: 'Smart Contracts Advanced',
-    description: 'Advanced concepts in smart contract development',
+    id: "2",
+    title: "Smart Contracts Advanced",
+    description: "Advanced concepts in smart contract development",
     questions: 15,
     duration: 25,
-    difficulty: 'Advanced',
+    difficulty: "Advanced",
     reward: 500,
-    badge: 'Smart Contract Expert',
-    category: 'Development',
+    badge: "Smart Contract Expert",
+    category: "Development",
     attempts: 892,
-    successRate: 65
+    successRate: 65,
   },
   {
-    id: '3',
-    title: 'DeFi Protocols Quiz',
-    description: 'Understanding decentralized finance protocols',
+    id: "3",
+    title: "DeFi Protocols Quiz",
+    description: "Understanding decentralized finance protocols",
     questions: 12,
     duration: 20,
-    difficulty: 'Intermediate',
+    difficulty: "Intermediate",
     reward: 350,
-    badge: 'DeFi Specialist',
-    category: 'Finance',
+    badge: "DeFi Specialist",
+    category: "Finance",
     attempts: 1456,
-    successRate: 71
-  }
+    successRate: 71,
+  },
 ];
 
 export default function QuizPage() {
-  const [isWalletConnected, setIsWalletConnected] = useState(true);
+  const { isConnected } = useAccount();
   const [userTokens, setUserTokens] = useState(1750);
   const [showRewardModal, setShowRewardModal] = useState(false);
-  const [quizReward, setQuizReward] = useState({ tokens: 0, badge: '' });
+  const [quizReward, setQuizReward] = useState({ tokens: 0, badge: "" });
 
   const handleQuizComplete = (reward: { tokens: number; badge: string }) => {
     setQuizReward(reward);
-    setUserTokens(prev => prev + reward.tokens);
+    setUserTokens((prev) => prev + reward.tokens);
     setShowRewardModal(true);
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header 
-        isWalletConnected={isWalletConnected}
-        userTokens={userTokens}
-        onWalletConnect={() => setIsWalletConnected(true)}
-      />
-      
+      <Header isWalletConnected={isConnected} userTokens={userTokens} />
+
       <main className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
           <div className="text-center mb-12">
             <div className="flex justify-center mb-4">
               <div className="w-16 h-16 bg-[#58CC02] rounded-full flex items-center justify-center">
                 <Brain className="w-8 h-8 text-white" />
               </div>
             </div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              Knowledge Quiz Center
-            </h1>
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">Knowledge Quiz Center</h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Test your blockchain knowledge and earn rewards! Complete quizzes to gain tokens and unlock achievement badges.
+              Test your blockchain knowledge and earn rewards! Complete quizzes to gain tokens and
+              unlock achievement badges.
             </p>
           </div>
 
-          {/* Stats Section */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
             <div className="card text-center">
               <Target className="w-8 h-8 text-[#58CC02] mx-auto mb-2" />
               <div className="text-2xl font-bold text-gray-900 mb-1">24</div>
               <div className="text-sm text-gray-600">Available Quizzes</div>
             </div>
-            
+
             <div className="card text-center">
               <Trophy className="w-8 h-8 text-[#FF6F61] mx-auto mb-2" />
               <div className="text-2xl font-bold text-gray-900 mb-1">12</div>
               <div className="text-sm text-gray-600">Completed</div>
             </div>
-            
+
             <div className="card text-center">
               <Award className="w-8 h-8 text-[#4E6C50] mx-auto mb-2" />
               <div className="text-2xl font-bold text-gray-900 mb-1">8</div>
               <div className="text-sm text-gray-600">Badges Earned</div>
             </div>
-            
+
             <div className="card text-center">
               <Clock className="w-8 h-8 text-[#58CC02] mx-auto mb-2" />
               <div className="text-2xl font-bold text-gray-900 mb-1">85%</div>
@@ -113,7 +107,6 @@ export default function QuizPage() {
             </div>
           </div>
 
-          {/* Featured Quiz */}
           <div className="card mb-12 p-8 bg-gradient-to-r from-[#58CC02] to-[#4E6C50] text-white">
             <div className="flex flex-col md:flex-row items-center justify-between">
               <div className="mb-6 md:mb-0 text-center md:text-left">
@@ -136,31 +129,33 @@ export default function QuizPage() {
             </div>
           </div>
 
-          {/* Quiz Grid */}
           <div className="mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Available Quizzes</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {AVAILABLE_QUIZZES.map((quiz) => (
-                <QuizCard 
-                  key={quiz.id} 
+                <QuizCard
+                  key={quiz.id}
                   quiz={quiz}
-                  isWalletConnected={isWalletConnected}
+                  isWalletConnected={isConnected}
                   onComplete={handleQuizComplete}
                 />
               ))}
             </div>
           </div>
 
-          {/* How It Works */}
           <div className="card">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">How Quiz Rewards Work</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+              How Quiz Rewards Work
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
                 <div className="w-12 h-12 bg-[#58CC02] rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-white font-bold">1</span>
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">Choose Quiz</h3>
-                <p className="text-gray-600 text-sm">Select a quiz that matches your skill level and interests</p>
+                <p className="text-gray-600 text-sm">
+                  Select a quiz that matches your skill level and interests
+                </p>
               </div>
 
               <div className="text-center">
@@ -168,7 +163,9 @@ export default function QuizPage() {
                   <span className="text-white font-bold">2</span>
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">Complete Quiz</h3>
-                <p className="text-gray-600 text-sm">Answer questions within the time limit to test your knowledge</p>
+                <p className="text-gray-600 text-sm">
+                  Answer questions within the time limit to test your knowledge
+                </p>
               </div>
 
               <div className="text-center">
@@ -176,15 +173,17 @@ export default function QuizPage() {
                   <span className="text-white font-bold">3</span>
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">Earn Rewards</h3>
-                <p className="text-gray-600 text-sm">Get tokens and badges based on your performance</p>
+                <p className="text-gray-600 text-sm">
+                  Get tokens and badges based on your performance
+                </p>
               </div>
             </div>
           </div>
         </div>
       </main>
-      
+
       <Footer />
-      
+
       {showRewardModal && (
         <RewardModal
           tokens={quizReward.tokens}

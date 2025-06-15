@@ -1,26 +1,24 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Settings, Shield, AlertTriangle, CheckCircle, RefreshCw, Lock } from 'lucide-react';
+import { useState } from "react";
+import { Settings, Shield, AlertTriangle, CheckCircle, RefreshCw, Lock } from "lucide-react";
 
 const CONTRACT_STATUS = {
-  nft: { address: '0xABC...123', status: 'Active', version: 'v1.2.0' },
-  token: { address: '0xDEF...456', status: 'Active', version: 'v1.1.0' },
-  quiz: { address: '0x789...GHI', status: 'Paused', version: 'v1.0.0' }
+  nft: { address: "0xABC...123", status: "Active", version: "v1.2.0" },
+  token: { address: "0xDEF...456", status: "Active", version: "v1.1.0" },
+  quiz: { address: "0x789...GHI", status: "Paused", version: "v1.0.0" },
 };
 
 export function ContractControls() {
-  const [selectedContract, setSelectedContract] = useState('nft');
+  const [selectedContract, setSelectedContract] = useState("nft");
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-gray-900">Contract Controls</h1>
         <p className="text-gray-600 mt-1">Manage smart contracts and blockchain operations</p>
       </div>
 
-      {/* Contract Status Overview */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="card">
           <div className="flex items-center justify-between mb-4">
@@ -69,7 +67,6 @@ export function ContractControls() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Contract Management */}
         <div className="card">
           <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
             <Settings className="w-6 h-6 mr-2 text-[#58CC02]" />
@@ -123,7 +120,6 @@ export function ContractControls() {
           </div>
         </div>
 
-        {/* Security & Permissions */}
         <div className="card">
           <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
             <Shield className="w-6 h-6 mr-2 text-[#FF6F61]" />
@@ -131,16 +127,26 @@ export function ContractControls() {
           </h2>
 
           <div className="space-y-6">
-            {/* Admin Roles */}
             <div>
               <h4 className="font-medium text-gray-900 mb-3">Admin Roles</h4>
               <div className="space-y-2">
                 {[
-                  { role: 'Super Admin', address: '0x1111...AAAA', permissions: 'Full Control' },
-                  { role: 'Course Manager', address: '0x2222...BBBB', permissions: 'Course Operations' },
-                  { role: 'Token Manager', address: '0x3333...CCCC', permissions: 'Token Operations' }
+                  { role: "Super Admin", address: "0x1111...AAAA", permissions: "Full Control" },
+                  {
+                    role: "Course Manager",
+                    address: "0x2222...BBBB",
+                    permissions: "Course Operations",
+                  },
+                  {
+                    role: "Token Manager",
+                    address: "0x3333...CCCC",
+                    permissions: "Token Operations",
+                  },
                 ].map((admin, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div
+                    key={index}
+                    className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                  >
                     <div>
                       <div className="font-medium text-gray-900">{admin.role}</div>
                       <div className="text-sm text-gray-600">{admin.address}</div>
@@ -151,7 +157,6 @@ export function ContractControls() {
               </div>
             </div>
 
-            {/* Security Settings */}
             <div>
               <h4 className="font-medium text-gray-900 mb-3">Security Settings</h4>
               <div className="space-y-3">
@@ -179,7 +184,6 @@ export function ContractControls() {
               </div>
             </div>
 
-            {/* Gas Settings */}
             <div>
               <h4 className="font-medium text-gray-900 mb-3">Gas Settings</h4>
               <div className="space-y-3">
@@ -197,26 +201,53 @@ export function ContractControls() {
         </div>
       </div>
 
-      {/* Recent Contract Events */}
       <div className="card">
         <h2 className="text-xl font-semibold text-gray-900 mb-6">Recent Contract Events</h2>
-        
+
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Event</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Contract</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Transaction</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Gas Used</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Time</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Event
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Contract
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Transaction
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Gas Used
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Time
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {[
-                { event: 'NFT Minted', contract: 'Certificate', tx: '0xabcd...1234', gas: '45,230', time: '2 min ago' },
-                { event: 'Tokens Transferred', contract: 'Credit Token', tx: '0xefgh...5678', gas: '21,000', time: '5 min ago' },
-                { event: 'Quiz Completed', contract: 'Quiz Reward', tx: '0xijkl...9012', gas: '32,100', time: '8 min ago' }
+                {
+                  event: "NFT Minted",
+                  contract: "Certificate",
+                  tx: "0xabcd...1234",
+                  gas: "45,230",
+                  time: "2 min ago",
+                },
+                {
+                  event: "Tokens Transferred",
+                  contract: "Credit Token",
+                  tx: "0xefgh...5678",
+                  gas: "21,000",
+                  time: "5 min ago",
+                },
+                {
+                  event: "Quiz Completed",
+                  contract: "Quiz Reward",
+                  tx: "0xijkl...9012",
+                  gas: "32,100",
+                  time: "8 min ago",
+                },
               ].map((event, index) => (
                 <tr key={index} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -228,9 +259,7 @@ export function ContractControls() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-mono">
                     {event.tx}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                    {event.gas}
-                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{event.gas}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {event.time}
                   </td>
