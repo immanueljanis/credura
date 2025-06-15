@@ -20,10 +20,6 @@ export async function addCreditForStudent(dto: { userAddress: `0x${string}`; amo
 
         console.log(`Transaction sent! Hash: ${txHash}`);
 
-        // --- Database Interaction (Example) ---
-        // You can also interact with your database here
-        // await db.insert(scoreboardItems).values({ ... });
-
         return {
             message: 'Reward added successfully!',
             transactionHash: txHash

@@ -10,15 +10,15 @@ export interface CertificateOptions {
 }
 
 export async function generateCertificate({ name, course, date, output }: CertificateOptions): Promise<string> {
-    const templatePath = path.join(__dirname, '../../public/template.jpg');
+    const templatePath = path.join(process.cwd(), 'public/template.jpg');
     const base = await loadImage(templatePath);
 
     const canvas = createCanvas(base.width, base.height);
     const ctx = canvas.getContext('2d');
     ctx.drawImage(base, 0, 0);
 
-    registerFont(path.join(__dirname, '../../public/fonts/GreatVibes-Regular.ttf'), { family: 'Signature' });
-    registerFont(path.join(__dirname, '../../public/fonts/OpenSans-Regular.ttf'), { family: 'Body' });
+    registerFont(path.join(process.cwd(), 'public/fonts/GreatVibes-Regular.ttf'), { family: 'Signature' });
+    registerFont(path.join(process.cwd(), 'public/fonts/OpenSans-Regular.ttf'), { family: 'Body' });
 
     ctx.font = 'bold 56px Signature';
     ctx.fillStyle = '#2d3748';
@@ -40,7 +40,7 @@ export async function generateCertificate({ name, course, date, output }: Certif
     ctx.fillStyle = '#2d3748';
     ctx.fillText(course, canvas.width / 2, Math.floor(canvas.height * 0.6));
 
-    const logoPath = path.join(__dirname, '../../public/logo.png');
+    const logoPath = path.join(process.cwd(), 'public/logo.png');
     const logo = await loadImage(logoPath);
     const logoWidth = 100;
     const logoHeight = 100 * (logo.height / logo.width);
