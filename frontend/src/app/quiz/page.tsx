@@ -56,23 +56,23 @@ export default function QuizPage() {
   const [userTokens, setUserTokens] = useState(1750);
   const [showRewardModal, setShowRewardModal] = useState(false);
   const [quizReward, setQuizReward] = useState({ tokens: 0, badge: "" });
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { writeContractAsync } = useWriteContract()
+  const { writeContractAsync } = useWriteContract();
 
   const handleQuizComplete = async (reward: { tokens: number; badge: string }) => {
     setQuizReward(reward);
     setUserTokens((prev) => prev + reward.tokens);
     setShowRewardModal(true);
-    setStatus('Sending transaction...');
+    setStatus("Sending transaction...");
 
     try {
       const result = await addCreditForStudent({
         userAddress: userAddress as `0x${string}`,
-        amount: reward.tokens
+        amount: reward.tokens,
       });
     } catch (error: any) {
-      console.error('Failed to add reward:', error);
+      console.error("Failed to add reward:", error);
       setStatus(`Error: ${error.message}`);
     } finally {
       setIsLoading(false);
@@ -139,7 +139,7 @@ export default function QuizPage() {
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold mb-2">🏆</div>
-                <button className="bg-white text-[#58CC02] font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors">
+                <button className="cursor-pointer bg-white text-[#58CC02] font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors">
                   Take Challenge
                 </button>
               </div>

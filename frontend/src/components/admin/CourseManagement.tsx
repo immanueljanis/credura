@@ -264,7 +264,7 @@ const CourseFormModal = ({
             >
               Cancel
             </button>
-            <button type="submit" className="btn-primary">
+            <button type="submit" className="btn-primary cursor-pointer">
               {isEditing ? "Save Changes" : "Create Course"}
             </button>
           </div>
@@ -441,7 +441,7 @@ export function CourseManagement() {
           <p className="text-gray-600 mt-1">Create, edit, and manage educational content</p>
         </div>
         <button
-          className="btn-primary flex items-center"
+          className="btn-primary flex items-center cursor-pointer"
           onClick={handleAddCourseClick}
           disabled={isPending}
         >

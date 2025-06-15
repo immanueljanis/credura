@@ -90,11 +90,11 @@ export function ContractControls() {
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <button className="btn-primary flex items-center justify-center">
+              <button className="btn-primary flex items-center justify-center cursor-pointer">
                 <RefreshCw className="w-4 h-4 mr-2" />
                 Update
               </button>
-              <button className="btn-secondary flex items-center justify-center">
+              <button className="btn-secondary flex items-center justify-center cursor-pointer">
                 <Lock className="w-4 h-4 mr-2" />
                 Pause
               </button>

@@ -97,7 +97,7 @@ export function QuizCard({ quiz, isWalletConnected, onComplete }: QuizCardProps)
       </div>
 
       {isWalletConnected ? (
-        <button onClick={handleStartQuiz} className="w-full btn-primary">
+        <button onClick={handleStartQuiz} className="w-full btn-primary cursor-pointer">
           Start Quiz
         </button>
       ) : (

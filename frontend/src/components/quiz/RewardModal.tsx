@@ -5,6 +5,7 @@ import {
   claimCreditForStudent,
 } from "@/actions/quiz/claim-credit.action";
 import { erc20Contract } from "@/constants/erc20";
+import { toast } from "@/hooks/use-toast";
 import { X, Trophy, Coins } from "lucide-react";
 import { useState } from "react";
 import { useAccount } from "wagmi";
@@ -16,14 +17,12 @@ interface RewardModalProps {
 }
 
 export function RewardModal({ tokens, badge, onClose }: RewardModalProps) {
-  const [status, setStatus] = useState("");
   const { address: userAddress, isConnected } = useAccount();
-  const [isLoading, setIsloading] = useState(false);
-  const [badgeStatus, setBadgeStatus] = useState("");
+  const [isLoadingToken, setIsloadingToken] = useState(false);
+  const [isLoadingNFT, setIsLoadingNFT] = useState(false);
 
   const claimToken = async () => {
-    setIsloading(true);
-    setStatus("Claiming tokens...");
+    setIsloadingToken(true);
 
     try {
       const result = await claimCreditForStudent({
@@ -31,27 +30,42 @@ export function RewardModal({ tokens, badge, onClose }: RewardModalProps) {
       });
 
       if (result.error) {
-        setStatus(`Error: ${result.details}`);
+        toast({
+          title: "Token Claim Failed",
+          description: result.details || "An error occurred while claiming tokens.",
+          variant: "destructive",
+        });
       } else {
-        setStatus("Tokens claimed successfully!");
+        toast({
+          title: "Tokens Claimed!",
+          description: "You have successfully claimed your tokens.",
+        });
       }
 
       console.log(result);
     } catch (error: any) {
       console.error("Failed to add reward:", error);
-      setStatus(`Error: ${error.message}`);
+      toast({
+        title: "Token Claim Error",
+        description: error.message,
+        variant: "destructive",
+      });
     } finally {
-      setIsloading(false);
+      setIsloadingToken(false);
     }
   };
 
   const claimBadge = async () => {
+    setIsLoadingNFT(true);
+
     if (!isConnected) {
-      setBadgeStatus("Please connect your wallet to claim the badge.");
+      toast({
+        title: "Wallet Not Connected",
+        description: "Please connect your wallet to claim the badge.",
+        variant: "destructive",
+      });
       return;
     }
-
-    setBadgeStatus("Creating certificate and claiming badge...");
 
     try {
       const result = await claimBadgeWithCertificate({
@@ -64,15 +78,34 @@ export function RewardModal({ tokens, badge, onClose }: RewardModalProps) {
       if (result && typeof result === "object" && "tokenId" in result) {
         const tokenIdStr =
           typeof result.tokenId === "bigint" ? result.tokenId.toString() : String(result.tokenId);
-        setBadgeStatus(`Badge claimed successfully! Token ID: ${tokenIdStr}`);
+
+        toast({
+          title: "Badge Claimed!",
+          description: `Badge claimed successfully! NFT: #${tokenIdStr}`,
+        });
       } else if (typeof result === "string") {
-        setBadgeStatus(`Error: ${result}`);
+        toast({
+          title: "Badge Claim Error",
+          description: result,
+          variant: "destructive",
+        });
       } else {
-        setBadgeStatus("Unknown error occurred while claiming badge.");
+        toast({
+          title: "Badge Claim Error",
+          description: "Unknown error occurred while claiming badge.",
+          variant: "destructive",
+        });
       }
     } catch (error: any) {
       console.error("Failed to claim badge:", error);
-      setBadgeStatus(`Error: ${error.message}`);
+
+      toast({
+        title: "Badge Claim Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoadingNFT(false);
     }
   };
 
@@ -102,11 +135,11 @@ export function RewardModal({ tokens, badge, onClose }: RewardModalProps) {
             </div>
             <div className="space-y-2">
               <button
-                disabled={isLoading}
+                disabled={isLoadingToken}
                 className="w-full btn-primary disabled:opacity-50 cursor-pointer"
                 onClick={() => claimToken()}
               >
-                {isLoading ? "Claiming..." : "Claim Credits"}
+                {isLoadingToken ? "Claiming..." : "Claim Credits"}
               </button>
               {status && <p className="text-sm text-gray-600">{status}</p>}
             </div>
@@ -118,13 +151,12 @@ export function RewardModal({ tokens, badge, onClose }: RewardModalProps) {
             <div className="text-sm opacity-90">Achievement Badge</div>
             <div className="mt-3">
               <button
-                disabled={isLoading}
+                disabled={isLoadingNFT}
                 className="cursor-pointer w-full bg-white text-gray-800 py-2 px-4 rounded-lg font-medium hover:bg-gray-100 disabled:opacity-50"
                 onClick={claimBadge}
               >
-                Claim Badge & Certificate
+                {isLoadingNFT ? "Claiming..." : "Claim Badge & Certificate"}
               </button>
-              {badgeStatus && <p className="text-sm mt-2 opacity-90">{badgeStatus}</p>}
             </div>
           </div>
         </div>

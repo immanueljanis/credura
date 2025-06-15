@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { Users, BookOpen, Coins, BarChart3, Settings, Shield } from 'lucide-react';
+import { Users, BookOpen, Coins, BarChart3, Settings, Shield } from "lucide-react";
 
 interface AdminSidebarProps {
   activeTab: string;
@@ -9,11 +9,11 @@ interface AdminSidebarProps {
 
 export function AdminSidebar({ activeTab, onTabChange }: AdminSidebarProps) {
   const menuItems = [
-    { id: 'students', label: 'Student Management', icon: Users },
-    { id: 'courses', label: 'Course Management', icon: BookOpen },
-    { id: 'credits', label: 'Credit Operations', icon: Coins },
-    { id: 'analytics', label: 'System Analytics', icon: BarChart3 },
-    { id: 'contracts', label: 'Contract Controls', icon: Settings },
+    { id: "students", label: "Student Management", icon: Users },
+    { id: "courses", label: "Course Management", icon: BookOpen },
+    { id: "credits", label: "Credit Operations", icon: Coins },
+    { id: "analytics", label: "System Analytics", icon: BarChart3 },
+    { id: "contracts", label: "Contract Controls", icon: Settings },
   ];
 
   return (
@@ -29,21 +29,19 @@ export function AdminSidebar({ activeTab, onTabChange }: AdminSidebarProps) {
           </div>
         </div>
       </div>
-      
+
       <nav className="p-4">
         <ul className="space-y-2">
           {menuItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
-            
+
             return (
               <li key={item.id}>
                 <button
                   onClick={() => onTabChange(item.id)}
-                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors ${
-                    isActive
-                      ? 'bg-[#58CC02] text-white'
-                      : 'text-gray-700 hover:bg-gray-100'
+                  className={`cursor-pointer w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors ${
+                    isActive ? "bg-[#58CC02] text-white" : "text-gray-700 hover:bg-gray-100"
                   }`}
                 >
                   <Icon className="w-5 h-5" />
