@@ -22,11 +22,8 @@ export function HeroSection() {
   }, []);
   return (
     <section className="relative bg-gradient-to-br from-white via-green-50 to-blue-50 pt-20 pb-32 overflow-hidden">
-      {/* Background decorations */}
-
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Content */}
           <div className="animate-fade-in">
             <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
               Learn{" "}
@@ -37,16 +34,12 @@ export function HeroSection() {
               Earn <span className="text-gradient">Rewards</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Master Web3 technologies with our interactive courses, earn crypto
-              rewards, and build your blockchain expertise with hands-on
-              projects and real-world applications.
+              Master Web3 technologies with our interactive courses, earn crypto rewards, and build
+              your blockchain expertise with hands-on projects and real-world applications.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <Link
-                href="/courses"
-                className="btn-primary inline-flex items-center justify-center"
-              >
+              <Link href="/courses" className="btn-primary inline-flex items-center justify-center">
                 Start Learning
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
@@ -56,7 +49,6 @@ export function HeroSection() {
               </button>
             </div>
 
-            {/* Stats */}
             <div className="grid grid-cols-3 gap-8">
               <div className="text-center">
                 <div className="flex items-center justify-center w-12 h-12 bg-[#58CC02] rounded-lg mb-3 mx-auto">
@@ -115,7 +107,6 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Visual */}
           <div className="animate-slide-up">
             <div className="relative">
               <div className="bg-white rounded-2xl shadow-2xl p-8 transform rotate-3 hover:rotate-0 transition-transform duration-300">
@@ -125,20 +116,13 @@ export function HeroSection() {
                       <BookOpen className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <div className="font-medium text-gray-900">
-                        Smart Contracts 101
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        8 weeks • Intermediate
-                      </div>
+                      <div className="font-medium text-gray-900">Smart Contracts 101</div>
+                      <div className="text-sm text-gray-500">8 weeks • Intermediate</div>
                     </div>
                   </div>
 
                   <div className="progress-bar">
-                    <div
-                      className="progress-fill"
-                      style={{ width: "75%" }}
-                    ></div>
+                    <div className="progress-fill" style={{ width: "75%" }}></div>
                   </div>
 
                   <div className="flex justify-between items-center">
@@ -151,7 +135,6 @@ export function HeroSection() {
                 </div>
               </div>
 
-              {/* Floating elements */}
               <div className="absolute -top-4 -right-4 bg-[#FF6F61] text-white p-3 rounded-lg shadow-lg animate-bounce">
                 <Trophy className="w-6 h-6" />
               </div>

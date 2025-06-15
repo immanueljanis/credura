@@ -1,66 +1,65 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Coins, Send, Plus, Minus, History, Search } from 'lucide-react';
+import { useState } from "react";
+import { Coins, Send, Plus, Minus, History, Search } from "lucide-react";
 
 const RECENT_TRANSACTIONS = [
   {
-    id: '1',
-    type: 'Reward',
-    recipient: '0x1234...5678',
+    id: "1",
+    type: "Reward",
+    recipient: "0x1234...5678",
     amount: 500,
-    reason: 'Course Completion: Blockchain Fundamentals',
-    timestamp: '2024-12-28 14:30:00',
-    status: 'Completed'
+    reason: "Course Completion: Blockchain Fundamentals",
+    timestamp: "2024-12-28 14:30:00",
+    status: "Completed",
   },
   {
-    id: '2',
-    type: 'Manual',
-    recipient: '0x5678...9012',
+    id: "2",
+    type: "Manual",
+    recipient: "0x5678...9012",
     amount: 1000,
-    reason: 'Admin Bonus Grant',
-    timestamp: '2024-12-28 13:15:00',
-    status: 'Completed'
+    reason: "Admin Bonus Grant",
+    timestamp: "2024-12-28 13:15:00",
+    status: "Completed",
   },
   {
-    id: '3',
-    type: 'Penalty',
-    recipient: '0x9012...3456',
+    id: "3",
+    type: "Penalty",
+    recipient: "0x9012...3456",
     amount: -200,
-    reason: 'Violation Penalty',
-    timestamp: '2024-12-28 12:00:00',
-    status: 'Completed'
-  }
+    reason: "Violation Penalty",
+    timestamp: "2024-12-28 12:00:00",
+    status: "Completed",
+  },
 ];
 
 export function CreditOperations() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [recipient, setRecipient] = useState('');
-  const [amount, setAmount] = useState('');
-  const [reason, setReason] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [recipient, setRecipient] = useState("");
+  const [amount, setAmount] = useState("");
+  const [reason, setReason] = useState("");
 
   const handleMintTokens = () => {
-    console.log('Minting tokens:', { recipient, amount, reason });
+    console.log("Minting tokens:", { recipient, amount, reason });
     // Reset form
-    setRecipient('');
-    setAmount('');
-    setReason('');
+    setRecipient("");
+    setAmount("");
+    setReason("");
   };
 
-  const filteredTransactions = RECENT_TRANSACTIONS.filter(tx =>
-    tx.recipient.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    tx.reason.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredTransactions = RECENT_TRANSACTIONS.filter(
+    (tx) =>
+      tx.recipient.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      tx.reason.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-gray-900">Credit Operations</h1>
         <p className="text-gray-600 mt-1">Manage token distribution and credit transactions</p>
       </div>
 
-      {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="card">
           <div className="flex items-center justify-between">
@@ -108,7 +107,6 @@ export function CreditOperations() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Token Operations */}
         <div className="card">
           <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
             <Coins className="w-6 h-6 mr-2 text-[#58CC02]" />
@@ -130,9 +128,7 @@ export function CreditOperations() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Amount
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Amount</label>
               <input
                 type="number"
                 value={amount}
@@ -143,9 +139,7 @@ export function CreditOperations() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Reason
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Reason</label>
               <input
                 type="text"
                 value={reason}
@@ -156,7 +150,7 @@ export function CreditOperations() {
             </div>
 
             <div className="flex space-x-4">
-              <button 
+              <button
                 onClick={handleMintTokens}
                 className="flex-1 btn-primary flex items-center justify-center"
               >
@@ -171,11 +165,8 @@ export function CreditOperations() {
           </div>
         </div>
 
-        {/* Quick Actions */}
         <div className="card">
-          <h2 className="text-xl font-semibold text-gray-900 mb-6">
-            Quick Actions
-          </h2>
+          <h2 className="text-xl font-semibold text-gray-900 mb-6">Quick Actions</h2>
 
           <div className="grid grid-cols-2 gap-4">
             <button className="p-4 border-2 border-gray-200 rounded-lg hover:border-[#58CC02] transition-colors text-center">
@@ -213,14 +204,13 @@ export function CreditOperations() {
         </div>
       </div>
 
-      {/* Recent Transactions */}
       <div className="card">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold text-gray-900 flex items-center">
             <History className="w-6 h-6 mr-2 text-[#4E6C50]" />
             Recent Transactions
           </h2>
-          
+
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
             <input
@@ -237,23 +227,39 @@ export function CreditOperations() {
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Recipient</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Reason</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Time</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Type
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Recipient
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Amount
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Reason
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Time
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Status
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {filteredTransactions.map((tx) => (
                 <tr key={tx.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                      tx.type === 'Reward' ? 'bg-green-100 text-green-800' :
-                      tx.type === 'Manual' ? 'bg-blue-100 text-blue-800' :
-                      'bg-red-100 text-red-800'
-                    }`}>
+                    <span
+                      className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                        tx.type === "Reward"
+                          ? "bg-green-100 text-green-800"
+                          : tx.type === "Manual"
+                          ? "bg-blue-100 text-blue-800"
+                          : "bg-red-100 text-red-800"
+                      }`}
+                    >
                       {tx.type}
                     </span>
                   </td>
@@ -261,15 +267,16 @@ export function CreditOperations() {
                     {tx.recipient}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`text-sm font-medium ${
-                      tx.amount > 0 ? 'text-green-600' : 'text-red-600'
-                    }`}>
-                      {tx.amount > 0 ? '+' : ''}{tx.amount.toLocaleString()}
+                    <span
+                      className={`text-sm font-medium ${
+                        tx.amount > 0 ? "text-green-600" : "text-red-600"
+                      }`}
+                    >
+                      {tx.amount > 0 ? "+" : ""}
+                      {tx.amount.toLocaleString()}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-600 max-w-xs truncate">
-                    {tx.reason}
-                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-600 max-w-xs truncate">{tx.reason}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {new Date(tx.timestamp).toLocaleString()}
                   </td>
