@@ -100,7 +100,7 @@ export function RewardModal({ tokens, badge }: RewardModalProps) {
 
     const createResult = await createCertificateType({
       name: `${badge} Certificate`,
-      maxSupply: BigInt(1000 * 10 ** 18),
+      maxSupply: BigInt(1000), // Reasonable max supply
       uriCertificate: "ipfs://pending",
     });
 

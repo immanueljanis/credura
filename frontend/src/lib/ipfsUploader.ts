@@ -1,6 +1,6 @@
 import { PinataSDK } from "pinata";
 import fs from "fs";
-import { IPFS_GATEWAY_BASE } from "@/constants/data";
+import { GROUP_ID, IPFS_GATEWAY_BASE } from "@/constants/data";
 
 export const pinata = new PinataSDK({
     pinataJwt: `${process.env.PINATA_JWT}`,
@@ -61,14 +61,14 @@ export async function uploadToIPFS(
         const file: File = new File([fileBuffer], `${tokenId}.jpg`, {
             type: "image/jpeg",
         });
-        const fileResult: { cid: string } = await pinata.upload.public.file(file).group(process.env.PINATA_GROUP_ID!);
+        const fileResult: { cid: string } = await pinata.upload.public.file(file).group(GROUP_ID!);
 
         metadata.image = `ipfs://${fileResult.cid}`;
 
         const metadataFile = new File([JSON.stringify(metadata)], `${tokenId}.json`, {
             type: "application/json",
         });
-        await pinata.upload.public.file(metadataFile).group(process.env.PINATA_GROUP_ID!);
+        await pinata.upload.public.file(metadataFile).group(GROUP_ID!);
 
         return {
             imageIpfs: fileResult.cid,

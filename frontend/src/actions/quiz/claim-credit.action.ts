@@ -207,7 +207,7 @@ export async function claimBadgeWithCertificate({
             };
         }
 
-        const latestUri = await fetchFilesFromPinata(GROUP_ID, BigInt(tokenId!), process.env.PINATA_JWT!);
+        const latestUri = await fetchFilesFromPinata(GROUP_ID!, BigInt(tokenId!), process.env.PINATA_JWT!);
 
         if (!latestUri) {
             return {
