@@ -153,7 +153,7 @@ export async function claimBadgeWithCertificate({
 
         await generateCertificate({ name, course, date: adjustedDate, output: certPath });
 
-        const { metadataIpfs } = await uploadToIPFS(certPath, name, course, date, BigInt(tokenId!));
+        const { metadataIpfs } = await uploadToIPFS(certPath, name, course, date, tokenId ? BigInt(tokenId) : BigInt(0));
         const additionalData = metadataIpfs;
 
         let certificateTokenId = tokenId;
@@ -207,7 +207,7 @@ export async function claimBadgeWithCertificate({
             };
         }
 
-        const latestUri = await fetchFilesFromPinata(GROUP_ID!, BigInt(tokenId!), process.env.PINATA_JWT!);
+        const latestUri = await fetchFilesFromPinata(GROUP_ID!, tokenId ? BigInt(tokenId) : BigInt(0), process.env.PINATA_JWT!);
 
         if (!latestUri) {
             return {
