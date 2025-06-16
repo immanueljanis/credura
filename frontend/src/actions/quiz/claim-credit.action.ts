@@ -153,7 +153,13 @@ export async function claimBadgeWithCertificate({
 
         await generateCertificate({ name, course, date: adjustedDate, output: certPath });
 
-        const { metadataIpfs } = await uploadToIPFS(certPath, name, course, date, tokenId ? BigInt(tokenId) : BigInt(0));
+        const { metadataIpfs } = await uploadToIPFS(
+            certPath,
+            name,
+            course,
+            date,
+            tokenId !== undefined && tokenId !== null ? BigInt(tokenId) : BigInt(0)
+        );
         const additionalData = metadataIpfs;
 
         let certificateTokenId = tokenId;
@@ -207,7 +213,11 @@ export async function claimBadgeWithCertificate({
             };
         }
 
-        const latestUri = await fetchFilesFromPinata(GROUP_ID!, tokenId ? BigInt(tokenId) : BigInt(0), process.env.PINATA_JWT!);
+        const latestUri = await fetchFilesFromPinata(
+            GROUP_ID!,
+            tokenId !== undefined && tokenId !== null ? tokenId : 0,
+            process.env.PINATA_JWT!
+        );
 
         if (!latestUri) {
             return {
@@ -238,8 +248,8 @@ export async function claimBadgeWithCertificate({
         const setTokenUriTx = await walletClient.writeContract({
             functionName: "setTokenURI",
             args: [certificateTokenId, latestUri!],
-            ...courseBadgeContract
-        })
+            ...courseBadgeContract,
+        });
 
         console.log(`Token URI set successfully! Transaction: ${setTokenUriTx}`);
         const tokenUriReceipt = await publicClient.waitForTransactionReceipt({ hash: setTokenUriTx });
