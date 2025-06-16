@@ -153,6 +153,13 @@ export async function claimBadgeWithCertificate({
 
         await generateCertificate({ name, course, date: adjustedDate, output: certPath });
 
+        if (!existsSync(certPath)) {
+            return {
+                error: "Certificate image was not generated.",
+                details: `File not found after generateCertificate: ${certPath}. This may indicate a problem with the certificate generator or missing dependencies on the server.`,
+            };
+        }
+
         const { metadataIpfs } = await uploadToIPFS(
             certPath,
             name,
@@ -293,7 +300,9 @@ export async function claimBadgeWithCertificate({
 
         return {
             error: "Failed to claim badge/certificate.",
-            details: error.message,
+            details: error?.message || error?.toString() || JSON.stringify(error),
+            stack: error?.stack || null,
+            raw: JSON.stringify(error, Object.getOwnPropertyNames(error)),
         };
     }
 }
