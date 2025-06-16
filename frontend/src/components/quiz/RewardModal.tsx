@@ -93,7 +93,6 @@ export function RewardModal({ tokens, badge }: RewardModalProps) {
       toast({
         title: "Wallet Not Connected",
         description: "Please connect your wallet to claim the badge.",
-        variant: "destructive",
       });
       return;
     }
@@ -146,13 +145,11 @@ export function RewardModal({ tokens, badge }: RewardModalProps) {
         toast({
           title: "Badge Claim Error",
           description: result,
-          variant: "destructive",
         });
       } else {
         toast({
           title: "Badge Claim Error",
           description: "Unknown error occurred while claiming badge.",
-          variant: "destructive",
         });
       }
     } catch (error: any) {
@@ -160,7 +157,6 @@ export function RewardModal({ tokens, badge }: RewardModalProps) {
       toast({
         title: "Badge Claim Error",
         description: error.message,
-        variant: "destructive",
       });
     } finally {
       setIsLoadingNFT(false);
