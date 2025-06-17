@@ -7,15 +7,12 @@ import { CourseCard } from "@/components/courses/CourseCard";
 import { StatsSection } from "@/components/home/StatsSection";
 import { HeroSection } from "@/components/home/HeroSection";
 import { FeaturesSection } from "@/components/home/FeaturesSection";
-import { useAccount, useReadContract } from "wagmi";
-import { erc20Contract } from "@/constants/erc20";
-import { useCreditStore } from "@/stores/useCreditScore";
+import { useAccount } from "wagmi";
 import { FindCoursesDto } from "./api/courses/route";
 import { useQuery } from "@tanstack/react-query";
 
 export default function HomePage() {
   const { address: userAddress, isConnected } = useAccount();
-  const setCredits = useCreditStore((state) => state.setCredits);
   const { data: courses, isLoading } = useQuery({
     queryKey: ["courses"],
     queryFn: async () => {
@@ -24,21 +21,6 @@ export default function HomePage() {
     },
   });
 
-  const { data: balanceData, refetch: refetch }: { data: any; refetch: any } =
-    useReadContract({
-      ...erc20Contract,
-      functionName: "balanceOf",
-      args: [userAddress],
-      query: {
-        enabled: isConnected,
-        refetchInterval: 3000,
-      },
-    });
-
-  useEffect(() => {
-    const formattedBalance = Number(balanceData);
-    setCredits(formattedBalance);
-  }, [balanceData]);
 
   return (
     <div className="min-h-screen bg-white">
