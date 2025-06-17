@@ -5,6 +5,7 @@ import Link from "next/link";
 import Counter from "../ui/couter";
 import { useEffect, useState } from "react";
 import Sparkles from "../ui/sparkle";
+import { motion } from "motion/react";
 
 export function HeroSection() {
   const [count, setCount] = useState({
@@ -21,7 +22,7 @@ export function HeroSection() {
     });
   }, []);
   return (
-    <section className="relative bg-gradient-to-br from-white via-green-50 to-blue-50 pt-20 pb-32 overflow-hidden">
+    <section className="relative bg-gradient-to-br from-white via-green-200 to-blue-200 pt-20 pb-32 overflow-hidden min-h-[calc(100vh-64px)]">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="animate-fade-in">
@@ -34,12 +35,16 @@ export function HeroSection() {
               Earn <span className="text-gradient">Rewards</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Master Web3 technologies with our interactive courses, earn crypto rewards, and build
-              your blockchain expertise with hands-on projects and real-world applications.
+              Master Web3 technologies with our interactive courses, earn crypto
+              rewards, and build your blockchain expertise with hands-on
+              projects and real-world applications.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <Link href="/courses" className="btn-primary inline-flex items-center justify-center">
+              <Link
+                href="/courses"
+                className="btn-primary inline-flex items-center justify-center"
+              >
                 Start Learning
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
@@ -112,17 +117,27 @@ export function HeroSection() {
               <div className="bg-white rounded-2xl shadow-2xl p-8 transform rotate-3 hover:rotate-0 transition-transform duration-300">
                 <div className="space-y-6">
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-[#58CC02] rounded-lg flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center">
+                      <img src="/logo.png" />
                       <BookOpen className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <div className="font-medium text-gray-900">Smart Contracts 101</div>
-                      <div className="text-sm text-gray-500">8 weeks • Intermediate</div>
+                      <div className="font-medium text-gray-900">
+                        Smart Contracts 101
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        8 weeks • Intermediate
+                      </div>
                     </div>
                   </div>
 
                   <div className="progress-bar">
-                    <div className="progress-fill" style={{ width: "75%" }}></div>
+                    <motion.div
+                      whileHover={{ width: "75%" }}
+                      className="progress-fill"
+                      transition={{ type: "tween", duration: 1, }}
+                      initial={{ width: "20%" }}
+                    ></motion.div>
                   </div>
 
                   <div className="flex justify-between items-center">
@@ -133,13 +148,6 @@ export function HeroSection() {
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="absolute -top-4 -right-4 bg-[#FF6F61] text-white p-3 rounded-lg shadow-lg animate-bounce">
-                <Trophy className="w-6 h-6" />
-              </div>
-              <div className="absolute -bottom-4 -left-4 bg-[#4E6C50] text-white p-3 rounded-lg shadow-lg">
-                <span className="font-bold">+1000 XP</span>
               </div>
             </div>
           </div>

@@ -352,7 +352,7 @@ export function QuizCard({
   };
 
   return (
-    <div className="card group hover:scale-105 transition-all duration-200">
+    <div className="card group hover:scale-105 transition-all duration-200 flex flex-col">
       <div className="flex justify-between items-start mb-4">
         <span
           className={`px-3 py-1 rounded-full text-xs font-medium ${getDifficultyColor(
@@ -399,7 +399,7 @@ export function QuizCard({
         </div>
       </div>
 
-      <div className="mb-4">
+      <div className="mb-4 mt-auto">
         <div className="text-sm text-gray-600 mb-2">Badge Reward:</div>
         <div className="bg-gradient-to-r from-[#FF6F61] to-[#4E6C50] text-white px-3 py-2 rounded-lg text-sm font-medium text-center">
           🏆 {quiz.badge}

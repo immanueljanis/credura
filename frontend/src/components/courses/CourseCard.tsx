@@ -76,7 +76,7 @@ export function CourseCard({ course, isWalletConnected }: CourseCardProps) {
             Enroll Now
           </Link>
         ) : (
-          <button className="w-full bg-gray-200 text-gray-500 font-medium px-6 py-3 rounded-lg cursor-not-allowed flex items-center justify-center">
+          <button className="w-full bg-gray-200 text-gray-500 font-medium px-6 py-3 rounded-lg cursor-not-allowed flex items-center justify-center mt-auto">
             <Lock className="w-4 h-4 mr-2" />
             Connect Wallet
           </button>
