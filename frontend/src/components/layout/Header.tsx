@@ -1,12 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Menu, X, User, BookOpen, Trophy, Settings } from "lucide-react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 import { useCreditStore } from "@/stores/useCreditScore";
 import { formatEther } from "viem";
+import { useAccount, useReadContract } from "wagmi";
+import { erc20Contract } from "@/constants/erc20";
+import { campusCreditAbi, campusCreditAddress } from "@/abi/campus-credit";
 
 interface HeaderProps {
   isWalletConnected: boolean;
@@ -15,7 +18,17 @@ interface HeaderProps {
 
 export function Header({ isWalletConnected }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const credits = useCreditStore((state) => state.credits);
+  const { address: userAddress, isConnected } = useAccount();
+  const { data } = useReadContract({
+    abi: campusCreditAbi,
+    address: campusCreditAddress,
+    functionName: "balanceOf",
+    args: [userAddress!],
+    query: {
+      enabled: isConnected,
+      refetchInterval: 1_000 * 5,
+    },
+  });
 
   const navigation = [
     { name: "Courses", href: "/courses" },
@@ -58,7 +71,7 @@ export function Header({ isWalletConnected }: HeaderProps) {
               <div className="hidden sm:flex items-center space-x-4">
                 <div className="flex items-center bg-[#58CC02] text-white px-3 py-1 rounded-full text-sm font-medium">
                   <Trophy className="w-4 h-4 mr-1" />
-                  {isNaN(credits) ? 0 : formatEther(BigInt(credits))} Credits
+                  {formatEther(BigInt(data ?? 0))} Credits
                 </div>
                 <Link
                   href="/profile"

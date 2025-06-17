@@ -6,8 +6,10 @@ import { Footer } from "@/components/layout/Footer";
 import { QuizCard } from "@/components/quiz/QuizCard";
 import { RewardModal } from "@/components/quiz/RewardModal";
 import { Brain, Trophy, Clock, Target, Award } from "lucide-react";
-import { useAccount, useWriteContract } from "wagmi";
+import { useAccount, useReadContract, useWriteContract } from "wagmi";
 import { addCreditForStudent } from "@/actions/quiz/add-credit.action";
+import { campusCreditAbi, campusCreditAddress } from "@/abi/campus-credit";
+import useRefetchBalance from "@/stores/useRefetching";
 
 const AVAILABLE_QUIZZES = [
   {
@@ -59,6 +61,7 @@ export default function QuizPage() {
   const [status, setStatus] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { writeContractAsync } = useWriteContract();
+  const refetchBalance = useRefetchBalance(data => data.refetchBalance);
 
   const handleQuizComplete = async (reward: { tokens: number; badge: string }) => {
     setQuizReward(reward);
@@ -71,6 +74,7 @@ export default function QuizPage() {
         userAddress: userAddress as `0x${string}`,
         amount: reward.tokens,
       });
+      refetchBalance?.();
     } catch (error: any) {
       console.error("Failed to add reward:", error);
       setStatus(`Error: ${error.message}`);
