@@ -10,18 +10,15 @@ export interface CertificateOptions {
 }
 
 function getBaseUrl() {
-    if (process.env.VERCEL_URL) {
-        return `https://${process.env.VERCEL_URL}`;
-    }
-    if (process.env.NEXT_PUBLIC_SITE_URL) {
-        return process.env.NEXT_PUBLIC_SITE_URL;
-    }
-
-    if (process.env.NODE_ENV === "development" || process.env.VERCEL_ENV === "development") {
+    if (
+        process.env.NODE_ENV === "development" ||
+        process.env.VERCEL_ENV === "development" ||
+        (typeof window !== "undefined" && window.location.hostname === "localhost")
+    ) {
         return "http://localhost:3000";
     }
 
-    return "https://credura-delta.vercel.app";
+    return "https://files.ramanode.top/public/credura";
 }
 
 export async function generateCertificate({
