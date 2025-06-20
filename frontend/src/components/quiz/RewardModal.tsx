@@ -94,16 +94,17 @@ export function RewardModal({ tokens, badge }: RewardModalProps) {
         title: "Wallet Not Connected",
         description: "Please connect your wallet to claim the badge.",
       });
+      setIsLoadingNFT(false);
       return;
     }
 
-    const createResult = await createCertificateType({
-      name: `${badge} Certificate`,
-      maxSupply: BigInt(1000), // Reasonable max supply
-      uriCertificate: "ipfs://pending",
-    });
-
     try {
+      const createResult = await createCertificateType({
+        name: `${badge} Certificate`,
+        maxSupply: BigInt(1000), // Reasonable max supply
+        uriCertificate: "ipfs://pending",
+      });
+
       const result = await claimBadgeWithCertificate({
         userAddress: userAddress as `0x${string}`,
         name: accountOffChain?.data?.name || "",
