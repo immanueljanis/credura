@@ -10,13 +10,16 @@ export interface CertificateOptions {
 }
 
 function getBaseUrl() {
-    // if (process.env.VERCEL_URL) {
-    //     return `https://${process.env.VERCEL_URL}`;
-    // }
-    // if (process.env.NEXT_PUBLIC_SITE_URL) {
-    //     return process.env.NEXT_PUBLIC_SITE_URL;
-    // }
-    // return "http://localhost:3000";
+    if (process.env.VERCEL_URL) {
+        return `https://${process.env.VERCEL_URL}`;
+    }
+    if (process.env.NEXT_PUBLIC_SITE_URL) {
+        return process.env.NEXT_PUBLIC_SITE_URL;
+    }
+
+    if (process.env.NODE_ENV === "development" || process.env.VERCEL_ENV === "development") {
+        return "http://localhost:3000";
+    }
 
     return "https://credura-delta.vercel.app";
 }
@@ -45,15 +48,34 @@ export async function generateCertificate({
         ctx.drawImage(base, 0, 0);
 
         try {
-            const font1 = path.join(process.cwd(), "public/fonts/GreatVibes-Regular.ttf");
-            const font2 = path.join(process.cwd(), "public/fonts/OpenSans-Regular.ttf");
+            const font1 = "/tmp/GreatVibes-Regular.ttf";
+            const font2 = "/tmp/OpenSans-Regular.ttf";
+
             if (fs.existsSync(font1)) {
                 registerFont(font1, { family: "Signature" });
+            } else {
+                const fontUrl1 = `${getBaseUrl()}/fonts/GreatVibes-Regular.ttf`;
+                const response1 = await fetch(fontUrl1);
+                if (response1.ok) {
+                    const buffer1 = Buffer.from(await response1.arrayBuffer());
+                    fs.writeFileSync(font1, buffer1);
+                    registerFont(font1, { family: "Signature" });
+                }
             }
             if (fs.existsSync(font2)) {
                 registerFont(font2, { family: "Body" });
+            } else {
+                const fontUrl2 = `${getBaseUrl()}/fonts/OpenSans-Regular.ttf`;
+                const response2 = await fetch(fontUrl2);
+                if (response2.ok) {
+                    const buffer2 = Buffer.from(await response2.arrayBuffer());
+                    fs.writeFileSync(font2, buffer2);
+                    registerFont(font2, { family: "Body" });
+                }
             }
-        } catch (e) { }
+        } catch (e) {
+            throw new Error(`Failed to load fonts: ${e}`);
+        }
 
         ctx.font = "bold 56px Signature, sans-serif";
         ctx.fillStyle = "#2d3748";
