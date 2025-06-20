@@ -11,7 +11,18 @@ export interface CertificateOptions {
 
 export async function generateCertificate({ name, course, date, output }: CertificateOptions): Promise<string> {
     try {
-        const templatePath = path.join(process.cwd(), 'public/template.jpg');
+        let templatePath = path.join(process.cwd(), 'public/template.jpg');
+
+        if (!fs.existsSync(templatePath)) {
+            templatePath = path.resolve(__dirname, '../../public/template.jpg');
+        }
+        if (!fs.existsSync(templatePath)) {
+            templatePath = path.resolve(__dirname, '../../../public/template.jpg');
+        }
+        if (!fs.existsSync(templatePath)) {
+            throw new Error(`Template image not found at any expected location. Checked: ${process.cwd()}/public/template.jpg, ${path.resolve(__dirname, '../../public/template.jpg')}, ${path.resolve(__dirname, '../../../public/template.jpg')}`);
+        }
+
         let base;
         try {
             base = await loadImage(templatePath);
