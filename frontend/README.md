@@ -1,13 +1,14 @@
 # Credura Frontend
 
-This is the Next.js frontend for the Credura platform, enabling users to claim on-chain badges/certificates, generate dynamic certificates, and interact with the blockchain and IPFS/Pinata.
+This is the Next.js frontend for the Credura platform, enabling users to claim on-chain badges, certificates, and credits. The app supports ERC1155, ERC721, and ERC20 tokens, dynamic certificate generation, and decentralized storage via IPFS/Pinata.
 
 ## Features
 
-- **Claim Badges/Certificates:** Users can claim ERC1155 badges for course completions and achievements.
+- **Claim Badges/Certificates:** Users can claim ERC1155 and ERC721 tokens for course completions and achievements.
+- **Claim Credits:** Users can claim ERC20 tokens for campus credit and rewards.
 - **Dynamic Certificate Generation:** Generates personalized certificate images using templates, fonts, and logos.
 - **IPFS/Pinata Integration:** Uploads certificate images and metadata to IPFS via Pinata.
-- **User Feedback:** Real-time toast notifications for success and error cases during badge/certificate claims.
+- **User Feedback:** Real-time toast notifications for success and error cases during badge/certificate/credit claims.
 - **Modern UI:** Built with Next.js, React, and TypeScript.
 
 ## Getting Started
