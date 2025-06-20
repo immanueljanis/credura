@@ -89,19 +89,15 @@ export function QuizDialogComponent({
   }, []);
 
   const handleNextQuestion = useCallback(() => {
-    // Check if answer is correct
     if (selectedAnswer === currentQuestion.correctAnswer) {
       setCorrectAnswers((prev) => prev + 1);
     }
 
     if (isLastQuestion) {
-      // Quiz finished
       setIsQuizActive(false);
       setShowResults(true);
       const finalScore =
-        selectedAnswer === currentQuestion.correctAnswer
-          ? correctAnswers + 1
-          : correctAnswers;
+        selectedAnswer === currentQuestion.correctAnswer ? correctAnswers + 1 : correctAnswers;
 
       if (finalScore === questions.length) {
         setIsOpen(false);
@@ -109,7 +105,6 @@ export function QuizDialogComponent({
         resetQuiz();
       }
     } else {
-      // Move to next question
       setCurrentQuestionIndex((prev) => prev + 1);
       setSelectedAnswer(null);
       setTimeLeft(seconds);
@@ -123,7 +118,6 @@ export function QuizDialogComponent({
     questions.length,
   ]);
 
-  // Timer effect
   useEffect(() => {
     if (!isQuizActive || timeLeft <= 0) return;
 
@@ -157,9 +151,7 @@ export function QuizDialogComponent({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleDialogChange}>
-      <DialogTrigger className="w-full btn-primary cursor-pointer">
-        {triggerText}
-      </DialogTrigger>
+      <DialogTrigger className="w-full btn-primary cursor-pointer">{triggerText}</DialogTrigger>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-xl">
@@ -171,18 +163,13 @@ export function QuizDialogComponent({
         {!isQuizActive && !showResults && (
           <div className="text-center flex flex-col mt-2">
             <div className="mb-6">
-              <h3 className="text-lg font-semibold mb-2">
-                Ready to test your knowledge?
-              </h3>
+              <h3 className="text-lg font-semibold mb-2">Ready to test your knowledge?</h3>
               <p className="text-muted-foreground">
-                Answer {questions.length} multiple choice questions. You have{" "}
-                {seconds} seconds per question!
+                Answer {questions.length} multiple choice questions. You have {seconds} seconds per
+                question!
               </p>
             </div>
-            <button
-              onClick={startQuiz}
-              className="w-full btn-primary cursor-pointer mt-auto"
-            >
+            <button onClick={startQuiz} className="w-full btn-primary cursor-pointer mt-auto">
               Start Quiz
             </button>
           </div>
@@ -190,7 +177,6 @@ export function QuizDialogComponent({
 
         {isQuizActive && !showResults && (
           <div className="space-y-6">
-            {/* Progress and Timer */}
             <div className="space-y-2">
               <div className="flex items-center justify-between text-sm">
                 <span>
@@ -204,17 +190,12 @@ export function QuizDialogComponent({
               <Progress value={progressPercentage} className="h-2" />
             </div>
 
-            {/* Question */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold leading-relaxed">
-                {currentQuestion.question}
-              </h3>
+              <h3 className="text-lg font-semibold leading-relaxed">{currentQuestion.question}</h3>
 
               <RadioGroup
                 value={selectedAnswer?.toString() ?? ""}
-                onValueChange={(value) =>
-                  setSelectedAnswer(Number.parseInt(value))
-                }
+                onValueChange={(value) => setSelectedAnswer(Number.parseInt(value))}
                 className="space-y-3"
               >
                 {currentQuestion.options.map((option, index) => (
@@ -225,18 +206,13 @@ export function QuizDialogComponent({
                       "flex-1 cursor-pointer font-medium flex items-center space-x-3 rounded-lg border p-4 transition-colors hover:bg-muted/50 gap-2"
                     )}
                   >
-                    <RadioGroupItem
-                      className=""
-                      value={index.toString()}
-                      id={`option-${index}`}
-                    />
+                    <RadioGroupItem className="" value={index.toString()} id={`option-${index}`} />
                     {option}
                   </Label>
                 ))}
               </RadioGroup>
             </div>
 
-            {/* Manual next button (optional) */}
             <div className="flex justify-end">
               <Button
                 onClick={handleNextQuestion}
@@ -260,19 +236,15 @@ export function QuizDialogComponent({
             </div>
             <h3 className="text-2xl font-bold">Quiz Complete!</h3>
             <div className="text-lg">
-              You got{" "}
-              <span className="font-bold text-primary">{correctAnswers}</span>{" "}
-              out of <span className="font-bold">{questions.length}</span>{" "}
-              questions correct!
+              You got <span className="font-bold text-primary">{correctAnswers}</span> out of{" "}
+              <span className="font-bold">{questions.length}</span> questions correct!
             </div>
             <div className="text-muted-foreground">
-              {correctAnswers === questions.length &&
-                "Perfect score! Amazing! 🌟"}
+              {correctAnswers === questions.length && "Perfect score! Amazing! 🌟"}
               {correctAnswers >= questions.length / 2 &&
                 correctAnswers < questions.length &&
                 "Great job! Keep it up! 💪"}
-              {correctAnswers < questions.length / 2 &&
-                "Keep practicing! You'll get better! 📖"}
+              {correctAnswers < questions.length / 2 && "Keep practicing! You'll get better! 📖"}
             </div>
             <div className="flex gap-2 justify-center pt-4">
               <Button onClick={startQuiz} variant="outline">
