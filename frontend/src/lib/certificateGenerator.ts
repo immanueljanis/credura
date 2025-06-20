@@ -10,13 +10,15 @@ export interface CertificateOptions {
 }
 
 function getBaseUrl() {
-    if (process.env.VERCEL_URL) {
-        return `https://${process.env.VERCEL_URL}`;
-    }
-    if (process.env.NEXT_PUBLIC_SITE_URL) {
-        return process.env.NEXT_PUBLIC_SITE_URL;
-    }
-    return "http://localhost:3000";
+    // if (process.env.VERCEL_URL) {
+    //     return `https://${process.env.VERCEL_URL}`;
+    // }
+    // if (process.env.NEXT_PUBLIC_SITE_URL) {
+    //     return process.env.NEXT_PUBLIC_SITE_URL;
+    // }
+    // return "http://localhost:3000";
+
+    return "https://credura-delta.vercel.app";
 }
 
 export async function generateCertificate({
