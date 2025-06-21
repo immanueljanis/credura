@@ -1,10 +1,11 @@
 # Credura
 
-Credura is a decentralized platform for issuing, claiming, and verifying educational badges and certificates on-chain. It leverages ERC1155 smart contracts, dynamic certificate generation, and IPFS/Pinata for metadata and asset storage.
+Credura is a decentralized platform for issuing, claiming, and verifying educational badges, certificates, and credits on-chain. It leverages ERC1155, ERC721, and ERC20 smart contracts, dynamic certificate generation, and IPFS/Pinata for metadata and asset storage.
 
 ## Features
 
-- **On-chain Badges/Certificates:** Claimable ERC1155 tokens for course completions and achievements.
+- **On-chain Badges/Certificates:** Claimable ERC1155 and ERC721 tokens for course completions and achievements.
+- **On-chain Credits:** ERC20 tokens for campus credit and rewards.
 - **Dynamic Certificate Generation:** Generates personalized certificate images on demand.
 - **IPFS/Pinata Integration:** Uploads certificate images and metadata to IPFS via Pinata.
 - **User Feedback:** Frontend provides real-time toast notifications for badge/certificate claims.
@@ -12,7 +13,7 @@ Credura is a decentralized platform for issuing, claiming, and verifying educati
 
 ## Architecture
 
-- **contracts/**: Solidity smart contracts (ERC1155, dynamic base URI, badge/certificate logic).
+- **contracts/**: Solidity smart contracts (ERC1155, ERC721, ERC20, dynamic base URI, badge/certificate/credit logic).
 - **frontend/**: Next.js app for user interaction, certificate generation, and IPFS uploads.
 - **Backend Logic:** Integrated in frontend for certificate creation and IPFS/Pinata upload.
 

@@ -1,17 +1,20 @@
 # Credura Smart Contracts
 
-This folder contains the Solidity smart contracts for the Credura platform, which enables on-chain badge/certificate claiming for educational achievements using the ERC1155 standard.
+This folder contains the Solidity smart contracts for the Credura platform, which enables on-chain badge/certificate claiming and campus credit using the ERC1155, ERC721, and ERC20 standards.
 
 ## Overview
 
 - **ERC1155 Badges/Certificates:** Implements a dynamic badge and certificate system for courses and achievements.
+- **ERC721 Certificates:** Supports unique certificate NFTs for special achievements or diplomas.
+- **ERC20 Campus Credit:** Provides fungible tokens for campus credit and rewards.
 - **Dynamic Base URI:** Supports dynamic base URI for metadata, with future support for the `{id}.json` pattern (not yet implemented in backend/IPFS flow).
-- **Integration:** Designed to work with the backend and frontend for certificate generation, IPFS/Pinata uploads, and badge claiming.
+- **Integration:** Designed to work with the backend and frontend for certificate generation, IPFS/Pinata uploads, and badge/credit claiming.
 
 ## Key Contracts
 
 - `CourseBadge.sol`: Main ERC1155 contract for issuing course badges and certificates. Supports dynamic base URI and is upgrade-ready for `{id}.json` metadata pattern.
-- `CampusCredit.sol`, `StudentID.sol`: Additional contracts for credit and student ID management.
+- `CampusCredit.sol`: ERC20 contract for campus credit and rewards.
+- `StudentID.sol`: ERC721 contract for unique student IDs or certificates.
 
 ## Development
 
